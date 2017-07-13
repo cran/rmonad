@@ -1,0 +1,132 @@
+#' Evaluate an expression into an Rmonad, capturing events
+#'
+#' If the value is already an Rmonad, the existing value is returned.
+#'
+#' @param expr An expression
+#' @param desc A name to assign to the code slot
+#' @return Rmonad object 
+#' @export
+#' @examples
+#' as_monad(stop(1))
+#' as_monad(1:10)
+#' as_monad(5 %>>% sqrt)
+as_monad <- function(expr, desc=NULL){
+
+  value <- NULL 
+  warns <- NULL
+  fails <- NULL
+  isOK  <- TRUE
+
+  notes <- capture.output(
+    {
+      value <- withCallingHandlers(
+        tryCatch(
+          expr,
+          error = function(e) {
+            fails <<- e$message;
+            isOK <<- FALSE
+          }
+        ),
+        warning = function(w){
+          warns <<- append(warns, w$message)
+          invokeRestart("muffleWarning")
+        }
+      )
+    },
+    type="message"
+  )
+
+  if(length(value) == 1 && class(value) == "Rmonad") { return(value) }
+
+  if(!isOK) {
+    value = NULL
+  }
+
+  code <- if(is.null(desc)) {
+    deparse(substitute(expr))
+  } else {
+    desc
+  }
+
+  m <- Rmonad()
+
+  # These accessors do the right thing (don't mess with them)
+  m_value(m)    <- value
+  m_code(m)     <- code
+  m_error(m)    <- fails
+  m_warnings(m) <- warns
+  m_notes(m)    <- notes
+  m_OK(m)       <- isOK
+
+  m
+
+}
+
+
+#' Safely builds a list of monads from an argument list of expressions
+#'
+#' @param ... expressions to be wrapped into monads
+#' @param keep_history Merge the histories of all monads
+#' @return A list of Rmonads
+#' @export
+#' @examples
+#' lsmeval( 1:10, stop(1), sqrt(-3:3) )
+lsmeval <- function(..., keep_history=TRUE){
+
+  instr <- sprintf("lsmeval(%s)",
+    lapply(substitute(alist(...))[-1], deparse) %>% unlist %>% paste0(collapse=", "))
+
+  ll <- as.list(substitute(alist(...)))[-1]
+
+  ms <- lapply(ll, function(x) as_monad(eval(x), desc=deparse(x)))
+
+  combine(ms, keep_history=keep_history, desc=instr)
+
+}
+
+# internal function, for building from a list of expressions
+.lsmeval_sub <- function(es, env=parent.frame(), ...){
+
+  ms <- lapply(es, function(x) as_monad(eval(x, env), desc=deparse(x)))
+
+  combine(ms, ...)
+}
+
+
+#' Takes a list of monads and joins them
+#'
+#' If any of the monads are failing, the resulting one will also
+#'
+#' Any non-monadic values will be converted to monads. However, combine will
+#' NOT catch errors. To safely build monadic lists, use lsmeval.
+#'
+#' @param ms  A list of monads
+#' @param keep_history Merge the histories of all monads
+#' @param desc A description of the monad (usually the producing code)
+#' @export
+#' @examples
+#' z <- list(
+#'   x = rnorm(10) %>>% sqrt,
+#'   y = 1 %>>% colSums
+#' )
+#' combine(z)
+combine <- function(ms, keep_history=TRUE, desc=NULL){
+
+  ms <- lapply(ms, as_monad)
+
+  # make a new monad that is the child of all monads in the input list
+  out <- Rmonad()
+  m_parents(out) <- ms
+
+  # store all values (even if failing, in which case should be NULL)
+  m_value(out) <- lapply(ms, m_value)
+
+  # monad is passing if all parents care cool
+  m_OK(out) <- all(sapply(ms, m_OK))
+
+  if(!is.null(desc)){
+    m_code(out) <- desc 
+  }
+
+  out 
+}
