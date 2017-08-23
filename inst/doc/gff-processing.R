@@ -1,0 +1,378 @@
+## ------------------------------------------------------------------------
+library(readr)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+library(rmonad)
+set.seed(210)
+
+data(gff)
+
+read_gff <- function(file){
+  readr::read_tsv(
+    file,
+    col_names = c(
+        "seqid",
+        "source",
+        "type",
+        "start",
+        "stop",
+        "score",
+        "strand",
+        "phase",
+        "attr"
+    ),
+    na        = ".",
+    comment   = "#",
+    col_types = "ccciidcic"
+  )
+}
+
+read_gff(gff$good)
+
+## ------------------------------------------------------------------------
+read_gff(gff$invalid_type)
+read_gff(gff$not_a_gff1)
+
+## ------------------------------------------------------------------------
+g <- read_gff(gff$good)
+for(col in c("seqid", "type", "start", "stop")){
+  if(any(is.na(g[[col]]))){
+    stop("GFFError: Column '", col, "' may not have missing values")
+  }
+}
+
+## ------------------------------------------------------------------------
+gene_synonyms <- 'SO:0000704'
+mRNA_synonyms <- c('messenger_RNA', 'messenger RNA', 'SO:0000234')
+CDS_synonyms  <- c('coding_sequence', 'coding sequence', 'SO:0000316')
+exon_synonyms <- 'SO:0000147'
+
+g$type <- ifelse(g$type %in% gene_synonyms, 'gene', g$type)
+g$type <- ifelse(g$type %in% mRNA_synonyms, 'mRNA', g$type)
+g$type <- ifelse(g$type %in% CDS_synonyms,  'CDS',  g$type)
+g$type <- ifelse(g$type %in% exon_synonyms, 'exon', g$type)
+
+mRNA_near_synonyms <- c('transcript', 'SO:0000673')
+exon_near_synonyms <- c('SO:0000147', 'coding_exon', 'coding exon', 'SO:0000195')
+
+if(any(g$type %in% mRNA_near_synonyms)){
+    g$type <- ifelse(g$type %in% mRNA_near_synonyms, 'mRNA', g$type)
+    warning("Substituting transcript types for mRNA types, this is probably OK")
+}
+
+if(any(g$type %in% exon_near_synonyms)){
+    g$type <- ifelse(g$type %in% exon_near_synonyms, 'exon', g$type)
+    warning("Substituting transcript types for exon types, this is probably OK")
+}
+
+## ------------------------------------------------------------------------
+
+tags <- c("ID", "Parent")
+
+data_frame(
+    attr  = stringr::str_split(g$attr, ";"),
+    order = 1:nrow(g)
+  ) %>%
+  dplyr::mutate(ntags = sapply(attr, length)) %>%
+  tidyr::unnest(attr) %>%
+  dplyr::mutate(attr = ifelse(grepl('=', attr), attr, paste(".U", attr, sep="="))) %>%
+  tidyr::separate_(
+    col   = "attr",
+    into  = c("tag", "value"),
+    sep   = "=",
+    extra = "merge"
+  ) %>%
+  dplyr::filter(tag %in% c(tags, ".U")) %>%
+  {
+    if(nrow(.) > 0){
+      tidyr::spread(., key="tag", value="value")
+    } else {
+      .$tag   = NULL
+      .$value = NULL
+      .
+    }
+  } %>%
+  {
+    if("Parent" %in% names(.)){
+      .$Parent <- ifelse(.$Parent == "-", NA, .$Parent)
+    }
+    .
+  } %>% {
+    for(tag in c(tags, ".U")){
+      if(! tag %in% names(.))
+        .[[tag]] = NA_character_
+    }
+    .
+  } %>%
+  {
+    if("ID" %in% names(.))
+      .$ID <- ifelse(is.na(.$ID) & !is.na(.$.U) & .$ntags == 1, .$.U, .$ID)
+    .
+  } %>%
+  merge(data_frame(order=1:nrow(g)), all=TRUE) %>%
+  dplyr::arrange(order) %>%
+  { cbind(g, .) } %>%
+  dplyr::select(-.U, -order, -ntags, -attr) %>%
+  {
+    if(all(c("ID", "Parent") %in% names(.))){
+      parents <- subset(., type %in% c("CDS", "exon"))$Parent
+      parent_types <- subset(., ID %in% parents)$type
+
+      if(any(parent_types == "gene"))
+        warning("Found CDS or exon directly inheriting from a gene, this may be fine.") 
+
+      if(! all(parent_types %in% c("gene", "mRNA")))
+        stop("Found CDS or exon with illegal parent")
+
+      if( any(is.na(parents)) )
+        stop("Found CDS or exon with no parent")
+
+      if(! any(duplicated(.$ID, incomparables=NA)))
+        warning("IDs are not unique, this is probably bad")
+    }
+    .
+  }
+
+
+## ------------------------------------------------------------------------
+
+read_gff <- function(file, tags){
+
+  raw_gff <- as_monad(
+    {
+
+      "
+      Rmonad supports docstrings. If an block begins with a string, this
+      string is extracted and stored. Python has something similar, where the
+      first string in a function is cast as documentation.
+      
+      The `as_monad` function takes an expression and wraps its result into a
+      context. It also handles the extraction of this docstring. The result
+      here is used at more than one place in the pipeline. Rather than
+      accessing it later as a global, it will be funneled bach in.
+      "
+
+      readr::read_tsv(
+        file,
+        col_names = c(
+          "seqid",
+          "source",
+          "type",
+          "start",
+          "stop",
+          "score",
+          "strand",
+          "phase",
+          "attr"
+        ),
+        na        = ".",
+        comment   = "#",
+        col_types = "ccciidcic"
+      )
+    }
+  )
+
+  raw_gff %>>% {
+
+    "
+    The %>>% operator applies the function described in this block to the
+    input on the left-hand-side. This corresponds to the UNIX '|' or magrittr's
+    '%>%'. It differs from them in that it is a monadic bind operator, rather
+    than an application operator. It carries a context along with the
+    computations. The context can store past values, performance information,
+    this docstring, and links to the parent chunk. The context is a directed
+    graph of code chunks and their metadata.
+    "
+
+    for(col in c("seqid", "type", "start", "stop")){
+      if(any(is.na(.[[col]]))){
+        stop("GFFError: Column '", col, "' may not have missing values")
+      }
+    }
+    .
+  } %>>% {
+
+    "
+    Note that these blocks of code are copied verbatim from above, only using
+    '.' in place of 'g'.
+    "
+
+    gene_synonyms <- 'SO:0000704'
+    mRNA_synonyms <- c('messenger_RNA', 'messenger RNA', 'SO:0000234')
+    CDS_synonyms  <- c('coding_sequence', 'coding sequence', 'SO:0000316')
+    exon_synonyms <- 'SO:0000147'
+
+    .$type <- ifelse(.$type %in% gene_synonyms, 'gene', .$type)
+    .$type <- ifelse(.$type %in% mRNA_synonyms, 'mRNA', .$type)
+    .$type <- ifelse(.$type %in% CDS_synonyms,  'CDS',  .$type)
+    .$type <- ifelse(.$type %in% exon_synonyms, 'exon', .$type)
+
+    .
+  } %>_% {
+
+    "
+    The %>_% operator lets this chunk of code be run for its effects, which
+    are emitting warnings if we replace the type with a questionable synonym.
+    We could alternatively just use %>>% and add a terminal '.' to this chunk.
+    The use of this operator, though, signals an interdependent branch. Where
+    failure of this branch triggers failure downstream.
+    "
+
+    mRNA_near_synonyms <- c('transcript', 'SO:0000673')
+    exon_near_synonyms <- c('SO:0000147', 'coding_exon', 'coding exon', 'SO:0000195')
+
+    if(any(.$type %in% mRNA_near_synonyms)){
+        .$type <- ifelse(.$type %in% mRNA_near_synonyms, 'mRNA', .$type)
+        warning("Substituting transcript types for mRNA types, this is probably OK")
+    }
+
+    if(any(.$type %in% exon_near_synonyms)){
+        .$type <- ifelse(.$type %in% exon_near_synonyms, 'exon', .$type)
+        warning("Substituting transcript types for exon types, this is probably OK")
+    }
+
+  } %>>% {
+
+    "
+    Notice here that I use the magrittr operator '%>%' inside the rmonad
+    pipeline. When to pipe with rmonad and when to pipe with magrittr is a
+    matter of granularity. This chunk of code perhpas should form one
+    documentation unit. And perhaps I don't expect it to fail. If I break this
+    chunk into several, the failures are more localized, and I can access
+    intermediate values for debugging. On the other hand, putting every little
+    operation in a new chunk will clutter the graph and reports generated from
+    it.
+    "
+
+    data_frame(
+      attr  = stringr::str_split(.$attr, ";"),
+      order = 1:nrow(.)
+    ) %>%
+      dplyr::mutate(ntags = sapply(attr, length)) %>%
+      tidyr::unnest(attr) %>%
+      dplyr::mutate(attr = ifelse(grepl('=', attr), attr, paste(".U", attr, sep="="))) %>%
+      tidyr::separate_(
+        col   = "attr",
+        into  = c("tag", "value"),
+        sep   = "=",
+        extra = "merge"
+      )
+
+   } %v>% funnel(raw_gff=raw_gff, tags=tags) %*>% {
+
+    "
+    The %v>% operator stores the input value. We could replace every %>>%
+    operator with %v>%. This would let us inspect every step of an analysis at
+    the cost of high memory usage. For brevity, I won't break this following
+    block down any further.
+
+    The `funnel` function packages a list in a monad, merging their histories
+    and propagating error. That is, if `gff` or `tags` failed upstream, this
+    function will not be run. `%*>%` takes a list on the left and feeds it into
+    the function on the right as an argument list. Here `funnel` and `%*>%` are
+    used together to merge a pipeline (gff) and inject a parameter (tags).
+
+    We could not have written
+
+      %v>% function(gff=gff, tags=tags)
+
+    because this would have brough the monad wrapped gff into scope, not the
+    value itself.
+    "
+
+      dplyr::filter(., tag %in% c(tags, ".U")) %>%
+      {
+        if(nrow(.) > 0){
+          tidyr::spread(., key="tag", value="value")
+        } else {
+          .$tag   = NULL
+          .$value = NULL
+          .
+        }
+      } %>%
+      {
+        if("Parent" %in% names(.)){
+          .$Parent <- ifelse(.$Parent == "-", NA, .$Parent)
+        }
+        .
+      } %>% {
+        for(tag in c(tags, ".U")){
+          if(! tag %in% names(.))
+            .[[tag]] = NA_character_
+        }
+        .
+      } %>%
+      {
+        if("ID" %in% names(.))
+          .$ID <- ifelse(is.na(.$ID) & !is.na(.$.U) & .$ntags == 1, .$.U, .$ID)
+        .
+      } %>%
+      merge(data_frame(order=1:nrow(raw_gff)), all=TRUE) %>%
+      dplyr::arrange(order) %>%
+      { cbind(raw_gff, .) } %>%
+      dplyr::select(-.U, -order, -ntags, -attr)
+
+  } %>_% {
+
+    "
+    And make the last few assertions.
+    "
+
+    if(all(c("ID", "Parent") %in% names(.))){
+      parents <- subset(., type %in% c("CDS", "exon"))$Parent
+      parent_types <- subset(., ID %in% parents)$type
+
+      if(any(parent_types == "gene"))
+        warning("Found CDS or exon directly inheriting from a gene, this may be fine.")
+
+      if(! all(parent_types %in% c("gene", "mRNA")))
+        stop("Found CDS or exon with illegal parent")
+
+      if( any(is.na(parents)) )
+        stop("Found CDS or exon with no parent")
+
+      if(! any(duplicated(.$ID, incomparables=NA)))
+        warning("IDs are not unique, this is probably bad")
+    }
+
+  } %>_% {
+
+    "
+    I could post some closing comments here. The %>_% operator can be chained
+    and the output does not affect the output of the main chain. The NULL is
+    required to distinguish this block from an anonymous function that returns
+    a string.
+    "
+
+    NULL
+  }
+  # End Rmonad chain
+
+}
+
+
+## ------------------------------------------------------------------------
+result <- read_gff(file=gff$good, tags=c("ID", "Parent"))
+
+## ------------------------------------------------------------------------
+esc(result)
+
+## ------------------------------------------------------------------------
+mtabulate(result)
+
+## ------------------------------------------------------------------------
+missues(result)
+
+## ---- eval=FALSE---------------------------------------------------------
+#  # get a list of every stored value, report uncached values as NULL
+#  lapply(as.list(result), m_value, warn=FALSE)
+#  # get a list of every docstring
+#  lapply(as.list(result), m_doc)
+
+## ----gff-workflow-plot, eval=FALSE---------------------------------------
+#  plot(result)
+
+## ------------------------------------------------------------------------
+read_gff(gff$not_a_gff1)
+

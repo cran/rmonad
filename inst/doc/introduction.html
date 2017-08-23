@@ -19,28 +19,46 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 
 
-<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%7D%0Apre%20%7B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -57,21 +75,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p><code>Rmonad</code> offers</p>
 <ul>
 <li><p>a stateful pipeline framework</p></li>
-<li><p>nuanced error handling</p></li>
+<li><p>pure error handling</p></li>
 <li><p>access to the intermediate results of a pipeline</p></li>
 <li><p>effects – e.g. plotting, caching – within a pipeline</p></li>
-<li><p>access to results preceding an error</p></li>
 <li><p>branching and chaining of pipelines</p></li>
-<li><p>a structured approach to literate programming</p></li>
+<li><p>a flexible approach to literate programming</p></li>
 </ul>
 <div id="monadic-pipelines" class="section level2">
 <h2>Monadic pipelines</h2>
 <p>I will introduce <code>Rmonad</code> with a simple sequence of squares</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># %&gt;&gt;% corresponds to Haskell's &gt;&gt;=</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># %&gt;&gt;% corresponds to Haskell's &gt;&gt;=</span>
 <span class="dv">1</span>:<span class="dv">5</span>      %&gt;&gt;%
 <span class="st">    </span>sqrt %&gt;&gt;%
 <span class="st">    </span>sqrt %&gt;&gt;%
-<span class="st">    </span>sqrt</code></pre>
+<span class="st">    </span>sqrt</code></pre></div>
 <pre><code>## R&gt; &quot;1:5&quot;
 ## R&gt; &quot;sqrt&quot;
 ## R&gt; &quot;sqrt&quot;
@@ -82,18 +99,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## [1] 1.000000 1.090508 1.147203 1.189207 1.222845</code></pre>
 <p>So what exactly did Rmonad do with your data? It is still there, sitting happily inside the monad.</p>
 <p>In <code>magrittr</code> you could do something similar:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span>      %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span>      %&gt;%
 <span class="st">    </span>sqrt %&gt;%
 <span class="st">    </span>sqrt %&gt;%
-<span class="st">    </span>sqrt</code></pre>
+<span class="st">    </span>sqrt</code></pre></div>
 <pre><code>## [1] 1.000000 1.090508 1.147203 1.189207 1.222845</code></pre>
 <p><code>%&gt;%</code> takes the value on the left and applies it to the function on the right. <code>%&gt;&gt;%</code>, takes a monad on the left and a function on the right, then builds a new monad from them. This new monad holds the computed value, if the computation succeeded. It collates all errors, warnings, and messages. These are stored in step-by-step a history of the pipeline.</p>
 <p><code>%&gt;%</code> is an application operator, <code>%&gt;&gt;%</code> is a <em>monadic bind</em> operator. <code>magrittr</code> and Rmonad complement eachother. <code>%&gt;%</code> can be used inside a monadic sequence to perform operations <em>on</em> monads, whereas <code>%&gt;&gt;%</code> performs operations <em>in</em> them. If this is all too mystical, just hold on, the examples are sensical even without an understanding of monads.</p>
 <p>Below, we store an intermediate value in the monad:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span>      %&gt;&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span>      %&gt;&gt;%
 <span class="st">    </span>sqrt %v&gt;%<span class="st"> </span><span class="co"># store this result</span>
 <span class="st">    </span>sqrt %&gt;&gt;%
-<span class="st">    </span>sqrt</code></pre>
+<span class="st">    </span>sqrt</code></pre></div>
 <pre><code>## R&gt; &quot;1:5&quot;
 ## R&gt; &quot;sqrt&quot;
 ## [1] 1.000000 1.414214 1.732051 2.000000 2.236068
@@ -106,9 +123,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## [1] 1.000000 1.090508 1.147203 1.189207 1.222845</code></pre>
 <p>The <code>%v&gt;%</code> variant of the <em>monadic bind</em> operator stores the results as they are passed.</p>
 <p>Following the example of <code>magrittr</code>, arbirary anonymous functions of ‘.’ are supported</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span> %&gt;&gt;%<span class="st"> </span>{ o &lt;-<span class="st"> </span>. *<span class="st"> </span><span class="dv">2</span> ; { o +<span class="st"> </span>. } %&gt;%<span class="st"> </span>{ . +<span class="st"> </span>o } }</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span> %&gt;&gt;%<span class="st"> </span>{ o &lt;-<span class="st"> </span>. *<span class="st"> </span><span class="dv">2</span> ; { o +<span class="st"> </span>. } %&gt;%<span class="st"> </span>{ . +<span class="st"> </span>o } }</code></pre></div>
 <pre><code>## R&gt; &quot;1:5&quot;
-## R&gt; &quot;{
+## R&gt; &quot;function (.) 
+## {
 ##     o &lt;- . * 2
 ##     {
 ##         o + .
@@ -121,10 +139,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## 
 ## [1]  5 10 15 20 25</code></pre>
 <p>Warnings are caught and stored</p>
-<pre class="sourceCode r"><code class="sourceCode r">-<span class="dv">1</span>:<span class="dv">3</span>     %&gt;&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">-<span class="dv">1</span>:<span class="dv">3</span>     %&gt;&gt;%
 <span class="st">    </span>sqrt %v&gt;%
 <span class="st">    </span>sqrt %&gt;&gt;%
-<span class="st">    </span>sqrt</code></pre>
+<span class="st">    </span>sqrt</code></pre></div>
 <pre><code>## R&gt; &quot;-1:3&quot;
 ## R&gt; &quot;sqrt&quot;
 ##  * WARNING: NaNs produced
@@ -137,10 +155,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## 
 ## [1]      NaN 0.000000 1.000000 1.090508 1.147203</code></pre>
 <p>Similarly for errors</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;wrench&quot;</span> %&gt;&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;wrench&quot;</span> %&gt;&gt;%
 <span class="st">    </span>sqrt %v&gt;%
 <span class="st">    </span>sqrt %&gt;&gt;%
-<span class="st">    </span>sqrt</code></pre>
+<span class="st">    </span>sqrt</code></pre></div>
 <pre><code>## R&gt; &quot;&quot;wrench&quot;&quot;
 ## R&gt; &quot;sqrt&quot;
 ##  * ERROR: non-numeric argument to mathematical function
@@ -150,52 +168,54 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## [1] &quot;wrench&quot;
 ##  *** FAILURE ***</code></pre>
 <p>The first <code>sqrt</code> failed, and this step was coupled to the resultant error. Contrast this with <code>magrittr</code>, where the location of the error is lost:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;wrench&quot;</span> %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;wrench&quot;</span> %&gt;%
 <span class="st">    </span>sqrt %&gt;%
 <span class="st">    </span>sqrt %&gt;%
-<span class="st">    </span>sqrt</code></pre>
+<span class="st">    </span>sqrt</code></pre></div>
 <pre><code>## Error in sqrt(.): non-numeric argument to mathematical function</code></pre>
 <p>Also note that a value was still produced. This value will never be used in the downstream monadic sequence (except when explicitly doing error handling). However it, and all other information in the monad, can be easily accessed.</p>
 </div>
 <div id="extracting-data-from-an-rmonad" class="section level2">
 <h2>Extracting data from an Rmonad</h2>
 <p>If you want to extract the terminal result from the monad, you can use the <code>esc</code> function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span> %&gt;&gt;%<span class="st"> </span>sqrt %&gt;%<span class="st"> </span>esc</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span> %&gt;&gt;%<span class="st"> </span>sqrt %&gt;%<span class="st"> </span>esc</code></pre></div>
 <pre><code>## [1] 1.000000 1.414214 1.732051 2.000000 2.236068</code></pre>
 <p><code>esc</code> is our first example of a class of functions that work on monads, rather than the values they wrap. We use <code>magrittr</code>’s application operator <code>%&gt;%</code> here, rather than the monadic bind operator <code>%&gt;&gt;%</code>, because we are passing a literal monad to <code>esc</code>.</p>
 <p>If the monad is in a failed state, <code>esc</code> will raise an error.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;wrench&quot;</span> %&gt;&gt;%<span class="st"> </span>sqrt %&gt;&gt;%<span class="st"> </span>sqrt %&gt;%<span class="st"> </span>esc</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;wrench&quot;</span> %&gt;&gt;%<span class="st"> </span>sqrt %&gt;&gt;%<span class="st"> </span>sqrt %&gt;%<span class="st"> </span>esc</code></pre></div>
 <pre><code>## Error: in &quot;sqrt&quot;:
 ##   non-numeric argument to mathematical function</code></pre>
 <p>If you prefer a tabular summary of your results, you can pipe the monad into the <code>mtabulate</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span>      %&gt;&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span>      %&gt;&gt;%
 <span class="st">    </span>sqrt %v&gt;%
 <span class="st">    </span>sqrt %&gt;&gt;%
-<span class="st">    </span>sqrt %&gt;%<span class="st"> </span>mtabulate</code></pre>
-<pre><code>##    code   OK cached  time space nbranch nnotes nwarnings error doc
-## 2   1:5 TRUE  FALSE    NA    NA       0      0         0     0   0
-## 21 sqrt TRUE   TRUE 0.001    88       0      0         0     0   0
-## 3  sqrt TRUE  FALSE 0.000    88       0      0         0     0   0
-## 4  sqrt TRUE   TRUE 0.001    88       0      0         0     0   0</code></pre>
+<span class="st">    </span>sqrt %&gt;%<span class="st"> </span>mtabulate</code></pre></div>
+<pre><code>##   id   OK cached  time space is_nested nbranch nnotes nwarnings error doc
+## 1 35 TRUE  FALSE 0.000    72     FALSE       0      0         0     0   0
+## 2 36 TRUE   TRUE 0.000    88     FALSE       0      0         0     0   0
+## 3 37 TRUE  FALSE 0.000    88     FALSE       0      0         0     0   0
+## 4 38 TRUE   TRUE 0.004    88     FALSE       0      0         0     0   0</code></pre>
 <p>An internal states can be accessed by converting the monad to a list of past states and simple indexing out the ones you want.</p>
 <p>All errors, warnings and notes can be extracted with the <code>missues</code> command</p>
-<pre class="sourceCode r"><code class="sourceCode r">-<span class="dv">2</span>:<span class="dv">2</span> %&gt;&gt;%<span class="st"> </span>sqrt %&gt;&gt;%<span class="st"> </span>colSums %&gt;%<span class="st"> </span>missues</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">-<span class="dv">2</span>:<span class="dv">2</span> %&gt;&gt;%<span class="st"> </span>sqrt %&gt;&gt;%<span class="st"> </span>colSums %&gt;%<span class="st"> </span>missues</code></pre></div>
 <pre><code>##    id    type                                           issue
-## 2   2 warning                                   NaNs produced
-## 21  3   error 'x' must be an array of at least two dimensions</code></pre>
+## 2  40 warning                                   NaNs produced
+## 21 41   error 'x' must be an array of at least two dimensions</code></pre>
 <p>The <code>id</code> column refers to row numbers in the <code>mtabulate</code> output. Internal values can be extracted by converting the monad to a list and indexing:</p>
-<pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">5</span> %v&gt;%<span class="st"> </span>sqrt %v&gt;%<span class="st"> </span>sqrt %v&gt;%<span class="st"> </span>sqrt
-<span class="kw">as.list</span>(result)[[<span class="dv">2</span>]] %&gt;%<span class="st"> </span>esc</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">5</span> %v&gt;%<span class="st"> </span>sqrt %v&gt;%<span class="st"> </span>sqrt %v&gt;%<span class="st"> </span>sqrt
+<span class="kw">as.list</span>(result)[[<span class="dv">2</span>]] %&gt;%<span class="st"> </span>esc</code></pre></div>
 <pre><code>## [1] 1.000000 1.414214 1.732051 2.000000 2.236068</code></pre>
+<p>An Rmonad can be converted to a <code>DiagrammeR</code> graph (or <code>igraph</code>); in this way, standard tools for network analysis can be applied to pipelines. <code>rmonad</code> currently has built in support for plotting piplines and making markdown reports (experimental).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_dgr_graph</span>(result)</code></pre></div>
 </div>
 <div id="handling-effects" class="section level2">
 <h2>Handling effects</h2>
 <p>The <code>%&gt;_%</code> operator is useful when you want to include a function inside a pipeline that should be bypassed, but you want the errors, warnings, and messages to pass along with the main.</p>
 <p>You can cache an intermediate result</p>
-<pre class="sourceCode r"><code class="sourceCode r">cars %&gt;_%<span class="st"> </span><span class="kw">write.csv</span>(<span class="dt">file=</span><span class="st">&quot;cars.tab&quot;</span>) %&gt;&gt;%<span class="st"> </span>summary</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cars %&gt;_%<span class="st"> </span><span class="kw">write.csv</span>(<span class="dt">file=</span><span class="st">&quot;cars.tab&quot;</span>) %&gt;&gt;%<span class="st"> </span>summary</code></pre></div>
 <p>Or plot a value along with a summary</p>
-<pre class="sourceCode r"><code class="sourceCode r">cars %&gt;_%<span class="st"> </span><span class="kw">plot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) %&gt;&gt;%<span class="st"> </span>summary %&gt;%<span class="st"> </span>forget</code></pre>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cars %&gt;_%<span class="st"> </span><span class="kw">plot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) %&gt;&gt;%<span class="st"> </span>summary %&gt;%<span class="st"> </span>forget</code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAADAFBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////isF19AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAWRUlEQVR4nO2dB1gURxuAF1GRLiDHcYiACoqKxIKKFQSJMaixoNij/qLYEsWuwRgsUezGwm8hqNiwEbFgLFjQ2CLYjQVNjMYGiIAI3M2/O3uFO+7227vcHfw+8z6PN7ez3w7D6+7O7OzsQiECJ1RFV6CyQwQBEEEARBAAEQRABAEQQQBEEAARBEAEARBBAEQQABEEQAQBEEEARBAAEQRABAEQQQBEEAARBEAEARBBAEQQABEEQAQBEEEARBAAEQRABAEQQQBEEAARBEAEARBBAEQQABEEQAQBEEEARBAAEQRABAEQQQBEEAARBEAEARBBAEQQABEEQAQBEEEARBAAEQRABAEQQQBEEAARBEAEARBBAEQQABEEQAQBEEEARBAAEQRABAEQQQBEEAARBEAEARBBAEQQABEEQAQBEEEARBAAEQSgZ0GTW1RWmjdq1LzMYvt/KkZQm/irlZOpNT3rOkQrlj0zK0jQRf2Wpy9W+D1A6GbjeHlGUyKoLGKne0zym6c8x7iCMsNkWCXqozy980LIphaFshzjCnq7R0aN9fooT+/k2IqZpKhGiSynog4xq436LU9ftNjPfG4JlmcQQcqkC5Y+vB8jUFghglR4OLie18g/FctEEAARBEAEARBBAEQQABEEQAQBEEEARBAAEQRABAEQQQDGFVR8TTbUa0EEqeO8/GZBlSX6KM8IkEMMgAhSoSQhcvxOsWKZCFLmeeP6TZp4+L2VZxBBynSxGX34l2E2/eQZRJAShaarmGRONYkshwhS4r5JMZPkUe9kOUSQEk9MspnkL5P3shwiSIkSswElCBV1tZLnGE6Q5N1biea1lVQQmuTkNWWSuyAGZc4aGsPc/TGQoAfT65tRVPW60x5qCDCmIHFCWMD4B/xiiyfYN21qN0P8g8v3CVGCREMJumwjili5NWHVWDfba+ojjCioKLjT7lMLnJJ4hj9J2v83Oufxhv56t9YzAwkK6CQ9yRX17Kw+woiCVoYyh3qGU74W20yMxcnwDQYSZLNJ9u2QrfoIPQuSPDj5WNO6oKNsckyL8sJ34mTu9wYS5DdIdn6e1Ep9hH4F3W7n3tk1SMP5ruUVnEh/Z35Mm4uTfj/rJqj4SQFHA0WzxyRoY/qduxe2hFbRcOjrVVBO7U0SJF5Rt0Dt2gFxzKfY63ctSrzldIf+PC7M0UXQtvpVqOvDYzgVpQRSmMAUDQF6FbR6CE56JKhde742/TuWzOzA/X+qQqLTwDmhbmd1acUSqfBk6vqGKiu5499kHj+e8UYl81pIsJSqS7WpLsBodrrakqnqV++o6ehoE/BCuzJfJcTsYfZI7QU1HkovXEdTG8Lb5Nz5qJzx7lcZ5hv41xVk8mKczJqndm1R507Rcyc57datbO0Fme/Cgnabc0Un9+y6HW2oTlWfW6o+QK+HWKpPEf2ZX+83tWuX92AOrhuC92rXQmgv6LOJWNB3TTmCd1F+odWirOcfmW6qYU/Rbys2sHXKvQOfRapfKW3mg4/qVLT2gjaaTL9FpW62WMUR7DtYgnZSi+hv4zV41K8gSWKXBl/s07BSl2ZegfaCJEtt6ebJIpqrUTDfTp+AqDT6204L9RFG7EkPxDux2Os6v/DU+QvTyizq0g/K+y0pPYcz2HM6QmcoxsEPXuojjCgo3SWD7rpN78grOCe4+eyZjXsoelSG6UkvNh39naC98/HXe21mqo8w5tX8blFAP/fu/6C7Ee16bRJzxw4dRweUDP5GnqG9oM9lcASXRItqTZJE0IfilxouEY06HpR/cvdtujskjD2/r3NgUbnVpcXyr0XWuUzy3F6eo72gkTQjutn4xHDH06coSVrCVU1nKuMPmL1zpCUhSXfVDu61YEuLVr9KF565sKnVvx5yzW69WZdayjG+oMNdcHIkGBVePvFSnp0u3FpYfMhtF7tUaI3NvLL993c19vvqXldUEYJ2DMDJ5ZY7XFoG1Rove5ynE1ZzxVVqpP80+kMyeox8M50FbbPUva6oIgRd88Ln53VBHnSjltNvBJsrMWNN1X7KLr9q1Sl2cesA+V0fHQTFYxY7ahgq5InxBUk6zKBPxldFfngAJt/+FZtrxp6062RJw8R7oqYllzlzai/IEmMTwHMUXAN6FpQS1ib8BBDzTw/3vh1d9oqe4aUOZ9nctgeYz0yRpub/07gvNqZJ4sWfmd4pN3eS0gqQ1y383Uc6fnZKdECM0jx/1rTNJyHodAOm55tbR8MdFGUmfst8prvKhhnOtrKybbRfY7iWgtaUgeeGZSmUP21t8V8dNtfElIU4mT5fw/qiq0efyhdeew1av26u4LBidcE7NdvI0FKQUxl4bliWiy1lU/BMY3XYXBOj2TGVJVPUr05xb95VOFA+5WeLtbV1jQGF6mPL8UkcYstH4iRssyR5dkya6torzun0vjs+RLp4uO5Nulsd/rVq2Mt1UT89L1+2zoIy/t0uoFdBr4R76M8tro/atJ0/x7v3B+W1Q/DJoNTjBrsYhMeN8u1eKUftcRqxdJRge7mytRck3j41iqaFiOeG6tFvK3bVt2mfRn63vppFd2CK+6oMIEgHzPpLryZEj2ND2o7N6nhWKeiJI71foXuCP1SL1l5QNOVj5uRnaZfKv/5q0HM/qPTK3t/FubZ433ngqsgvpNuqgOP4a4j0DlT9+uGp6fMd3ZVvky0dh5Mp5S7BtRfkFokSQ9ErT92GeGUYoid9rwFOxKayjnBiAwvLL+8sDsMrHaVtVTN8EfmTqfINl0nLcbJhtGqh2guqtgM9F0jQynZaVL08hhCUY4svGx5KhyzQj74XxYXrnK637nE8Y61I1hX0dB+w5qc5ArcMpW1jx+Nk2g+qhWovSDiXbu0zUUIlvFjt8R39URIu7VG/r4kvKlYMKF4V7DtYPiItirW2tTEPb39GadMsR+Ze8wOn+6plai8owm4j6jbiz+6eXNEg+hJ0LHrOYfml5YsWnRbHNOku7eKc98fJI3fZ6sL4KYtvIl8n+lojr7+ZyouTdgjGrBonKH/Fob2gdyO/QhkWlOkOYANjTMHLC2k2L8avU7ZsWZw0bY78mlUq6LFM0FX33rFTRTN8hXfpvSu8+kvlotDzlROX/1X+R+jYD8o9rnE6DsZIU/AiR9IX4ZIJQ9WuzKv5N5OsYgfKUHFd5oIrt6ndcmGnUKeR7c6q3agc2gsadQa4MYCMNgVPYot3g1zrj2pXL/zsEvoYx0xkEecjlNYGZ+6yupl3+tCfqAnP22TaCxJRrjNuAsFGmoKXZ82mzmouEWgkWz2tLLveQll9rSzd1m0biDOvCiYwydk6GiYNqKJDT/pClAflG6vmcFVgpCl40j3oXbk96OOV5LtM+nTv6ffomWhJAbrRvi+7B+3+wnvgiSuLBHwn5Ol0DpL8PruhSSBHsLGm4I35j9pzUJpX8x7uIU/fj3Tq1kH487czmLzcWnXYc1BS4aKglqMf8f0Rup2ksxP7VTflCDbWFLy8Ls3mL2zVMVs596GAvrgoXdg0fBh96rldt2E6zu21xK3P8uku4LCjCjoIylodVLXaF5tVZ48pYbQpeEdnz0xR7U1MnYOTFja4Q7TP9jxe7LW3YMukH29o+wO0F+RLVe+ekM0VilE7Be+SbAZesKk+p+DRFno27X1EttD9F5yE1cPJMyu80+Q6/nV9cPOQNSXqNudAe0G9ErlGKJUoPvBaOaNAMQVP+yHXXLXdixxmpHBE86SMHY0mSbMGsv3h0No4ueEpWpyPMttN2uKy9tqxL/0/qCtFMwYdUcyhTmtape0hVrxEaGsV/qdq9gpLysR8wYlGzG+d584O/KDt7Znd5G+BMz62IqdkhVlZua97UwuP9fTWctc1jKBBLGFU8KBB6iO0FfT15w9Qfoyryh75g2n0x5IFVf0W4aWZ0ktxcY+2S5bOq7PsiGDasqV9mmSzHcVD7HSU1CCUl3boKeKLYQR1pqza0bSmmrTTMCqipaDbtfGRMS5aOdsc385YX0U6aC+bBnzSqWZNK78n7/tY1LSzjpNm7gzHyWW/zcJOXwpH8H1ywzCCxOushr7V5yEWz3Z1joUo5eZQ7CnXpDdOesez2Q8E9AVr6Y8+/YcXIHSn3iE293o93Hde3bn+PYTyh2jYs8thqHPQ40Bhsh4F/czOpT+qLOidTJBgG91fXO8uvb6Z8h1OWtrgvW6f7K2aQd/Qy+eFLQ8yC4X2PN8TbbCTtHit5eCHehN0T4RnDY6Z9z66Y4uILISO9/bpliixwGed1dUzWjYMrd/+rjRYpZmXDTC+6e/8ZUv3FBG+xkcdlQfMNGLAVuxxoJ3+WrFRgTez38xxv1M34szVBY6nZzbYfuNgm7BFplFvXs02nY3EN7bfxv3FvA+qzXymt7yQJylXilBD9kq7scGu5vkj3hylaThIa0GFPUxNTNyvjMCd5ONuLsws248tkr8xpagqESh7rHUt26h3aH8ja0v/9MR2zJH3TCA6xwSPUXmCY/JY5jPNDR60wfy/3Fkd+sWj/IIFrsIneMl+qOT63kvFa75wTXn/LtVt52fj36KXX7ff5HUGle51Pt3Tf9/lDa4rjgnmX0gN81GZsZzdpF/qhRjHX9X8EHX8nwiSNvPjzfAkVOTcr613n+YNo+3wLa90p65MIvG3wzNbkjpKtn/lN/gSfZBH+ocsKzertWhpiP+4LL4/uRIKylwwfm2uSl78MJyk2uJhnGzzGnH0GSfFvCp7nNRgO4pR7NhTYQ2tngwDqHyCZrnMXDNEpNLGyJp5X687CL3tEWK5lO7U7LKoyg4LmrGCJtvgpMD8kxb0S2PmnHFCpPx45T1nvDx63mZhm2CHydETm5lbWbrF2OPRlDQXPK4r9nM4EtG8zfSNQfqsaKUTNCAeJ10OKWdHBGS+fjnLIxvlX/j1NVrR3HvlurVtfbs77/5YvL/2wdbDn6GsfsFzTYdePtPF9IA+K1rpBAWcxklEnHK2tJmnLyH++P0DSjZl+g955t9d6Ghh2TYN5U0VmDtHF/h838LCMnhCf31W1LiC8hTjQXEaQgax5gKPoPv7TubJs4d0yyosXFT71X43z2Z282P9PTZe3OHbZgxCJdIHLQqZAQ4J+liK3mi4T6AbxhV0JRh8qDfVk7lTkVzneV/X3oHO26S5t1xxaz0x3P03hP4K7BB9flCbsAPbla84/2DvhpdU+6RP0miR08SFvdwvdZ34kfbiJr2RvGUYTlLt8JXmS4vAF0vHLrw/dpHSlkU18ZPNZ7keFtWayicIPVg5c2vh/dr4Qn1rTzZP2swfqcp2i30drcaunWprrXJ/fWYX+hL9fuNtSI9UQkGYQ6E4uSt9+Py+Mx7girBip8m727Z17erV1Omy8kalsx0C/J30+zdfKlZQbp6m9WfZ+6DnWtNHDrOfRHa4Lnk9vW5ffFBdsB+GHh29I14QpbpZ9qmL2rzkhQcVKegXb1vrphqmOhYJ8d4RPv9mkIVAuLq0dF39Gg6j/skSzbj9ZIPTgLk4SPqEk0GpQEE76p1G6JjrL+oDkgULziV39c9w2lyC7rZnhixwO/ZynLd7n8xNbPP1vba3SXWgAgV5XGK+nNDU5jwa277n+pKv8Utxs1VmNb8WMLeT/xBCs0z0QMUJeu2Av4jNOe/kNWYdfK4ypzZVFD5/pCBev3VSS8UJelsT9+dKa5R/DLkMPuxk1CDVU1Xultkb1M8K0jMVeIh5n2K+JLdWWVO8vFODr+SjHWPmMp8v7OHJAAaiAgWliPa8eLFNqPLwSVHbnqfvbfNYJl186rwou+Rs0wX6/elaUJHN/CJzExOr1SorVuOX2fxdS3b8PAmvaeGzU59XV9pRgW/iTKx/plR8vE6y8opQdjQnrMy7WtRP0TQSFfgmTg/cFTzho7yi80mc/KeyvMq04t7EKW/mlZ/9G49vloobqX+blPGpuDdxamjm7wtSECqcGFBxZx1ljPsmznT5n40wXY4a4YPpoGozf65RwwDHQZwzII2Jcd/EWSR/6tk7HR0R7SrITxCWm0RQeue0lq/0MySGEQRPA24zIy5uupdZDe9ZcXFxG4IH8yBoAI+g0F48gsK68gga1C2OwcUwrRg4DXhjBMOoUTgZYurNA7O6PILshTyCatvwCPKqius2ke+UVW37QWqnAWuKdeAT5cNnjvME1Y6nOpL68gh6XYtHUBn03JNWgggCIIIAiCAAIgiACAIgggCIIIBcIZ+oZnd4BE3ic1/1YDiPoBxelVJgSEGIV4eSV9B7zlsAUkpUp0Dq/vMUGFTQpwARBEAEARBBAEQQABEEQAQBEEEARBAAEQRABAEYTtCHLIbXcKCxi9OuJMMJ2odvEI3kjJnCTvhNam3b+QoQxFVc6TJviyZrSrlLkgfxqZgCwwmKFR2g4fwDew/s8e+eUmXgxg62mt4VLw3iKm6RycQdkSbzuEuSB/GoWBkMJygSegDuTPuqFP7dAztLUJ6z+rm/8iCO4iR2o+jPCeYlXCUpgsCKKWE4QZ+PQtwv9bkZG4t3jjcU806diPqcQVzFPaOYZ2GSqMdcJcmD4IopYThBnp28TDxiuV9KV4/53TMpZnb0SjNNM2NwEFdxH+4yc5G+rV7AVZI8iFfFFBhMUGk1+zUpkVS5t8wqgX/34xQz6LqV0nS3HAeBxcWbfgOWhIN4VUyBwQQV7WSm6Y2w4Pyfkgpi3s6RQGkaC8VBQHHP+lIDP0IlsUG8KqbAwB3F/VS5d4GXBf/uGdQF+nNVde5DjLO4PTXxC0u5S5IG8aqYAoMJ+vMo83aAgxTn62rqsSfpePpzXF3OIM7ikqgR+MEHzpJkQbwqpsBggjIo5gnwkW6ckxLZnSMglD6E3DX8uVn5bqa5uI+CkdJsjpLkQbwqpsBggiRd7WN3DKf2cgaxglJMJqd8ZavxjTI4iKu4k1RkLEM+V0nyIF4VU2C4c1BOpMjS/wh3jPT0srulTeBVIIijuP+y096oF1wlKYL4VEwBuZoHIIIAiCAAIgiACAIgggCIIAAiCIAIAiCCAIggACIIgAgCIIIAiCAAIgiACAIgggCIIAAiCIAIAiCCAIggACIIgAgCIIIAKp2g99Qw1az1vB4ONhCVTlBh0GLVLCIIgAhSwi2W/rct1tsm7C1CeaNcXMatogVJNjW38NmJ0CnqV4SSqmYYrTqVVFC7HofXVB+LJAEWMfH+trSgZSbjdw6mtiM03PPDO9Ec41WnkgpqWIrQsFboNDPP6YOrA3pvy8wO718foTeO33/TUMu/GfpvqKSCmFl001ugWGtmPmGUA7pEMX8hKrlKMUKJ1aumG7E6lVQQ8z5uWlBUAyZnuQPaK50f9gSh4loNef6RNb1QSQXR/xhBy/EeNNUBnadSrzMUIPSjk5kx33dauQWdY85BRW4OKNt8C52zYbgE3TfbHW33EihDj1RuQZIgi5iE9h50K/adxdw9U6vEIHGHEEmhxxDjVadyC0LvR9V2jjzM9INWNjFvuFKC1pk9QCiFOmW06lQ+QZUMIgiACAIgggCIIAAiCIAIAiCCAIggACIIgAgCIIIAiCAAIgiACAIgggCIIAAiCIAIAiCCAIggACIIgAgCIIIAiCCA/wET18Nby36gEAAAAABJRU5ErkJggg==" /><!-- --></p>
 <pre><code>## R&gt; &quot;summary&quot;
 ##      speed           dist       
 ##  Min.   : 4.0   Min.   :  2.00  
@@ -206,20 +226,22 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ##  Max.   :25.0   Max.   :120.00</code></pre>
 <p>I pipe the final monad into <code>forget</code>, which is (like <code>esc</code>) a function for operating on monads. <code>forget</code> removes history from a monad. I do this just to de-clutter the output.</p>
 <p>You can call multiple effects</p>
-<pre class="sourceCode r"><code class="sourceCode r">cars                                 %&gt;_%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cars                                 %&gt;_%
 <span class="st">    </span><span class="kw">plot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) %&gt;_%
 <span class="st">    </span><span class="kw">write.csv</span>(<span class="dt">file=</span><span class="st">&quot;cars.tab&quot;</span>)       %&gt;&gt;%
-<span class="st">    </span>summary %&gt;%<span class="st"> </span>forget</code></pre>
+<span class="st">    </span>summary %&gt;%<span class="st"> </span>forget</code></pre></div>
 <p>Since state is passed, you can make assertions about the data inside a pipeline.</p>
-<pre class="sourceCode r"><code class="sourceCode r">iris                                    %&gt;_%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris                                    %&gt;_%
 <span class="st">    </span>{ <span class="kw">stopifnot</span>(<span class="kw">is.data.frame</span>(.))     } %&gt;_%
 <span class="st">    </span>{ <span class="kw">stopifnot</span>(<span class="kw">sapply</span>(.,is.numeric)) } %&gt;&gt;%
-<span class="st">    </span>colSums %|&gt;%<span class="st"> </span>head</code></pre>
+<span class="st">    </span>colSums %|&gt;%<span class="st"> </span>head</code></pre></div>
 <pre><code>## R&gt; &quot;iris&quot;
-## R&gt; &quot;{
+## R&gt; &quot;function (.) 
+## {
 ##     stopifnot(is.data.frame(.))
 ## }&quot;
-## R&gt; &quot;{
+## R&gt; &quot;function (.) 
+## {
 ##     stopifnot(sapply(., is.numeric))
 ## }&quot;
 ##  * ERROR: sapply(., is.numeric) are not all TRUE
@@ -239,7 +261,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="error-handling" class="section level2">
 <h2>Error handling</h2>
 <p>Errors needn’t be viewed as abnormal. For example, we might want to try several alternatives functions, and use the first that works.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">10</span> %&gt;&gt;%<span class="st"> </span>colSums %|&gt;%<span class="st"> </span>sum</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">10</span> %&gt;&gt;%<span class="st"> </span>colSums %|&gt;%<span class="st"> </span>sum</code></pre></div>
 <pre><code>## R&gt; &quot;1:10&quot;
 ## R&gt; &quot;colSums&quot;
 ##  * ERROR: 'x' must be an array of at least two dimensions
@@ -250,20 +272,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## [1] 55</code></pre>
 <p>Here we will do either <code>colSums</code> or <code>sum</code>. The pipeline fails only if both fail.</p>
 <p>Sometimes you want to ignore the previous failure completely, and make a new call – for example in reading files:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># try to load a cached file, on failure rerun the analysis</span>
-<span class="kw">read.table</span>(<span class="st">&quot;analyasis_cache.tab&quot;</span>) %||%<span class="st"> </span><span class="kw">run_analysis</span>(x)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># try to load a cached file, on failure rerun the analysis</span>
+<span class="kw">read.table</span>(<span class="st">&quot;analyasis_cache.tab&quot;</span>) %||%<span class="st"> </span><span class="kw">run_analysis</span>(x)</code></pre></div>
 <p>This can also be used to replace if-else if-else strings</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">list</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">list</span>()
 <span class="co"># compare</span>
-if(<span class="kw">length</span>(x) &gt;<span class="st"> </span><span class="dv">0</span>) { x[[<span class="dv">1</span>]] } else { <span class="ot">NULL</span> }</code></pre>
+if(<span class="kw">length</span>(x) &gt;<span class="st"> </span><span class="dv">0</span>) { x[[<span class="dv">1</span>]] } else { <span class="ot">NULL</span> }</code></pre></div>
 <pre><code>## NULL</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to </span>
-x[[<span class="dv">1</span>]] %||%<span class="st"> </span><span class="ot">NULL</span> %&gt;%<span class="st"> </span>esc</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to </span>
+x[[<span class="dv">1</span>]] %||%<span class="st"> </span><span class="ot">NULL</span> %&gt;%<span class="st"> </span>esc</code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>Or maybe you want to support multiple extensions for an input file</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.table</span>(<span class="st">&quot;a.tab&quot;</span>) %||%<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;a.tsv&quot;</span>) %&gt;&gt;%<span class="st"> </span>dostuff</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.table</span>(<span class="st">&quot;a.tab&quot;</span>) %||%<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;a.tsv&quot;</span>) %&gt;&gt;%<span class="st"> </span>dostuff</code></pre></div>
 <p>Used together with <code>%|&gt;%</code> we can build full error handling pipelines</p>
-<pre class="sourceCode r"><code class="sourceCode r">letters[<span class="dv">1</span>:<span class="dv">10</span>] %v&gt;%<span class="st"> </span>colSums %|&gt;%<span class="st"> </span>sum %||%<span class="st"> </span><span class="kw">message</span>(<span class="st">&quot;Can't process this&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">letters[<span class="dv">1</span>:<span class="dv">10</span>] %v&gt;%<span class="st"> </span>colSums %|&gt;%<span class="st"> </span>sum %||%<span class="st"> </span><span class="kw">message</span>(<span class="st">&quot;Can't process this&quot;</span>)</code></pre></div>
 <pre><code>## Can't process this</code></pre>
 <pre><code>## R&gt; &quot;letters[1:10]&quot;
 ##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;
@@ -282,27 +304,43 @@ x[[<span class="dv">1</span>]] %||%<span class="st"> </span><span class="ot">NUL
 <div id="branching-pipelines" class="section level2">
 <h2>Branching pipelines</h2>
 <p>If you want to perform an operation on a value inside the chain, but don’t want to pass it, you can use the branch operator <code>%&gt;^%</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">30</span>) %&gt;^%<span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) %&gt;&gt;%<span class="st"> </span>mean</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">30</span>) %&gt;^%<span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) %&gt;&gt;%<span class="st"> </span>mean</code></pre></div>
 <p>This stores the result of <code>qplot</code> in a branch off the main pipeline. This means that <code>plot</code> could fail, but the rest of the pipeline could continue. You can store multiple branches.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">30</span>) %&gt;^%<span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) %&gt;^%<span class="st"> </span>summary %&gt;&gt;%<span class="st"> </span>mean</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">30</span>) %&gt;^%<span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) %&gt;^%<span class="st"> </span>summary %&gt;&gt;%<span class="st"> </span>mean</code></pre></div>
 <p>Branches can be used as input, as well.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span> %&gt;^%<span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">1</span>) %&gt;^%<span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">5</span>) %^&gt;%<span class="st"> </span>cor
-x</code></pre>
-<pre><code>## R&gt; &quot;dgamma(10, 1)&quot;
-## R&gt; &quot;dgamma(10, 5)&quot;
-## R&gt; &quot;1:10&quot;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span> %&gt;^%<span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">1</span>) %&gt;^%<span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">5</span>) %^&gt;%<span class="st"> </span>cor
+x</code></pre></div>
+<pre><code>## R&gt; &quot;dgamma(10, 5)&quot;
 ## Has 1 branches
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## R&gt; &quot;do.call(func, args, envir = env)&quot;
+##  [1] 1.013777e-06 1.909493e-04 2.700504e-03 1.323119e-02 3.626558e-02
+##  [6] 6.883849e-02 1.014047e-01 1.240769e-01 1.317556e-01 1.251100e-01
+## 
+## R&gt; &quot;do.call(func, args, envir = env)&quot;
+##  [1] 1.813279e-01 6.255502e-01 1.620358e-01 1.454077e-02 7.299700e-04
+##  [6] 2.537837e-05 6.847192e-07 1.534503e-08 2.984475e-10 5.190544e-12
+## 
 ## R&gt; &quot;cor&quot;
 ## 
 ##  ----------------- 
 ## 
 ## [1] -0.5838848</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unbranch</span>(x)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unbranch</span>(x)</code></pre></div>
 <pre><code>## [[1]]
-## R&gt; &quot;dgamma(10, 1)&quot;
 ## R&gt; &quot;dgamma(10, 5)&quot;
-## R&gt; &quot;1:10&quot;
 ## Has 1 branches
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## R&gt; &quot;do.call(func, args, envir = env)&quot;
+##  [1] 1.013777e-06 1.909493e-04 2.700504e-03 1.323119e-02 3.626558e-02
+##  [6] 6.883849e-02 1.014047e-01 1.240769e-01 1.317556e-01 1.251100e-01
+## 
+## R&gt; &quot;do.call(func, args, envir = env)&quot;
+##  [1] 1.813279e-01 6.255502e-01 1.620358e-01 1.454077e-02 7.299700e-04
+##  [6] 2.537837e-05 6.847192e-07 1.534503e-08 2.984475e-10 5.190544e-12
+## 
 ## R&gt; &quot;cor&quot;
 ## 
 ##  ----------------- 
@@ -310,12 +348,12 @@ x</code></pre>
 ## [1] -0.5838848
 ## 
 ## [[2]]
-## R&gt; &quot;dgamma(10, 1)&quot;
+## R&gt; &quot;do.call(func, args, envir = env)&quot;
 ##  [1] 1.013777e-06 1.909493e-04 2.700504e-03 1.323119e-02 3.626558e-02
 ##  [6] 6.883849e-02 1.014047e-01 1.240769e-01 1.317556e-01 1.251100e-01
 ## 
 ## [[3]]
-## R&gt; &quot;dgamma(10, 5)&quot;
+## R&gt; &quot;do.call(func, args, envir = env)&quot;
 ##  [1] 1.813279e-01 6.255502e-01 1.620358e-01 1.454077e-02 7.299700e-04
 ##  [6] 2.537837e-05 6.847192e-07 1.534503e-08 2.984475e-10 5.190544e-12</code></pre>
 <p>Note the branches could be long monadic chains themselves, which might have their own branches. The <code>unbranch</code> function recursively extracts all branches from the tree.</p>
@@ -323,9 +361,9 @@ x</code></pre>
 <div id="chains-of-chains" class="section level2">
 <h2>Chains of chains</h2>
 <p>If you want to connect many chains, all with independent inputs, you can do so with the <code>%__%</code> and <code>%v__%</code> operators.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">10</span>) %&gt;&gt;%<span class="st"> </span>sum %v__%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">10</span>) %&gt;&gt;%<span class="st"> </span>sum %v__%
 <span class="kw">rnorm</span>(<span class="dv">10</span>) %&gt;&gt;%<span class="st"> </span>sum %v__%
-<span class="kw">rexp</span>(<span class="dv">10</span>)  %&gt;&gt;%<span class="st"> </span>sum</code></pre>
+<span class="kw">rexp</span>(<span class="dv">10</span>)  %&gt;&gt;%<span class="st"> </span>sum</code></pre></div>
 <pre><code>## R&gt; &quot;runif(10)&quot;
 ## R&gt; &quot;sum&quot;
 ## [1] 4.046273
@@ -341,8 +379,8 @@ x</code></pre>
 ## 
 ## [1] 4.498764</code></pre>
 <p>The <code>%v__%</code> operator records the output of the lhs and evaluates the rhs into an Rmonad. If you don’t care about the output, you can use <code>%__%</code>, which simply replaces the rhs value with lhs value (while, of course, propagating state).</p>
-<p>The <code>%__%</code> operator is a little like a ‘;’, in that it demarcates independent statements. Each statement, though, is wrapped into a graph of operations. This graph is itself data, and can be computed on. You could take any analysis and recompose it as <code>%v__%</code> delimited blocks. The result of running the analysis would be a data structure containing all results and errors.</p>
-<pre class="sourceCode r"><code class="sourceCode r">program &lt;-
+<p>The <code>%__%</code> operator is a little like a semicolon, in that it demarcates independent statements. Each statement, though, is wrapped into a graph of operations. This graph is itself data, and can be computed on. You could take any analysis and recompose it as <code>%v__%</code> delimited blocks. The result of running the analysis would be a data structure containing all results and errors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">program &lt;-
 {
     x =<span class="st"> </span><span class="dv">2</span>
     y =<span class="st"> </span><span class="dv">5</span>
@@ -351,26 +389,30 @@ x</code></pre>
     letters %&gt;%<span class="st"> </span>sqrt
 } %v__%<span class="st"> </span>{
     <span class="dv">10</span> *<span class="st"> </span>x
-}</code></pre>
+}</code></pre></div>
 <p>You can link chunks of code, with their results, and performance information.</p>
 </div>
 <div id="multiple-inputs" class="section level2">
 <h2>Multiple inputs</h2>
 <p>So far our pipelines have been limited to either linear paths or the somewhat awkward branch merging. An easier approach is to read inputs from a list. But we want to be able to catch errors resulting from evaluation of each member of the list. We can do this with <code>list_meval</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lsmeval</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">funnel</span>(
     <span class="st">&quot;yolo&quot;</span>,
     <span class="kw">stop</span>(<span class="st">&quot;stop, drop, and die&quot;</span>),
     <span class="kw">runif</span>(<span class="st">&quot;simon&quot;</span>),
     <span class="dt">k =</span> <span class="dv">2</span>
-)</code></pre>
+)</code></pre></div>
 <pre><code>## R&gt; &quot;2&quot;
+## [1] 2
+## 
 ## R&gt; &quot;runif(&quot;simon&quot;)&quot;
 ##  * ERROR: invalid arguments
 ##  * WARNING: NAs introduced by coercion
 ## R&gt; &quot;stop(&quot;stop, drop, and die&quot;)&quot;
 ##  * ERROR: stop, drop, and die
-## R&gt; &quot;&quot;yolo&quot;&quot;
-## R&gt; &quot;lsmeval(&quot;yolo&quot;, stop(&quot;stop, drop, and die&quot;), runif(&quot;simon&quot;), 2)&quot;
+## R&gt; &quot;yolo&quot;
+## [1] &quot;yolo&quot;
+## 
+## R&gt; &quot;funnel(&quot;yolo&quot;, stop(&quot;stop, drop, and die&quot;), runif(&quot;simon&quot;), k = 2)&quot;
 ## 
 ##  ----------------- 
 ## 
@@ -388,23 +430,23 @@ x</code></pre>
 ## 
 ##  *** FAILURE ***</code></pre>
 <p>This returns a monad which fails if any of the components evaluate to an error. But it does not toss the rest of the inputs, instead returning a clean list with a NULL filling in missing pieces. Constrast this with normal list evaluation:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list</span>( <span class="st">&quot;yolo&quot;</span>, <span class="kw">stop</span>(<span class="st">&quot;stop, drop, and die&quot;</span>), <span class="kw">runif</span>(<span class="st">&quot;simon&quot;</span>), <span class="dv">2</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list</span>( <span class="st">&quot;yolo&quot;</span>, <span class="kw">stop</span>(<span class="st">&quot;stop, drop, and die&quot;</span>), <span class="kw">runif</span>(<span class="st">&quot;simon&quot;</span>), <span class="dv">2</span>)</code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): stop, drop, and die</code></pre>
-<p><code>lsmeval</code> records each failure in each element of the list independently.</p>
+<p><code>funnel</code> records each failure in each element of the list independently.</p>
 <p>This approach can also be used with the infix operator <code>%*&gt;%</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lsmeval</span>(<span class="kw">read.csv</span>(<span class="st">&quot;a.csv&quot;</span>), <span class="kw">read.csv</span>(<span class="st">&quot;b.csv&quot;</span>)) %*&gt;%<span class="st"> </span>merge</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">funnel</span>(<span class="kw">read.csv</span>(<span class="st">&quot;a.csv&quot;</span>), <span class="kw">read.csv</span>(<span class="st">&quot;b.csv&quot;</span>)) %*&gt;%<span class="st"> </span>merge</code></pre></div>
 <p>Now, of course, we can add monads to the mix</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lsmeval</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">funnel</span>(
     <span class="dt">a =</span> <span class="kw">read.csv</span>(<span class="st">&quot;a.csv&quot;</span>) %&gt;&gt;%<span class="st"> </span>do_analysis_a,
     <span class="dt">b =</span> <span class="kw">read.csv</span>(<span class="st">&quot;b.csv&quot;</span>) %&gt;&gt;%<span class="st"> </span>do_analysis_b,
     <span class="dt">k =</span> <span class="dv">5</span>
-) %*&gt;%<span class="st"> </span>joint_analysis</code></pre>
+) %*&gt;%<span class="st"> </span>joint_analysis</code></pre></div>
 <p>Monadic list evaluation is the natural way to build large programs from smaller pieces.</p>
 </div>
 <div id="annotating-steps" class="section level2">
 <h2>Annotating steps</h2>
 <p>As our pipelines become more complex, it becomes essential to document them. We can do that as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">5</span>) %&gt;&gt;%<span class="st"> </span>abs %&gt;%<span class="st"> </span><span class="kw">doc</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">5</span>) %&gt;&gt;%<span class="st"> </span>abs %&gt;%<span class="st"> </span><span class="kw">doc</span>(
 
     <span class="st">&quot;Alternatively, the documentation could go into a text block below the code</span>
 <span class="st">    in a knitr document. The advantage of having documentation here, is that it</span>
@@ -419,21 +461,32 @@ x</code></pre>
 <span class="kw">rnorm</span>(<span class="dv">6</span>)   %&gt;&gt;%<span class="st"> </span>abs %&gt;^%<span class="st"> </span>sum %v__%
 <span class="kw">rnorm</span>(<span class="st">&quot;a&quot;</span>) %&gt;&gt;%<span class="st"> </span>abs %&gt;^%<span class="st"> </span>sum %__%
 <span class="kw">rexp</span>(<span class="dv">6</span>)    %&gt;&gt;%<span class="st"> </span>abs %&gt;^%<span class="st"> </span>sum %T&gt;%
-<span class="st">  </span>{<span class="kw">print</span>(<span class="kw">mtabulate</span>(.)) } %&gt;%<span class="st"> </span>missues</code></pre>
-<pre><code>##          code    OK cached  time space nbranch nnotes nwarnings error doc
-## 2    runif(5)  TRUE  FALSE    NA    NA       0      0         0     0   0
-## 21        sum  TRUE   TRUE 0.001    NA       0      0         0     0   0
-## 3         abs  TRUE  FALSE 0.001    88       1      0         0     0   1
-## 4    rnorm(6)  TRUE  FALSE    NA    NA       0      0         0     0   0
-## 5         sum  TRUE   TRUE 0.001    NA       0      0         0     0   0
-## 6         abs  TRUE   TRUE 0.001    88       1      0         0     0   0
-## 7  rnorm(&quot;a&quot;) FALSE  FALSE    NA     0       0      0         1     1   0
-## 8     rexp(6)  TRUE  FALSE    NA    NA       0      0         0     0   0
-## 9         sum  TRUE   TRUE 0.001    NA       0      0         0     0   0
-## 10        abs  TRUE   TRUE 0.001    88       1      0         0     0   0</code></pre>
+<span class="st">  </span>{<span class="kw">print</span>(<span class="kw">mtabulate</span>(.)) } %&gt;%<span class="st"> </span>missues</code></pre></div>
+<pre><code>##    id    OK cached  time space is_nested nbranch nnotes nwarnings error
+## 1  77  TRUE  FALSE 0.000    88     FALSE       0      0         0     0
+## 2  78  TRUE   TRUE 0.004    88     FALSE       1      0         0     0
+## 3  79  TRUE   TRUE 0.004    48     FALSE       0      0         0     0
+## 4  80  TRUE  FALSE 0.000    88     FALSE       0      0         0     0
+## 5  81  TRUE   TRUE 0.004    88     FALSE       1      0         0     0
+## 6  82  TRUE   TRUE 0.000    48     FALSE       0      0         0     0
+## 7  83 FALSE  FALSE 0.000     0     FALSE       0      0         1     1
+## 8  84  TRUE  FALSE 0.000    88     FALSE       0      0         0     0
+## 9  85  TRUE   TRUE 0.000    88     FALSE       1      0         0     0
+## 10 86  TRUE   TRUE 0.000    48     FALSE       0      0         0     0
+##    doc
+## 1    0
+## 2    0
+## 3    0
+## 4    0
+## 5    0
+## 6    0
+## 7    0
+## 8    0
+## 9    0
+## 10   0</code></pre>
 <pre><code>##   id    type                      issue
-## 1  7   error          invalid arguments
-## 2  7 warning NAs introduced by coercion</code></pre>
+## 1 83   error          invalid arguments
+## 2 83 warning NAs introduced by coercion</code></pre>
 <p>Note <code>%T&gt;%</code> is a <code>magrittr</code> operator. It allows execution of the rhs function on the lhs <em>monad</em> and bypasses the result.</p>
 </div>
 

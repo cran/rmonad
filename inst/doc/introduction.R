@@ -63,6 +63,9 @@ result <- 1:5 %v>% sqrt %v>% sqrt %v>% sqrt
 as.list(result)[[2]] %>% esc
 
 ## ---- eval=FALSE---------------------------------------------------------
+#  as_dgr_graph(result)
+
+## ---- eval=FALSE---------------------------------------------------------
 #  cars %>_% write.csv(file="cars.tab") %>>% summary
 
 ## ------------------------------------------------------------------------
@@ -129,7 +132,7 @@ rexp(10)  %>>% sum
 #  }
 
 ## ------------------------------------------------------------------------
-lsmeval(
+funnel(
     "yolo",
     stop("stop, drop, and die"),
     runif("simon"),
@@ -140,10 +143,10 @@ lsmeval(
 list( "yolo", stop("stop, drop, and die"), runif("simon"), 2)
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  lsmeval(read.csv("a.csv"), read.csv("b.csv")) %*>% merge
+#  funnel(read.csv("a.csv"), read.csv("b.csv")) %*>% merge
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  lsmeval(
+#  funnel(
 #      a = read.csv("a.csv") %>>% do_analysis_a,
 #      b = read.csv("b.csv") %>>% do_analysis_b,
 #      k = 5
