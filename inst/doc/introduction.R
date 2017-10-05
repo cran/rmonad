@@ -115,8 +115,8 @@ x
 unbranch(x)
 
 ## ------------------------------------------------------------------------
-runif(10) %>>% sum %v__%
-rnorm(10) %>>% sum %v__%
+runif(10) %>>% sum %__%
+rnorm(10) %>>% sum %__%
 rexp(10)  %>>% sum
 
 ## ---- eval=FALSE---------------------------------------------------------
@@ -125,9 +125,9 @@ rexp(10)  %>>% sum
 #      x = 2
 #      y = 5
 #      x * y
-#  } %v__% {
+#  } %__% {
 #      letters %>% sqrt
-#  } %v__% {
+#  } %__% {
 #      10 * x
 #  }
 
@@ -153,20 +153,49 @@ list( "yolo", stop("stop, drop, and die"), runif("simon"), 2)
 #  ) %*>% joint_analysis
 
 ## ------------------------------------------------------------------------
-runif(5) %>>% abs %>% doc(
+{
 
-    "Alternatively, the documentation could go into a text block below the code
-    in a knitr document. The advantage of having documentation here, is that it
-    is coupled unambiguously to the generating function. These annotations,
-    together with the ability to chain chains of monads, allows whole complex
-    workflows to be built, with the results collated into a single object. All
-    errors propagate exactly as errors should, only affecting downstream
-    computations. The final object can be converted into a markdown document
-    and automatically generated function graphs."
+    "This is docstring. The following list is metadata associated with this
+    node. Both the docstring and the metadata list will be processed out of
+    this function before it is executed. They also will not appear in the code
+    stored in the Rmonad object."
 
-                  ) %>^% sum %__%
-rnorm(6)   %>>% abs %>^% sum %v__%
-rnorm("a") %>>% abs %>^% sum %__%
-rexp(6)    %>>% abs %>^% sum %T>%
-  {print(mtabulate(.)) } %>% missues
+    list(sys = sessionInfo(), foo = "This can be anything")
+
+    # This NULL is necessary, otherwise the metadata list above would be
+    # treated as the node output
+    NULL
+
+} %__% # The %__% operator connects independent pieces of a pipeline.
+
+"a" %>>% {
+
+    "The docstrings are stored in the Rmonad objects. They may be extracted in
+    the generation of reports. For example, they could go into a text block
+    below the code in a knitr document. The advantage of having documentation
+    here, is that it is coupled unambiguously to the generating function. These
+    annotations, together with the ability to chain chains of monads, allows
+    whole complex workflows to be built, with the results collated into a
+    single object. All errors propagate exactly as errors should, only
+    affecting downstream computations. The final object can be converted into a
+    markdown document and automatically generated function graphs."
+
+    paste(., "b")
+
+}
+
+## ------------------------------------------------------------------------
+foo <- function(x, y) {
+    "This is a function containing a pipeline. It always fails"    
+
+    "a" %>>% paste(x) %>>% paste(y) %>>% log
+}
+
+bar <- function(x) {
+    "this is another function, it doesn't fail"
+
+    funnel("b", "c") %*>% foo %>>% paste(x)
+}
+
+"d" %>>% bar
 

@@ -10,7 +10,7 @@
 #  rnorm(1) %>^%
 #    {
 #  
-#        "This is a seperate branch, it fails if . isn't between 0 and 1"
+#        "This is a seperate branch, it fails if '.' is not between 0 and 1"
 #  
 #        . %>_%
 #          { stopifnot(. > 0 & . < 1) } %>>%
