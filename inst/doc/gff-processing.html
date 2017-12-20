@@ -19,28 +19,244 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.bn { color: #40a070; } /* BaseN */
+code span.fl { color: #40a070; } /* Float */
+code span.ch { color: #4070a0; } /* Char */
+code span.st { color: #4070a0; } /* String */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.ot { color: #007020; } /* Other */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.fu { color: #06287e; } /* Function */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #880000; } /* Constant */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #19177c; } /* Variable */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.op { color: #666666; } /* Operator */
+code span.bu { } /* BuiltIn */
+code span.ex { } /* Extension */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.at { color: #7d9029; } /* Attribute */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 
 
-<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%7D%0Apre%20%7B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 </head>
 
@@ -55,7 +271,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 
 <p>This work is funded by the National Science Foundation grant <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1546858">NSF-IOS 1546858</a>.</p>
-<div id="the-problem" class="section level2">
+<section id="the-problem" class="level2">
 <h2>The problem</h2>
 <p>Gene Feature Format (GFF) is used to annotate intervals on a genome. Loading and validating a GFF is a common first step in a bioinformatics analysis. Mistakes at this step can cause major problems later, so it is important to validate the GFF and report good diagnostics when problems arise. Here I will show how such a pipeline can be written using standard methods, and then show how <code>rmonad</code> can be used to organize and annotate such a pipeline.</p>
 <p>GFF files are TAB-delimited where each row corresponds to a single interval. These intervals, though, may be ontologically related. For example a gene is the parent of an mRNA, which in turn is a parent of a set of exons and a set of coding sequences (CDS). These relations are specified in the attribute column (column 9). Here is an example (with TABs replaced with space) that introduces the main format and the variants we need to support:</p>
@@ -108,15 +324,15 @@ I   .   CDS    11565   11951   .   -   0   Parent=mrna3</code></pre>
 <li><p>exon := <code>exon</code> | <code>SO:0000147</code> | <code>coding_exon</code> | <code>coding exon</code> |<code>SO:0000195</code></p></li>
 </ul>
 <p>For mRNA and exon, I am merging to ontology terms (mRNA and transcript; exon and coding exon). Formally, this is incorrect, but pratically it is probably the right thing. Since these transformations may be wrong, they need to be noted.</p>
-</div>
-<div id="solution" class="section level2">
+</section>
+<section id="solution" class="level2">
 <h2>Solution</h2>
 <p>To test our solution, I use the <code>gff</code> rmonad dataset.</p>
-<div id="conventional-approach" class="section level3">
+<section id="conventional-approach" class="level3">
 <h3>Conventional approach</h3>
 <p>Before using <code>rmonad</code>, I will use a more conventional approach.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-<span class="kw">library</span>(dplyr)</code></pre>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a></code></pre>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
 <pre><code>## The following objects are masked from 'package:stats':
@@ -125,47 +341,44 @@ I   .   CDS    11565   11951   .   -   0   Parent=mrna3</code></pre>
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
-<span class="kw">library</span>(magrittr)</code></pre>
+<pre class="sourceCode r" id="cb6"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(tidyr)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">library</span>(magrittr)</a></code></pre>
 <pre><code>## 
 ## Attaching package: 'magrittr'</code></pre>
 <pre><code>## The following object is masked from 'package:tidyr':
 ## 
 ##     extract</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rmonad)</code></pre>
+<pre class="sourceCode r" id="cb9"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(rmonad)</a></code></pre>
 <pre><code>## 
 ## Attaching package: 'rmonad'</code></pre>
-<pre><code>## The following object is masked from 'package:tidyr':
-## 
-##     unnest</code></pre>
 <pre><code>## The following object is masked from 'package:dplyr':
 ## 
 ##     combine</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">210</span>)
-
-<span class="kw">data</span>(gff)
-
-read_gff &lt;-<span class="st"> </span>function(file){
-  readr::<span class="kw">read_tsv</span>(
-    file,
-    <span class="dt">col_names =</span> <span class="kw">c</span>(
-        <span class="st">&quot;seqid&quot;</span>,
-        <span class="st">&quot;source&quot;</span>,
-        <span class="st">&quot;type&quot;</span>,
-        <span class="st">&quot;start&quot;</span>,
-        <span class="st">&quot;stop&quot;</span>,
-        <span class="st">&quot;score&quot;</span>,
-        <span class="st">&quot;strand&quot;</span>,
-        <span class="st">&quot;phase&quot;</span>,
-        <span class="st">&quot;attr&quot;</span>
-    ),
-    <span class="dt">na        =</span> <span class="st">&quot;.&quot;</span>,
-    <span class="dt">comment   =</span> <span class="st">&quot;#&quot;</span>,
-    <span class="dt">col_types =</span> <span class="st">&quot;ccciidcic&quot;</span>
-  )
-}
-
-<span class="kw">read_gff</span>(gff$good)</code></pre>
+<pre class="sourceCode r" id="cb12"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">210</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">data</span>(gff)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">read_gff &lt;-<span class="st"> </span><span class="cf">function</span>(file){</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">  readr<span class="op">::</span><span class="kw">read_tsv</span>(</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">    file,</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">    <span class="dt">col_names =</span> <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">        <span class="st">&quot;seqid&quot;</span>,</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">        <span class="st">&quot;source&quot;</span>,</a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">        <span class="st">&quot;type&quot;</span>,</a>
+<a class="sourceLine" id="cb12-12" data-line-number="12">        <span class="st">&quot;start&quot;</span>,</a>
+<a class="sourceLine" id="cb12-13" data-line-number="13">        <span class="st">&quot;stop&quot;</span>,</a>
+<a class="sourceLine" id="cb12-14" data-line-number="14">        <span class="st">&quot;score&quot;</span>,</a>
+<a class="sourceLine" id="cb12-15" data-line-number="15">        <span class="st">&quot;strand&quot;</span>,</a>
+<a class="sourceLine" id="cb12-16" data-line-number="16">        <span class="st">&quot;phase&quot;</span>,</a>
+<a class="sourceLine" id="cb12-17" data-line-number="17">        <span class="st">&quot;attr&quot;</span></a>
+<a class="sourceLine" id="cb12-18" data-line-number="18">    ),</a>
+<a class="sourceLine" id="cb12-19" data-line-number="19">    <span class="dt">na        =</span> <span class="st">&quot;.&quot;</span>,</a>
+<a class="sourceLine" id="cb12-20" data-line-number="20">    <span class="dt">comment   =</span> <span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb12-21" data-line-number="21">    <span class="dt">col_types =</span> <span class="st">&quot;ccciidcic&quot;</span></a>
+<a class="sourceLine" id="cb12-22" data-line-number="22">  )</a>
+<a class="sourceLine" id="cb12-23" data-line-number="23">}</a>
+<a class="sourceLine" id="cb12-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb12-25" data-line-number="25"><span class="kw">read_gff</span>(gff<span class="op">$</span>good)</a></code></pre>
 <pre><code>## # A tibble: 25 x 9
 ##    seqid source  type start  stop score strand phase                  attr
 ##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;int&gt;                 &lt;chr&gt;
@@ -181,7 +394,7 @@ read_gff &lt;-<span class="st"> </span>function(file){
 ## 10     I   &lt;NA&gt;   CDS 61931 62344    NA      +     0           Parent=rna1
 ## # ... with 15 more rows</code></pre>
 <p>This is a nice start, also, <code>readr</code> will pick up on any deviations from the specified column number and type, warning of problems:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_gff</span>(gff$invalid_type)</code></pre>
+<pre class="sourceCode r" id="cb14"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">read_gff</span>(gff<span class="op">$</span>invalid_type)</a></code></pre>
 <pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
 ## a multiple of vector length (arg 2)</code></pre>
 <pre><code>## Warning: 1 parsing failure.
@@ -191,7 +404,7 @@ read_gff &lt;-<span class="st"> </span>function(file){
 ##   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;int&gt;                 &lt;chr&gt;
 ## 1     I   &lt;NA&gt;  gene    NA 11951    NA      -    NA              ID=gene0
 ## 2     I   &lt;NA&gt;  mRNA 11565 11951    NA      -    NA ID=mrna0;Parent=gene0</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_gff</span>(gff$not_a_gff1)</code></pre>
+<pre class="sourceCode r" id="cb18"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">read_gff</span>(gff<span class="op">$</span>not_a_gff1)</a></code></pre>
 <pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
 ## a multiple of vector length (arg 1)</code></pre>
 <pre><code>## Warning: 3 parsing failures.
@@ -203,101 +416,101 @@ read_gff &lt;-<span class="st"> </span>function(file){
 ## 2 there was a prince   &lt;NA&gt;  &lt;NA&gt;    NA    NA    NA   &lt;NA&gt;    NA  &lt;NA&gt;
 ## 3 who liked to plumb   &lt;NA&gt;  &lt;NA&gt;    NA    NA    NA   &lt;NA&gt;    NA  &lt;NA&gt;</code></pre>
 <p>R uses <code>NA</code> to indicate missing values. The R ‘numeric’ type corresponds to Haskell <code>[Maybe Num]</code>, i.e. an array of possibly empty values. In a GFF, columns 2,6,7,8 and 9 may be missing, the others may not. So we need an additional assertion that these are complete.</p>
-<pre class="sourceCode r"><code class="sourceCode r">g &lt;-<span class="st"> </span><span class="kw">read_gff</span>(gff$good)
-for(col in <span class="kw">c</span>(<span class="st">&quot;seqid&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;start&quot;</span>, <span class="st">&quot;stop&quot;</span>)){
-  if(<span class="kw">any</span>(<span class="kw">is.na</span>(g[[col]]))){
-    <span class="kw">stop</span>(<span class="st">&quot;GFFError: Column '&quot;</span>, col, <span class="st">&quot;' may not have missing values&quot;</span>)
-  }
-}</code></pre>
+<pre class="sourceCode r" id="cb22"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">g &lt;-<span class="st"> </span><span class="kw">read_gff</span>(gff<span class="op">$</span>good)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="cf">for</span>(col <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;seqid&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;start&quot;</span>, <span class="st">&quot;stop&quot;</span>)){</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">  <span class="cf">if</span>(<span class="kw">any</span>(<span class="kw">is.na</span>(g[[col]]))){</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">    <span class="kw">stop</span>(<span class="st">&quot;GFFError: Column '&quot;</span>, col, <span class="st">&quot;' may not have missing values&quot;</span>)</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6">}</a></code></pre>
 <p>Now we need to account for type synonyms</p>
-<pre class="sourceCode r"><code class="sourceCode r">gene_synonyms &lt;-<span class="st"> 'SO:0000704'</span>
-mRNA_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'messenger_RNA'</span>, <span class="st">'messenger RNA'</span>, <span class="st">'SO:0000234'</span>)
-CDS_synonyms  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'coding_sequence'</span>, <span class="st">'coding sequence'</span>, <span class="st">'SO:0000316'</span>)
-exon_synonyms &lt;-<span class="st"> 'SO:0000147'</span>
-
-g$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g$type %in%<span class="st"> </span>gene_synonyms, <span class="st">'gene'</span>, g$type)
-g$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g$type %in%<span class="st"> </span>mRNA_synonyms, <span class="st">'mRNA'</span>, g$type)
-g$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g$type %in%<span class="st"> </span>CDS_synonyms,  <span class="st">'CDS'</span>,  g$type)
-g$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g$type %in%<span class="st"> </span>exon_synonyms, <span class="st">'exon'</span>, g$type)
-
-mRNA_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'transcript'</span>, <span class="st">'SO:0000673'</span>)
-exon_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'SO:0000147'</span>, <span class="st">'coding_exon'</span>, <span class="st">'coding exon'</span>, <span class="st">'SO:0000195'</span>)
-
-if(<span class="kw">any</span>(g$type %in%<span class="st"> </span>mRNA_near_synonyms)){
-    g$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g$type %in%<span class="st"> </span>mRNA_near_synonyms, <span class="st">'mRNA'</span>, g$type)
-    <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for mRNA types, this is probably OK&quot;</span>)
-}
-
-if(<span class="kw">any</span>(g$type %in%<span class="st"> </span>exon_near_synonyms)){
-    g$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g$type %in%<span class="st"> </span>exon_near_synonyms, <span class="st">'exon'</span>, g$type)
-    <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for exon types, this is probably OK&quot;</span>)
-}</code></pre>
+<pre class="sourceCode r" id="cb23"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">gene_synonyms &lt;-<span class="st"> 'SO:0000704'</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">mRNA_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'messenger_RNA'</span>, <span class="st">'messenger RNA'</span>, <span class="st">'SO:0000234'</span>)</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">CDS_synonyms  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'coding_sequence'</span>, <span class="st">'coding sequence'</span>, <span class="st">'SO:0000316'</span>)</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">exon_synonyms &lt;-<span class="st"> 'SO:0000147'</span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">g<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>gene_synonyms, <span class="st">'gene'</span>, g<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">g<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>mRNA_synonyms, <span class="st">'mRNA'</span>, g<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">g<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>CDS_synonyms,  <span class="st">'CDS'</span>,  g<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">g<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>exon_synonyms, <span class="st">'exon'</span>, g<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">mRNA_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'transcript'</span>, <span class="st">'SO:0000673'</span>)</a>
+<a class="sourceLine" id="cb23-12" data-line-number="12">exon_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'SO:0000147'</span>, <span class="st">'coding_exon'</span>, <span class="st">'coding exon'</span>, <span class="st">'SO:0000195'</span>)</a>
+<a class="sourceLine" id="cb23-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb23-14" data-line-number="14"><span class="cf">if</span>(<span class="kw">any</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>mRNA_near_synonyms)){</a>
+<a class="sourceLine" id="cb23-15" data-line-number="15">    g<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>mRNA_near_synonyms, <span class="st">'mRNA'</span>, g<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb23-16" data-line-number="16">    <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for mRNA types, this is probably OK&quot;</span>)</a>
+<a class="sourceLine" id="cb23-17" data-line-number="17">}</a>
+<a class="sourceLine" id="cb23-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb23-19" data-line-number="19"><span class="cf">if</span>(<span class="kw">any</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>exon_near_synonyms)){</a>
+<a class="sourceLine" id="cb23-20" data-line-number="20">    g<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(g<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>exon_near_synonyms, <span class="st">'exon'</span>, g<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb23-21" data-line-number="21">    <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for exon types, this is probably OK&quot;</span>)</a>
+<a class="sourceLine" id="cb23-22" data-line-number="22">}</a></code></pre>
 <p>Now we need to evaluate the attribute column.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tags &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>)
-
-<span class="kw">data_frame</span>(
-    <span class="dt">attr  =</span> stringr::<span class="kw">str_split</span>(g$attr, <span class="st">&quot;;&quot;</span>),
-    <span class="dt">order =</span> <span class="dv">1</span>:<span class="kw">nrow</span>(g)
-  ) %&gt;%
-<span class="st">  </span>dplyr::<span class="kw">mutate</span>(<span class="dt">ntags =</span> <span class="kw">sapply</span>(attr, length)) %&gt;%
-<span class="st">  </span>tidyr::<span class="kw">unnest</span>(attr) %&gt;%
-<span class="st">  </span>dplyr::<span class="kw">mutate</span>(<span class="dt">attr =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">'='</span>, attr), attr, <span class="kw">paste</span>(<span class="st">&quot;.U&quot;</span>, attr, <span class="dt">sep=</span><span class="st">&quot;=&quot;</span>))) %&gt;%
-<span class="st">  </span>tidyr::<span class="kw">separate_</span>(
-    <span class="dt">col   =</span> <span class="st">&quot;attr&quot;</span>,
-    <span class="dt">into  =</span> <span class="kw">c</span>(<span class="st">&quot;tag&quot;</span>, <span class="st">&quot;value&quot;</span>),
-    <span class="dt">sep   =</span> <span class="st">&quot;=&quot;</span>,
-    <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span>
-  ) %&gt;%
-<span class="st">  </span>dplyr::<span class="kw">filter</span>(tag %in%<span class="st"> </span><span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)) %&gt;%
-<span class="st">  </span>{
-    if(<span class="kw">nrow</span>(.) &gt;<span class="st"> </span><span class="dv">0</span>){
-      tidyr::<span class="kw">spread</span>(., <span class="dt">key=</span><span class="st">&quot;tag&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>)
-    } else {
-      .$tag   =<span class="st"> </span><span class="ot">NULL</span>
-      .$value =<span class="st"> </span><span class="ot">NULL</span>
-      .
-    }
-  } %&gt;%
-<span class="st">  </span>{
-    if(<span class="st">&quot;Parent&quot;</span> %in%<span class="st"> </span><span class="kw">names</span>(.)){
-      .$Parent &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$Parent ==<span class="st"> &quot;-&quot;</span>, <span class="ot">NA</span>, .$Parent)
-    }
-    .
-  } %&gt;%<span class="st"> </span>{
-    for(tag in <span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)){
-      if(!<span class="st"> </span>tag %in%<span class="st"> </span><span class="kw">names</span>(.))
-        .[[tag]] =<span class="st"> </span><span class="ot">NA_character_</span>
-    }
-    .
-  } %&gt;%
-<span class="st">  </span>{
-    if(<span class="st">&quot;ID&quot;</span> %in%<span class="st"> </span><span class="kw">names</span>(.))
-      .$ID &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(.$ID) &amp;<span class="st"> </span>!<span class="kw">is.na</span>(.$.U) &amp;<span class="st"> </span>.$ntags ==<span class="st"> </span><span class="dv">1</span>, .$.U, .$ID)
-    .
-  } %&gt;%
-<span class="st">  </span><span class="kw">merge</span>(<span class="kw">data_frame</span>(<span class="dt">order=</span><span class="dv">1</span>:<span class="kw">nrow</span>(g)), <span class="dt">all=</span><span class="ot">TRUE</span>) %&gt;%
-<span class="st">  </span>dplyr::<span class="kw">arrange</span>(order) %&gt;%
-<span class="st">  </span>{ <span class="kw">cbind</span>(g, .) } %&gt;%
-<span class="st">  </span>dplyr::<span class="kw">select</span>(-.U, -order, -ntags, -attr) %&gt;%
-<span class="st">  </span>{
-    if(<span class="kw">all</span>(<span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>) %in%<span class="st"> </span><span class="kw">names</span>(.))){
-      parents &lt;-<span class="st"> </span><span class="kw">subset</span>(., type %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CDS&quot;</span>, <span class="st">&quot;exon&quot;</span>))$Parent
-      parent_types &lt;-<span class="st"> </span><span class="kw">subset</span>(., ID %in%<span class="st"> </span>parents)$type
-
-      if(<span class="kw">any</span>(parent_types ==<span class="st"> &quot;gene&quot;</span>))
-        <span class="kw">warning</span>(<span class="st">&quot;Found CDS or exon directly inheriting from a gene, this may be fine.&quot;</span>) 
-
-      if(!<span class="st"> </span><span class="kw">all</span>(parent_types %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;mRNA&quot;</span>)))
-        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with illegal parent&quot;</span>)
-
-      if( <span class="kw">any</span>(<span class="kw">is.na</span>(parents)) )
-        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with no parent&quot;</span>)
-
-      if(!<span class="st"> </span><span class="kw">any</span>(<span class="kw">duplicated</span>(.$ID, <span class="dt">incomparables=</span><span class="ot">NA</span>)))
-        <span class="kw">warning</span>(<span class="st">&quot;IDs are not unique, this is probably bad&quot;</span>)
-    }
-    .
-  }</code></pre>
+<pre class="sourceCode r" id="cb24"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">tags &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw">data_frame</span>(</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">    <span class="dt">attr  =</span> stringr<span class="op">::</span><span class="kw">str_split</span>(g<span class="op">$</span>attr, <span class="st">&quot;;&quot;</span>),</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">    <span class="dt">order =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(g)</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ntags =</span> <span class="kw">sapply</span>(attr, length)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-8" data-line-number="8"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">unnest</span>(attr) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-9" data-line-number="9"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">attr =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">'='</span>, attr), attr, <span class="kw">paste</span>(<span class="st">&quot;.U&quot;</span>, attr, <span class="dt">sep=</span><span class="st">&quot;=&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-10" data-line-number="10"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">separate_</span>(</a>
+<a class="sourceLine" id="cb24-11" data-line-number="11">    <span class="dt">col   =</span> <span class="st">&quot;attr&quot;</span>,</a>
+<a class="sourceLine" id="cb24-12" data-line-number="12">    <span class="dt">into  =</span> <span class="kw">c</span>(<span class="st">&quot;tag&quot;</span>, <span class="st">&quot;value&quot;</span>),</a>
+<a class="sourceLine" id="cb24-13" data-line-number="13">    <span class="dt">sep   =</span> <span class="st">&quot;=&quot;</span>,</a>
+<a class="sourceLine" id="cb24-14" data-line-number="14">    <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(tag <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="st">  </span>{</a>
+<a class="sourceLine" id="cb24-18" data-line-number="18">    <span class="cf">if</span>(<span class="kw">nrow</span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb24-19" data-line-number="19">      tidyr<span class="op">::</span><span class="kw">spread</span>(., <span class="dt">key=</span><span class="st">&quot;tag&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>)</a>
+<a class="sourceLine" id="cb24-20" data-line-number="20">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb24-21" data-line-number="21">      .<span class="op">$</span>tag   =<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb24-22" data-line-number="22">      .<span class="op">$</span>value =<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb24-23" data-line-number="23">      .</a>
+<a class="sourceLine" id="cb24-24" data-line-number="24">    }</a>
+<a class="sourceLine" id="cb24-25" data-line-number="25">  } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-26" data-line-number="26"><span class="st">  </span>{</a>
+<a class="sourceLine" id="cb24-27" data-line-number="27">    <span class="cf">if</span>(<span class="st">&quot;Parent&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.)){</a>
+<a class="sourceLine" id="cb24-28" data-line-number="28">      .<span class="op">$</span>Parent &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>Parent <span class="op">==</span><span class="st"> &quot;-&quot;</span>, <span class="ot">NA</span>, .<span class="op">$</span>Parent)</a>
+<a class="sourceLine" id="cb24-29" data-line-number="29">    }</a>
+<a class="sourceLine" id="cb24-30" data-line-number="30">    .</a>
+<a class="sourceLine" id="cb24-31" data-line-number="31">  } <span class="op">%&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb24-32" data-line-number="32">    <span class="cf">for</span>(tag <span class="cf">in</span> <span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)){</a>
+<a class="sourceLine" id="cb24-33" data-line-number="33">      <span class="cf">if</span>(<span class="op">!</span><span class="st"> </span>tag <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.))</a>
+<a class="sourceLine" id="cb24-34" data-line-number="34">        .[[tag]] =<span class="st"> </span><span class="ot">NA_character_</span></a>
+<a class="sourceLine" id="cb24-35" data-line-number="35">    }</a>
+<a class="sourceLine" id="cb24-36" data-line-number="36">    .</a>
+<a class="sourceLine" id="cb24-37" data-line-number="37">  } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-38" data-line-number="38"><span class="st">  </span>{</a>
+<a class="sourceLine" id="cb24-39" data-line-number="39">    <span class="cf">if</span>(<span class="st">&quot;ID&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.))</a>
+<a class="sourceLine" id="cb24-40" data-line-number="40">      .<span class="op">$</span>ID &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(.<span class="op">$</span>ID) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(.<span class="op">$</span>.U) <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span>ntags <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, .<span class="op">$</span>.U, .<span class="op">$</span>ID)</a>
+<a class="sourceLine" id="cb24-41" data-line-number="41">    .</a>
+<a class="sourceLine" id="cb24-42" data-line-number="42">  } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-43" data-line-number="43"><span class="st">  </span><span class="kw">merge</span>(<span class="kw">data_frame</span>(<span class="dt">order=</span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(g)), <span class="dt">all=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-44" data-line-number="44"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(order) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-45" data-line-number="45"><span class="st">  </span>{ <span class="kw">cbind</span>(g, .) } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-46" data-line-number="46"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>.U, <span class="op">-</span>order, <span class="op">-</span>ntags, <span class="op">-</span>attr) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-47" data-line-number="47"><span class="st">  </span>{</a>
+<a class="sourceLine" id="cb24-48" data-line-number="48">    <span class="cf">if</span>(<span class="kw">all</span>(<span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>) <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.))){</a>
+<a class="sourceLine" id="cb24-49" data-line-number="49">      parents &lt;-<span class="st"> </span><span class="kw">subset</span>(., type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CDS&quot;</span>, <span class="st">&quot;exon&quot;</span>))<span class="op">$</span>Parent</a>
+<a class="sourceLine" id="cb24-50" data-line-number="50">      parent_types &lt;-<span class="st"> </span><span class="kw">subset</span>(., ID <span class="op">%in%</span><span class="st"> </span>parents)<span class="op">$</span>type</a>
+<a class="sourceLine" id="cb24-51" data-line-number="51"></a>
+<a class="sourceLine" id="cb24-52" data-line-number="52">      <span class="cf">if</span>(<span class="kw">any</span>(parent_types <span class="op">==</span><span class="st"> &quot;gene&quot;</span>))</a>
+<a class="sourceLine" id="cb24-53" data-line-number="53">        <span class="kw">warning</span>(<span class="st">&quot;Found CDS or exon directly inheriting from a gene, this may be fine.&quot;</span>) </a>
+<a class="sourceLine" id="cb24-54" data-line-number="54"></a>
+<a class="sourceLine" id="cb24-55" data-line-number="55">      <span class="cf">if</span>(<span class="op">!</span><span class="st"> </span><span class="kw">all</span>(parent_types <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;mRNA&quot;</span>)))</a>
+<a class="sourceLine" id="cb24-56" data-line-number="56">        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with illegal parent&quot;</span>)</a>
+<a class="sourceLine" id="cb24-57" data-line-number="57"></a>
+<a class="sourceLine" id="cb24-58" data-line-number="58">      <span class="cf">if</span>( <span class="kw">any</span>(<span class="kw">is.na</span>(parents)) )</a>
+<a class="sourceLine" id="cb24-59" data-line-number="59">        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with no parent&quot;</span>)</a>
+<a class="sourceLine" id="cb24-60" data-line-number="60"></a>
+<a class="sourceLine" id="cb24-61" data-line-number="61">      <span class="cf">if</span>(<span class="op">!</span><span class="st"> </span><span class="kw">any</span>(<span class="kw">duplicated</span>(.<span class="op">$</span>ID, <span class="dt">incomparables=</span><span class="ot">NA</span>)))</a>
+<a class="sourceLine" id="cb24-62" data-line-number="62">        <span class="kw">warning</span>(<span class="st">&quot;IDs are not unique, this is probably bad&quot;</span>)</a>
+<a class="sourceLine" id="cb24-63" data-line-number="63">    }</a>
+<a class="sourceLine" id="cb24-64" data-line-number="64">    .</a>
+<a class="sourceLine" id="cb24-65" data-line-number="65">  }</a></code></pre>
 <pre><code>## Warning in function_list[[k]](value): Found CDS or exon directly inheriting
 ## from a gene, this may be fine.</code></pre>
 <pre><code>##    seqid source type start  stop score strand phase    ID Parent
@@ -329,227 +542,227 @@ if(<span class="kw">any</span>(g$type %in%<span class="st"> </span>exon_near_syn
 <p>The beauty of this chain is that it requires few temporary variables (just <code>g</code>, and <code>tags</code>), it is a pure flow of data. It is an elegant sequence of functions operating on a single thread of data.</p>
 <p>But there are a few problems.</p>
 <p>First, it is in dire need of documentation. We could add in comments. But comments cannot be formatted well. A better approach is some form of literate programming, such as rewriting the program in Rmarkdown. But this 1) breaks the pipeline (since we can’t pipe between chunks), 2) results in an object we can’t compute on, 3) makes debugging even more difficult, because our code is spread out.</p>
-</div>
-<div id="rmonad-approach" class="section level3">
+</section>
+<section id="rmonad-approach" class="level3">
 <h3><code>rmonad</code> approach</h3>
 <p>With <code>rmonad</code> we can mingle documentation and code in a computable object.</p>
-<pre class="sourceCode r"><code class="sourceCode r">read_gff &lt;-<span class="st"> </span>function(file, tags){
-
-  raw_gff &lt;-<span class="st"> </span><span class="kw">as_monad</span>(
-    {
-
-      <span class="st">&quot;</span>
-<span class="st">      Rmonad supports docstrings. If an block begins with a string, this</span>
-<span class="st">      string is extracted and stored. Python has something similar, where the</span>
-<span class="st">      first string in a function is cast as documentation.</span>
-<span class="st">      </span>
-<span class="st">      The `as_monad` function takes an expression and wraps its result into a</span>
-<span class="st">      context. It also handles the extraction of this docstring. The result</span>
-<span class="st">      here is used at more than one place in the pipeline. Rather than</span>
-<span class="st">      accessing it later as a global, it will be funneled bach in.</span>
-<span class="st">      &quot;</span>
-
-      readr::<span class="kw">read_tsv</span>(
-        file,
-        <span class="dt">col_names =</span> <span class="kw">c</span>(
-          <span class="st">&quot;seqid&quot;</span>,
-          <span class="st">&quot;source&quot;</span>,
-          <span class="st">&quot;type&quot;</span>,
-          <span class="st">&quot;start&quot;</span>,
-          <span class="st">&quot;stop&quot;</span>,
-          <span class="st">&quot;score&quot;</span>,
-          <span class="st">&quot;strand&quot;</span>,
-          <span class="st">&quot;phase&quot;</span>,
-          <span class="st">&quot;attr&quot;</span>
-        ),
-        <span class="dt">na        =</span> <span class="st">&quot;.&quot;</span>,
-        <span class="dt">comment   =</span> <span class="st">&quot;#&quot;</span>,
-        <span class="dt">col_types =</span> <span class="st">&quot;ccciidcic&quot;</span>
-      )
-    }
-  )
-
-  raw_gff %&gt;&gt;%<span class="st"> </span>{
-
-    <span class="st">&quot;</span>
-<span class="st">    The %&gt;&gt;% operator applies the function described in this block to the</span>
-<span class="st">    input on the left-hand-side. This corresponds to the UNIX '|' or magrittr's</span>
-<span class="st">    '%&gt;%'. It differs from them in that it is a monadic bind operator, rather</span>
-<span class="st">    than an application operator. It carries a context along with the</span>
-<span class="st">    computations. The context can store past values, performance information,</span>
-<span class="st">    this docstring, and links to the parent chunk. The context is a directed</span>
-<span class="st">    graph of code chunks and their metadata.</span>
-<span class="st">    &quot;</span>
-
-    for(col in <span class="kw">c</span>(<span class="st">&quot;seqid&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;start&quot;</span>, <span class="st">&quot;stop&quot;</span>)){
-      if(<span class="kw">any</span>(<span class="kw">is.na</span>(.[[col]]))){
-        <span class="kw">stop</span>(<span class="st">&quot;GFFError: Column '&quot;</span>, col, <span class="st">&quot;' may not have missing values&quot;</span>)
-      }
-    }
-    .
-  } %&gt;&gt;%<span class="st"> </span>{
-
-    <span class="st">&quot;</span>
-<span class="st">    Note that these blocks of code are copied verbatim from above, only using</span>
-<span class="st">    '.' in place of 'g'.</span>
-<span class="st">    &quot;</span>
-
-    gene_synonyms &lt;-<span class="st"> 'SO:0000704'</span>
-    mRNA_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'messenger_RNA'</span>, <span class="st">'messenger RNA'</span>, <span class="st">'SO:0000234'</span>)
-    CDS_synonyms  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'coding_sequence'</span>, <span class="st">'coding sequence'</span>, <span class="st">'SO:0000316'</span>)
-    exon_synonyms &lt;-<span class="st"> 'SO:0000147'</span>
-
-    .$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$type %in%<span class="st"> </span>gene_synonyms, <span class="st">'gene'</span>, .$type)
-    .$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$type %in%<span class="st"> </span>mRNA_synonyms, <span class="st">'mRNA'</span>, .$type)
-    .$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$type %in%<span class="st"> </span>CDS_synonyms,  <span class="st">'CDS'</span>,  .$type)
-    .$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$type %in%<span class="st"> </span>exon_synonyms, <span class="st">'exon'</span>, .$type)
-
-    .
-  } %&gt;_%<span class="st"> </span>{
-
-    <span class="st">&quot;</span>
-<span class="st">    The %&gt;_% operator lets this chunk of code be run for its effects, which</span>
-<span class="st">    are emitting warnings if we replace the type with a questionable synonym.</span>
-<span class="st">    We could alternatively just use %&gt;&gt;% and add a terminal '.' to this chunk.</span>
-<span class="st">    The use of this operator, though, signals an interdependent branch. Where</span>
-<span class="st">    failure of this branch triggers failure downstream.</span>
-<span class="st">    &quot;</span>
-
-    mRNA_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'transcript'</span>, <span class="st">'SO:0000673'</span>)
-    exon_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'SO:0000147'</span>, <span class="st">'coding_exon'</span>, <span class="st">'coding exon'</span>, <span class="st">'SO:0000195'</span>)
-
-    if(<span class="kw">any</span>(.$type %in%<span class="st"> </span>mRNA_near_synonyms)){
-        .$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$type %in%<span class="st"> </span>mRNA_near_synonyms, <span class="st">'mRNA'</span>, .$type)
-        <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for mRNA types, this is probably OK&quot;</span>)
-    }
-
-    if(<span class="kw">any</span>(.$type %in%<span class="st"> </span>exon_near_synonyms)){
-        .$type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$type %in%<span class="st"> </span>exon_near_synonyms, <span class="st">'exon'</span>, .$type)
-        <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for exon types, this is probably OK&quot;</span>)
-    }
-
-  } %&gt;&gt;%<span class="st"> </span>{
-
-    <span class="st">&quot;</span>
-<span class="st">    Notice here that I use the magrittr operator '%&gt;%' inside the rmonad</span>
-<span class="st">    pipeline. When to pipe with rmonad and when to pipe with magrittr is a</span>
-<span class="st">    matter of granularity. This chunk of code perhpas should form one</span>
-<span class="st">    documentation unit. And perhaps I don't expect it to fail. If I break this</span>
-<span class="st">    chunk into several, the failures are more localized, and I can access</span>
-<span class="st">    intermediate values for debugging. On the other hand, putting every little</span>
-<span class="st">    operation in a new chunk will clutter the graph and reports generated from</span>
-<span class="st">    it.</span>
-<span class="st">    &quot;</span>
-
-    <span class="kw">data_frame</span>(
-      <span class="dt">attr  =</span> stringr::<span class="kw">str_split</span>(.$attr, <span class="st">&quot;;&quot;</span>),
-      <span class="dt">order =</span> <span class="dv">1</span>:<span class="kw">nrow</span>(.)
-    ) %&gt;%
-<span class="st">      </span>dplyr::<span class="kw">mutate</span>(<span class="dt">ntags =</span> <span class="kw">sapply</span>(attr, length)) %&gt;%
-<span class="st">      </span>tidyr::<span class="kw">unnest</span>(attr) %&gt;%
-<span class="st">      </span>dplyr::<span class="kw">mutate</span>(<span class="dt">attr =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">'='</span>, attr), attr, <span class="kw">paste</span>(<span class="st">&quot;.U&quot;</span>, attr, <span class="dt">sep=</span><span class="st">&quot;=&quot;</span>))) %&gt;%
-<span class="st">      </span>tidyr::<span class="kw">separate_</span>(
-        <span class="dt">col   =</span> <span class="st">&quot;attr&quot;</span>,
-        <span class="dt">into  =</span> <span class="kw">c</span>(<span class="st">&quot;tag&quot;</span>, <span class="st">&quot;value&quot;</span>),
-        <span class="dt">sep   =</span> <span class="st">&quot;=&quot;</span>,
-        <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span>
-      )
-
-   } %v&gt;%<span class="st"> </span><span class="kw">funnel</span>(<span class="dt">raw_gff=</span>raw_gff, <span class="dt">tags=</span>tags) %*&gt;%<span class="st"> </span>{
-
-    <span class="st">&quot;</span>
-<span class="st">    The %v&gt;% operator stores the input value. We could replace every %&gt;&gt;%</span>
-<span class="st">    operator with %v&gt;%. This would let us inspect every step of an analysis at</span>
-<span class="st">    the cost of high memory usage. For brevity, I won't break this following</span>
-<span class="st">    block down any further.</span>
-
-<span class="st">    The `funnel` function packages a list in a monad, merging their histories</span>
-<span class="st">    and propagating error. That is, if `gff` or `tags` failed upstream, this</span>
-<span class="st">    function will not be run. `%*&gt;%` takes a list on the left and feeds it into</span>
-<span class="st">    the function on the right as an argument list. Here `funnel` and `%*&gt;%` are</span>
-<span class="st">    used together to merge a pipeline (gff) and inject a parameter (tags).</span>
-
-<span class="st">    We could not have written</span>
-
-<span class="st">      %v&gt;% function(gff=gff, tags=tags)</span>
-
-<span class="st">    because this would have brough the monad wrapped gff into scope, not the</span>
-<span class="st">    value itself.</span>
-<span class="st">    &quot;</span>
-
-      dplyr::<span class="kw">filter</span>(., tag %in%<span class="st"> </span><span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)) %&gt;%
-<span class="st">      </span>{
-        if(<span class="kw">nrow</span>(.) &gt;<span class="st"> </span><span class="dv">0</span>){
-          tidyr::<span class="kw">spread</span>(., <span class="dt">key=</span><span class="st">&quot;tag&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>)
-        } else {
-          .$tag   =<span class="st"> </span><span class="ot">NULL</span>
-          .$value =<span class="st"> </span><span class="ot">NULL</span>
-          .
-        }
-      } %&gt;%
-<span class="st">      </span>{
-        if(<span class="st">&quot;Parent&quot;</span> %in%<span class="st"> </span><span class="kw">names</span>(.)){
-          .$Parent &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.$Parent ==<span class="st"> &quot;-&quot;</span>, <span class="ot">NA</span>, .$Parent)
-        }
-        .
-      } %&gt;%<span class="st"> </span>{
-        for(tag in <span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)){
-          if(!<span class="st"> </span>tag %in%<span class="st"> </span><span class="kw">names</span>(.))
-            .[[tag]] =<span class="st"> </span><span class="ot">NA_character_</span>
-        }
-        .
-      } %&gt;%
-<span class="st">      </span>{
-        if(<span class="st">&quot;ID&quot;</span> %in%<span class="st"> </span><span class="kw">names</span>(.))
-          .$ID &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(.$ID) &amp;<span class="st"> </span>!<span class="kw">is.na</span>(.$.U) &amp;<span class="st"> </span>.$ntags ==<span class="st"> </span><span class="dv">1</span>, .$.U, .$ID)
-        .
-      } %&gt;%
-<span class="st">      </span><span class="kw">merge</span>(<span class="kw">data_frame</span>(<span class="dt">order=</span><span class="dv">1</span>:<span class="kw">nrow</span>(raw_gff)), <span class="dt">all=</span><span class="ot">TRUE</span>) %&gt;%
-<span class="st">      </span>dplyr::<span class="kw">arrange</span>(order) %&gt;%
-<span class="st">      </span>{ <span class="kw">cbind</span>(raw_gff, .) } %&gt;%
-<span class="st">      </span>dplyr::<span class="kw">select</span>(-.U, -order, -ntags, -attr)
-
-  } %&gt;_%<span class="st"> </span>{
-
-    <span class="st">&quot;</span>
-<span class="st">    And make the last few assertions.</span>
-<span class="st">    &quot;</span>
-
-    if(<span class="kw">all</span>(<span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>) %in%<span class="st"> </span><span class="kw">names</span>(.))){
-      parents &lt;-<span class="st"> </span><span class="kw">subset</span>(., type %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CDS&quot;</span>, <span class="st">&quot;exon&quot;</span>))$Parent
-      parent_types &lt;-<span class="st"> </span><span class="kw">subset</span>(., ID %in%<span class="st"> </span>parents)$type
-
-      if(<span class="kw">any</span>(parent_types ==<span class="st"> &quot;gene&quot;</span>))
-        <span class="kw">warning</span>(<span class="st">&quot;Found CDS or exon directly inheriting from a gene, this may be fine.&quot;</span>)
-
-      if(!<span class="st"> </span><span class="kw">all</span>(parent_types %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;mRNA&quot;</span>)))
-        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with illegal parent&quot;</span>)
-
-      if( <span class="kw">any</span>(<span class="kw">is.na</span>(parents)) )
-        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with no parent&quot;</span>)
-
-      if(!<span class="st"> </span><span class="kw">any</span>(<span class="kw">duplicated</span>(.$ID, <span class="dt">incomparables=</span><span class="ot">NA</span>)))
-        <span class="kw">warning</span>(<span class="st">&quot;IDs are not unique, this is probably bad&quot;</span>)
-    }
-
-  } %&gt;_%<span class="st"> </span>{
-
-    <span class="st">&quot;</span>
-<span class="st">    I could post some closing comments here. The %&gt;_% operator can be chained</span>
-<span class="st">    and the output does not affect the output of the main chain. The NULL is</span>
-<span class="st">    required to distinguish this block from an anonymous function that returns</span>
-<span class="st">    a string.</span>
-<span class="st">    &quot;</span>
-
-    <span class="ot">NULL</span>
-  }
-  <span class="co"># End Rmonad chain</span>
-
-}</code></pre>
+<pre class="sourceCode r" id="cb27"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">read_gff &lt;-<span class="st"> </span><span class="cf">function</span>(file, tags){</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">  raw_gff &lt;-<span class="st"> </span><span class="kw">as_monad</span>(</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">    {</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">      <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="st">      Rmonad supports docstrings. If an block begins with a string, this</span></a>
+<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="st">      string is extracted and stored. Python has something similar, where the</span></a>
+<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="st">      first string in a function is cast as documentation.</span></a>
+<a class="sourceLine" id="cb27-10" data-line-number="10"><span class="st">      </span></a>
+<a class="sourceLine" id="cb27-11" data-line-number="11"><span class="st">      The `as_monad` function takes an expression and wraps its result into a</span></a>
+<a class="sourceLine" id="cb27-12" data-line-number="12"><span class="st">      context. It also handles the extraction of this docstring. The result</span></a>
+<a class="sourceLine" id="cb27-13" data-line-number="13"><span class="st">      here is used at more than one place in the pipeline. Rather than</span></a>
+<a class="sourceLine" id="cb27-14" data-line-number="14"><span class="st">      accessing it later as a global, it will be funneled bach in.</span></a>
+<a class="sourceLine" id="cb27-15" data-line-number="15"><span class="st">      &quot;</span></a>
+<a class="sourceLine" id="cb27-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb27-17" data-line-number="17">      readr<span class="op">::</span><span class="kw">read_tsv</span>(</a>
+<a class="sourceLine" id="cb27-18" data-line-number="18">        file,</a>
+<a class="sourceLine" id="cb27-19" data-line-number="19">        <span class="dt">col_names =</span> <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb27-20" data-line-number="20">          <span class="st">&quot;seqid&quot;</span>,</a>
+<a class="sourceLine" id="cb27-21" data-line-number="21">          <span class="st">&quot;source&quot;</span>,</a>
+<a class="sourceLine" id="cb27-22" data-line-number="22">          <span class="st">&quot;type&quot;</span>,</a>
+<a class="sourceLine" id="cb27-23" data-line-number="23">          <span class="st">&quot;start&quot;</span>,</a>
+<a class="sourceLine" id="cb27-24" data-line-number="24">          <span class="st">&quot;stop&quot;</span>,</a>
+<a class="sourceLine" id="cb27-25" data-line-number="25">          <span class="st">&quot;score&quot;</span>,</a>
+<a class="sourceLine" id="cb27-26" data-line-number="26">          <span class="st">&quot;strand&quot;</span>,</a>
+<a class="sourceLine" id="cb27-27" data-line-number="27">          <span class="st">&quot;phase&quot;</span>,</a>
+<a class="sourceLine" id="cb27-28" data-line-number="28">          <span class="st">&quot;attr&quot;</span></a>
+<a class="sourceLine" id="cb27-29" data-line-number="29">        ),</a>
+<a class="sourceLine" id="cb27-30" data-line-number="30">        <span class="dt">na        =</span> <span class="st">&quot;.&quot;</span>,</a>
+<a class="sourceLine" id="cb27-31" data-line-number="31">        <span class="dt">comment   =</span> <span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb27-32" data-line-number="32">        <span class="dt">col_types =</span> <span class="st">&quot;ccciidcic&quot;</span></a>
+<a class="sourceLine" id="cb27-33" data-line-number="33">      )</a>
+<a class="sourceLine" id="cb27-34" data-line-number="34">    }</a>
+<a class="sourceLine" id="cb27-35" data-line-number="35">  )</a>
+<a class="sourceLine" id="cb27-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb27-37" data-line-number="37">  raw_gff <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-38" data-line-number="38"></a>
+<a class="sourceLine" id="cb27-39" data-line-number="39">    <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-40" data-line-number="40"><span class="st">    The %&gt;&gt;% operator applies the function described in this block to the</span></a>
+<a class="sourceLine" id="cb27-41" data-line-number="41"><span class="st">    input on the left-hand-side. This corresponds to the UNIX '|' or magrittr's</span></a>
+<a class="sourceLine" id="cb27-42" data-line-number="42"><span class="st">    '%&gt;%'. It differs from them in that it is a monadic bind operator, rather</span></a>
+<a class="sourceLine" id="cb27-43" data-line-number="43"><span class="st">    than an application operator. It carries a context along with the</span></a>
+<a class="sourceLine" id="cb27-44" data-line-number="44"><span class="st">    computations. The context can store past values, performance information,</span></a>
+<a class="sourceLine" id="cb27-45" data-line-number="45"><span class="st">    this docstring, and links to the parent chunk. The context is a directed</span></a>
+<a class="sourceLine" id="cb27-46" data-line-number="46"><span class="st">    graph of code chunks and their metadata.</span></a>
+<a class="sourceLine" id="cb27-47" data-line-number="47"><span class="st">    &quot;</span></a>
+<a class="sourceLine" id="cb27-48" data-line-number="48"></a>
+<a class="sourceLine" id="cb27-49" data-line-number="49">    <span class="cf">for</span>(col <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;seqid&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;start&quot;</span>, <span class="st">&quot;stop&quot;</span>)){</a>
+<a class="sourceLine" id="cb27-50" data-line-number="50">      <span class="cf">if</span>(<span class="kw">any</span>(<span class="kw">is.na</span>(.[[col]]))){</a>
+<a class="sourceLine" id="cb27-51" data-line-number="51">        <span class="kw">stop</span>(<span class="st">&quot;GFFError: Column '&quot;</span>, col, <span class="st">&quot;' may not have missing values&quot;</span>)</a>
+<a class="sourceLine" id="cb27-52" data-line-number="52">      }</a>
+<a class="sourceLine" id="cb27-53" data-line-number="53">    }</a>
+<a class="sourceLine" id="cb27-54" data-line-number="54">    .</a>
+<a class="sourceLine" id="cb27-55" data-line-number="55">  } <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-56" data-line-number="56"></a>
+<a class="sourceLine" id="cb27-57" data-line-number="57">    <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-58" data-line-number="58"><span class="st">    Note that these blocks of code are copied verbatim from above, only using</span></a>
+<a class="sourceLine" id="cb27-59" data-line-number="59"><span class="st">    '.' in place of 'g'.</span></a>
+<a class="sourceLine" id="cb27-60" data-line-number="60"><span class="st">    &quot;</span></a>
+<a class="sourceLine" id="cb27-61" data-line-number="61"></a>
+<a class="sourceLine" id="cb27-62" data-line-number="62">    gene_synonyms &lt;-<span class="st"> 'SO:0000704'</span></a>
+<a class="sourceLine" id="cb27-63" data-line-number="63">    mRNA_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'messenger_RNA'</span>, <span class="st">'messenger RNA'</span>, <span class="st">'SO:0000234'</span>)</a>
+<a class="sourceLine" id="cb27-64" data-line-number="64">    CDS_synonyms  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'coding_sequence'</span>, <span class="st">'coding sequence'</span>, <span class="st">'SO:0000316'</span>)</a>
+<a class="sourceLine" id="cb27-65" data-line-number="65">    exon_synonyms &lt;-<span class="st"> 'SO:0000147'</span></a>
+<a class="sourceLine" id="cb27-66" data-line-number="66"></a>
+<a class="sourceLine" id="cb27-67" data-line-number="67">    .<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>gene_synonyms, <span class="st">'gene'</span>, .<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb27-68" data-line-number="68">    .<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>mRNA_synonyms, <span class="st">'mRNA'</span>, .<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb27-69" data-line-number="69">    .<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>CDS_synonyms,  <span class="st">'CDS'</span>,  .<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb27-70" data-line-number="70">    .<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>exon_synonyms, <span class="st">'exon'</span>, .<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb27-71" data-line-number="71"></a>
+<a class="sourceLine" id="cb27-72" data-line-number="72">    .</a>
+<a class="sourceLine" id="cb27-73" data-line-number="73">  } <span class="op">%&gt;_%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-74" data-line-number="74"></a>
+<a class="sourceLine" id="cb27-75" data-line-number="75">    <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-76" data-line-number="76"><span class="st">    The %&gt;_% operator lets this chunk of code be run for its effects, which</span></a>
+<a class="sourceLine" id="cb27-77" data-line-number="77"><span class="st">    are emitting warnings if we replace the type with a questionable synonym.</span></a>
+<a class="sourceLine" id="cb27-78" data-line-number="78"><span class="st">    We could alternatively just use %&gt;&gt;% and add a terminal '.' to this chunk.</span></a>
+<a class="sourceLine" id="cb27-79" data-line-number="79"><span class="st">    The use of this operator, though, signals an interdependent branch. Where</span></a>
+<a class="sourceLine" id="cb27-80" data-line-number="80"><span class="st">    failure of this branch triggers failure downstream.</span></a>
+<a class="sourceLine" id="cb27-81" data-line-number="81"><span class="st">    &quot;</span></a>
+<a class="sourceLine" id="cb27-82" data-line-number="82"></a>
+<a class="sourceLine" id="cb27-83" data-line-number="83">    mRNA_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'transcript'</span>, <span class="st">'SO:0000673'</span>)</a>
+<a class="sourceLine" id="cb27-84" data-line-number="84">    exon_near_synonyms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'SO:0000147'</span>, <span class="st">'coding_exon'</span>, <span class="st">'coding exon'</span>, <span class="st">'SO:0000195'</span>)</a>
+<a class="sourceLine" id="cb27-85" data-line-number="85"></a>
+<a class="sourceLine" id="cb27-86" data-line-number="86">    <span class="cf">if</span>(<span class="kw">any</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>mRNA_near_synonyms)){</a>
+<a class="sourceLine" id="cb27-87" data-line-number="87">        .<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>mRNA_near_synonyms, <span class="st">'mRNA'</span>, .<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb27-88" data-line-number="88">        <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for mRNA types, this is probably OK&quot;</span>)</a>
+<a class="sourceLine" id="cb27-89" data-line-number="89">    }</a>
+<a class="sourceLine" id="cb27-90" data-line-number="90"></a>
+<a class="sourceLine" id="cb27-91" data-line-number="91">    <span class="cf">if</span>(<span class="kw">any</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>exon_near_synonyms)){</a>
+<a class="sourceLine" id="cb27-92" data-line-number="92">        .<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span>exon_near_synonyms, <span class="st">'exon'</span>, .<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb27-93" data-line-number="93">        <span class="kw">warning</span>(<span class="st">&quot;Substituting transcript types for exon types, this is probably OK&quot;</span>)</a>
+<a class="sourceLine" id="cb27-94" data-line-number="94">    }</a>
+<a class="sourceLine" id="cb27-95" data-line-number="95"></a>
+<a class="sourceLine" id="cb27-96" data-line-number="96">  } <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-97" data-line-number="97"></a>
+<a class="sourceLine" id="cb27-98" data-line-number="98">    <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-99" data-line-number="99"><span class="st">    Notice here that I use the magrittr operator '%&gt;%' inside the rmonad</span></a>
+<a class="sourceLine" id="cb27-100" data-line-number="100"><span class="st">    pipeline. When to pipe with rmonad and when to pipe with magrittr is a</span></a>
+<a class="sourceLine" id="cb27-101" data-line-number="101"><span class="st">    matter of granularity. This chunk of code perhpas should form one</span></a>
+<a class="sourceLine" id="cb27-102" data-line-number="102"><span class="st">    documentation unit. And perhaps I don't expect it to fail. If I break this</span></a>
+<a class="sourceLine" id="cb27-103" data-line-number="103"><span class="st">    chunk into several, the failures are more localized, and I can access</span></a>
+<a class="sourceLine" id="cb27-104" data-line-number="104"><span class="st">    intermediate values for debugging. On the other hand, putting every little</span></a>
+<a class="sourceLine" id="cb27-105" data-line-number="105"><span class="st">    operation in a new chunk will clutter the graph and reports generated from</span></a>
+<a class="sourceLine" id="cb27-106" data-line-number="106"><span class="st">    it.</span></a>
+<a class="sourceLine" id="cb27-107" data-line-number="107"><span class="st">    &quot;</span></a>
+<a class="sourceLine" id="cb27-108" data-line-number="108"></a>
+<a class="sourceLine" id="cb27-109" data-line-number="109">    <span class="kw">data_frame</span>(</a>
+<a class="sourceLine" id="cb27-110" data-line-number="110">      <span class="dt">attr  =</span> stringr<span class="op">::</span><span class="kw">str_split</span>(.<span class="op">$</span>attr, <span class="st">&quot;;&quot;</span>),</a>
+<a class="sourceLine" id="cb27-111" data-line-number="111">      <span class="dt">order =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.)</a>
+<a class="sourceLine" id="cb27-112" data-line-number="112">    ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-113" data-line-number="113"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ntags =</span> <span class="kw">sapply</span>(attr, length)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-114" data-line-number="114"><span class="st">      </span>tidyr<span class="op">::</span><span class="kw">unnest</span>(attr) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-115" data-line-number="115"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">attr =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">'='</span>, attr), attr, <span class="kw">paste</span>(<span class="st">&quot;.U&quot;</span>, attr, <span class="dt">sep=</span><span class="st">&quot;=&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-116" data-line-number="116"><span class="st">      </span>tidyr<span class="op">::</span><span class="kw">separate_</span>(</a>
+<a class="sourceLine" id="cb27-117" data-line-number="117">        <span class="dt">col   =</span> <span class="st">&quot;attr&quot;</span>,</a>
+<a class="sourceLine" id="cb27-118" data-line-number="118">        <span class="dt">into  =</span> <span class="kw">c</span>(<span class="st">&quot;tag&quot;</span>, <span class="st">&quot;value&quot;</span>),</a>
+<a class="sourceLine" id="cb27-119" data-line-number="119">        <span class="dt">sep   =</span> <span class="st">&quot;=&quot;</span>,</a>
+<a class="sourceLine" id="cb27-120" data-line-number="120">        <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span></a>
+<a class="sourceLine" id="cb27-121" data-line-number="121">      )</a>
+<a class="sourceLine" id="cb27-122" data-line-number="122"></a>
+<a class="sourceLine" id="cb27-123" data-line-number="123">   } <span class="op">%v&gt;%</span><span class="st"> </span><span class="kw">funnel</span>(<span class="dt">raw_gff=</span>raw_gff, <span class="dt">tags=</span>tags) <span class="op">%*&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-124" data-line-number="124"></a>
+<a class="sourceLine" id="cb27-125" data-line-number="125">    <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-126" data-line-number="126"><span class="st">    The %v&gt;% operator stores the input value. We could replace every %&gt;&gt;%</span></a>
+<a class="sourceLine" id="cb27-127" data-line-number="127"><span class="st">    operator with %v&gt;%. This would let us inspect every step of an analysis at</span></a>
+<a class="sourceLine" id="cb27-128" data-line-number="128"><span class="st">    the cost of high memory usage. For brevity, I won't break this following</span></a>
+<a class="sourceLine" id="cb27-129" data-line-number="129"><span class="st">    block down any further.</span></a>
+<a class="sourceLine" id="cb27-130" data-line-number="130"></a>
+<a class="sourceLine" id="cb27-131" data-line-number="131"><span class="st">    The `funnel` function packages a list in a monad, merging their histories</span></a>
+<a class="sourceLine" id="cb27-132" data-line-number="132"><span class="st">    and propagating error. That is, if `gff` or `tags` failed upstream, this</span></a>
+<a class="sourceLine" id="cb27-133" data-line-number="133"><span class="st">    function will not be run. `%*&gt;%` takes a list on the left and feeds it into</span></a>
+<a class="sourceLine" id="cb27-134" data-line-number="134"><span class="st">    the function on the right as an argument list. Here `funnel` and `%*&gt;%` are</span></a>
+<a class="sourceLine" id="cb27-135" data-line-number="135"><span class="st">    used together to merge a pipeline (gff) and inject a parameter (tags).</span></a>
+<a class="sourceLine" id="cb27-136" data-line-number="136"></a>
+<a class="sourceLine" id="cb27-137" data-line-number="137"><span class="st">    We could not have written</span></a>
+<a class="sourceLine" id="cb27-138" data-line-number="138"></a>
+<a class="sourceLine" id="cb27-139" data-line-number="139"><span class="st">      %v&gt;% function(gff=gff, tags=tags)</span></a>
+<a class="sourceLine" id="cb27-140" data-line-number="140"></a>
+<a class="sourceLine" id="cb27-141" data-line-number="141"><span class="st">    because this would have brough the monad wrapped gff into scope, not the</span></a>
+<a class="sourceLine" id="cb27-142" data-line-number="142"><span class="st">    value itself.</span></a>
+<a class="sourceLine" id="cb27-143" data-line-number="143"><span class="st">    &quot;</span></a>
+<a class="sourceLine" id="cb27-144" data-line-number="144"></a>
+<a class="sourceLine" id="cb27-145" data-line-number="145">      dplyr<span class="op">::</span><span class="kw">filter</span>(., tag <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-146" data-line-number="146"><span class="st">      </span>{</a>
+<a class="sourceLine" id="cb27-147" data-line-number="147">        <span class="cf">if</span>(<span class="kw">nrow</span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb27-148" data-line-number="148">          tidyr<span class="op">::</span><span class="kw">spread</span>(., <span class="dt">key=</span><span class="st">&quot;tag&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>)</a>
+<a class="sourceLine" id="cb27-149" data-line-number="149">        } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb27-150" data-line-number="150">          .<span class="op">$</span>tag   =<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb27-151" data-line-number="151">          .<span class="op">$</span>value =<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb27-152" data-line-number="152">          .</a>
+<a class="sourceLine" id="cb27-153" data-line-number="153">        }</a>
+<a class="sourceLine" id="cb27-154" data-line-number="154">      } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-155" data-line-number="155"><span class="st">      </span>{</a>
+<a class="sourceLine" id="cb27-156" data-line-number="156">        <span class="cf">if</span>(<span class="st">&quot;Parent&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.)){</a>
+<a class="sourceLine" id="cb27-157" data-line-number="157">          .<span class="op">$</span>Parent &lt;-<span class="st"> </span><span class="kw">ifelse</span>(.<span class="op">$</span>Parent <span class="op">==</span><span class="st"> &quot;-&quot;</span>, <span class="ot">NA</span>, .<span class="op">$</span>Parent)</a>
+<a class="sourceLine" id="cb27-158" data-line-number="158">        }</a>
+<a class="sourceLine" id="cb27-159" data-line-number="159">        .</a>
+<a class="sourceLine" id="cb27-160" data-line-number="160">      } <span class="op">%&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-161" data-line-number="161">        <span class="cf">for</span>(tag <span class="cf">in</span> <span class="kw">c</span>(tags, <span class="st">&quot;.U&quot;</span>)){</a>
+<a class="sourceLine" id="cb27-162" data-line-number="162">          <span class="cf">if</span>(<span class="op">!</span><span class="st"> </span>tag <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.))</a>
+<a class="sourceLine" id="cb27-163" data-line-number="163">            .[[tag]] =<span class="st"> </span><span class="ot">NA_character_</span></a>
+<a class="sourceLine" id="cb27-164" data-line-number="164">        }</a>
+<a class="sourceLine" id="cb27-165" data-line-number="165">        .</a>
+<a class="sourceLine" id="cb27-166" data-line-number="166">      } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-167" data-line-number="167"><span class="st">      </span>{</a>
+<a class="sourceLine" id="cb27-168" data-line-number="168">        <span class="cf">if</span>(<span class="st">&quot;ID&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.))</a>
+<a class="sourceLine" id="cb27-169" data-line-number="169">          .<span class="op">$</span>ID &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(.<span class="op">$</span>ID) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(.<span class="op">$</span>.U) <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span>ntags <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, .<span class="op">$</span>.U, .<span class="op">$</span>ID)</a>
+<a class="sourceLine" id="cb27-170" data-line-number="170">        .</a>
+<a class="sourceLine" id="cb27-171" data-line-number="171">      } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-172" data-line-number="172"><span class="st">      </span><span class="kw">merge</span>(<span class="kw">data_frame</span>(<span class="dt">order=</span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(raw_gff)), <span class="dt">all=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-173" data-line-number="173"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(order) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-174" data-line-number="174"><span class="st">      </span>{ <span class="kw">cbind</span>(raw_gff, .) } <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-175" data-line-number="175"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>.U, <span class="op">-</span>order, <span class="op">-</span>ntags, <span class="op">-</span>attr)</a>
+<a class="sourceLine" id="cb27-176" data-line-number="176"></a>
+<a class="sourceLine" id="cb27-177" data-line-number="177">  } <span class="op">%&gt;_%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-178" data-line-number="178"></a>
+<a class="sourceLine" id="cb27-179" data-line-number="179">    <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-180" data-line-number="180"><span class="st">    And make the last few assertions.</span></a>
+<a class="sourceLine" id="cb27-181" data-line-number="181"><span class="st">    &quot;</span></a>
+<a class="sourceLine" id="cb27-182" data-line-number="182"></a>
+<a class="sourceLine" id="cb27-183" data-line-number="183">    <span class="cf">if</span>(<span class="kw">all</span>(<span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>) <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(.))){</a>
+<a class="sourceLine" id="cb27-184" data-line-number="184">      parents &lt;-<span class="st"> </span><span class="kw">subset</span>(., type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CDS&quot;</span>, <span class="st">&quot;exon&quot;</span>))<span class="op">$</span>Parent</a>
+<a class="sourceLine" id="cb27-185" data-line-number="185">      parent_types &lt;-<span class="st"> </span><span class="kw">subset</span>(., ID <span class="op">%in%</span><span class="st"> </span>parents)<span class="op">$</span>type</a>
+<a class="sourceLine" id="cb27-186" data-line-number="186"></a>
+<a class="sourceLine" id="cb27-187" data-line-number="187">      <span class="cf">if</span>(<span class="kw">any</span>(parent_types <span class="op">==</span><span class="st"> &quot;gene&quot;</span>))</a>
+<a class="sourceLine" id="cb27-188" data-line-number="188">        <span class="kw">warning</span>(<span class="st">&quot;Found CDS or exon directly inheriting from a gene, this may be fine.&quot;</span>)</a>
+<a class="sourceLine" id="cb27-189" data-line-number="189"></a>
+<a class="sourceLine" id="cb27-190" data-line-number="190">      <span class="cf">if</span>(<span class="op">!</span><span class="st"> </span><span class="kw">all</span>(parent_types <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;mRNA&quot;</span>)))</a>
+<a class="sourceLine" id="cb27-191" data-line-number="191">        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with illegal parent&quot;</span>)</a>
+<a class="sourceLine" id="cb27-192" data-line-number="192"></a>
+<a class="sourceLine" id="cb27-193" data-line-number="193">      <span class="cf">if</span>( <span class="kw">any</span>(<span class="kw">is.na</span>(parents)) )</a>
+<a class="sourceLine" id="cb27-194" data-line-number="194">        <span class="kw">stop</span>(<span class="st">&quot;Found CDS or exon with no parent&quot;</span>)</a>
+<a class="sourceLine" id="cb27-195" data-line-number="195"></a>
+<a class="sourceLine" id="cb27-196" data-line-number="196">      <span class="cf">if</span>(<span class="op">!</span><span class="st"> </span><span class="kw">any</span>(<span class="kw">duplicated</span>(.<span class="op">$</span>ID, <span class="dt">incomparables=</span><span class="ot">NA</span>)))</a>
+<a class="sourceLine" id="cb27-197" data-line-number="197">        <span class="kw">warning</span>(<span class="st">&quot;IDs are not unique, this is probably bad&quot;</span>)</a>
+<a class="sourceLine" id="cb27-198" data-line-number="198">    }</a>
+<a class="sourceLine" id="cb27-199" data-line-number="199"></a>
+<a class="sourceLine" id="cb27-200" data-line-number="200">  } <span class="op">%&gt;_%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-201" data-line-number="201"></a>
+<a class="sourceLine" id="cb27-202" data-line-number="202">    <span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb27-203" data-line-number="203"><span class="st">    I could post some closing comments here. The %&gt;_% operator can be chained</span></a>
+<a class="sourceLine" id="cb27-204" data-line-number="204"><span class="st">    and the output does not affect the output of the main chain. The NULL is</span></a>
+<a class="sourceLine" id="cb27-205" data-line-number="205"><span class="st">    required to distinguish this block from an anonymous function that returns</span></a>
+<a class="sourceLine" id="cb27-206" data-line-number="206"><span class="st">    a string.</span></a>
+<a class="sourceLine" id="cb27-207" data-line-number="207"><span class="st">    &quot;</span></a>
+<a class="sourceLine" id="cb27-208" data-line-number="208"></a>
+<a class="sourceLine" id="cb27-209" data-line-number="209">    <span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb27-210" data-line-number="210">  }</a>
+<a class="sourceLine" id="cb27-211" data-line-number="211">  <span class="co"># End Rmonad chain</span></a>
+<a class="sourceLine" id="cb27-212" data-line-number="212"></a>
+<a class="sourceLine" id="cb27-213" data-line-number="213">}</a></code></pre>
 <p>That is the whole GFF program in an rmonad framework</p>
-<pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="kw">read_gff</span>(<span class="dt">file=</span>gff$good, <span class="dt">tags=</span><span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>))</code></pre>
+<pre class="sourceCode r" id="cb28"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="kw">read_gff</span>(<span class="dt">file=</span>gff<span class="op">$</span>good, <span class="dt">tags=</span><span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Parent&quot;</span>))</a></code></pre>
 <p><code>esc</code> will extract the final result, and raise all errors, warnings and messages that where extracted</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">esc</span>(result)</code></pre>
+<pre class="sourceCode r" id="cb29"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">esc</span>(result)</a></code></pre>
 <pre><code>## Warning: in 'function (.) 
 ## {
 ##     if (all(c(&quot;ID&quot;, &quot;Parent&quot;) %in% names(.))) {
@@ -592,59 +805,42 @@ if(<span class="kw">any</span>(g$type %in%<span class="st"> </span>exon_near_syn
 ## 24     I   &lt;NA&gt; exon 11565 11951    NA      -    NA  &lt;NA&gt;  mrna3
 ## 25     I   &lt;NA&gt;  CDS 11565 11951    NA      -     0  &lt;NA&gt;  mrna3</code></pre>
 <p>Now we see why we might want a little more granularity in our pipeline. To summarize the results we can use the <code>mtabulate</code> functions.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mtabulate</span>(result)</code></pre>
-<pre><code>##    id   OK cached  time space is_nested nbranch nnotes nwarnings error doc
-## 1   7 TRUE   TRUE 0.000   152     FALSE       0      0         0     0   0
-## 2   1 TRUE   TRUE 0.003  9432     FALSE       0      0         0     0   1
-## 3   6 TRUE   TRUE 0.000  2416     FALSE       0      0         0     0   0
-## 4   8 TRUE  FALSE    NA    NA     FALSE       0      0         0     0   0
-## 5   1 TRUE  FALSE 0.003  9432     FALSE       0      0         0     0   1
-## 6   2 TRUE  FALSE 0.039  9432     FALSE       0      0         0     0   1
-## 7   3 TRUE  FALSE 0.001  9432     FALSE       0      0         0     0   1
-## 8   4 TRUE  FALSE 0.001  9432     FALSE       0      0         0     0   1
-## 9   5 TRUE   TRUE 0.082  2416     FALSE       0      0         0     0   1
-## 10  9 TRUE  FALSE 0.004 12400      TRUE       0      0         0     0   0
-## 11 10 TRUE  FALSE 0.052  4640     FALSE       0      0         0     0   1
-## 12 11 TRUE  FALSE 0.001  4640     FALSE       0      0         1     0   1
-## 13 12 TRUE   TRUE 0.002  4640     FALSE       0      0         0     0   1</code></pre>
+<pre class="sourceCode r" id="cb32"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">mtabulate</span>(result)</a></code></pre>
+<pre><code>##   id   OK cached time space is_nested ndependents nnotes nwarnings error
+## 1  1 TRUE  FALSE    0   152         0           1      0         0     0
+## 2  2 TRUE  FALSE    0  9432         0           1      0         0     0
+## 3  3 TRUE  FALSE    0  2416         0           1      0         0     0
+## 4  4 TRUE  FALSE    0 12400         0           0      0         0     0
+## 5  5 TRUE  FALSE    0 12400         1           1      0         0     0
+## 6  6 TRUE  FALSE    0  4640         0           1      0         0     0
+## 7  7 TRUE  FALSE    0  4640         0           1      0         1     0
+## 8  8 TRUE   TRUE    0  4640         0           0      0         0     0
+##   doc
+## 1   0
+## 2   1
+## 3   0
+## 4   0
+## 5   0
+## 6   1
+## 7   1
+## 8   1</code></pre>
 <p>We can also get a summary of issues</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missues</span>(result)</code></pre>
+<pre class="sourceCode r" id="cb34"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">missues</span>(result)</a></code></pre>
 <pre><code>##   id    type
-## 1 11 warning
+## 1  7 warning
 ##                                                                  issue
 ## 1 Found CDS or exon directly inheriting from a gene, this may be fine.</code></pre>
 <p>The <code>id</code> column corresponds to a row number in the <code>mtabulate</code> result.</p>
-<p>To extract particular values, we can use the <code>m_*</code> family of getters</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get a list of every stored value, report uncached values as NULL</span>
-<span class="kw">lapply</span>(<span class="kw">as.list</span>(result), m_value, <span class="dt">warn=</span><span class="ot">FALSE</span>)
-<span class="co"># get a list of every docstring</span>
-<span class="kw">lapply</span>(<span class="kw">as.list</span>(result), m_doc)</code></pre>
-<!--
-Unfortunately, knitr imports 5Mb of junk when I build this plot directly, so
-instead I am importing a static image. There should be a way to avoid this
--->
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(result)</code></pre>
-<div class="figure">
-<img src="data:image/png;base64,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" alt="plot of chunk gff-workflow-plot" />
-<p class="caption">plot of chunk gff-workflow-plot</p>
-</div>
+<p>To extract particular values, we can use the <code>get_*</code> family of vectorized getters</p>
+<pre class="sourceCode r" id="cb36"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># get a list of every stored value, report uncached values as NULL</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">get_value</span>(result, <span class="dt">warn=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="co"># get a list of every docstring</span></a>
+<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="kw">get_doc</span>(result)</a></code></pre>
+<pre class="sourceCode r" id="cb37"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">plot</span>(result)</a></code></pre>
+<p><img src="data:image/png;base64,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d/b29l63bh3tBTyMAgOMUWJior+/f0hICMvlAU24hAgYnd27dw8dOjQqKio0NNTQWQDjxW92gHFZsWJFWFhYdHQ07QVUjBkYYESioqJmz569d+/epk2bGjoLYOwoMMAoqFSqd9555/jx44cOHXJ1dTV0HEACFBhgeIWFhUOGDCkpKdm9e3etWrUMHQeQA5+BAQaWlpYWEBDg6uq6ZcsW2guoPAoMMKRLly516dKlf//+S5YssbDgigjwGPg/DGAwhw8ffvHFF2fMmDFs2DBDZwHkwwwMMIx169aFhIT89NNPtBdQNczAAAOIior69ttvd+zY0bJlS0NnAWRFgQF6pVKp3nvvvb179x46dKhevXqGjgNIjAID9Ofu3buvvvpqdnb2gQMHHBwcDB0HkBufgQF6kp2dHRgYaGNjExcXR3sBT44CA/Th8uXL/v7+HTt2XLZsmaWlpaHjAKaAAgN07tixY506dZowYUJkZKRCoTB0HMBEUGCAFmRnZ2vatWHDhv79+y9atGjs2LH6jASYPAoMeFJlZWW+vr6ffvrpw7sWLVo0bty4uLi4fv366T8YYNpYhQg8qfj4+JSUlOnTp9evX//111+/t1GtVkdERERHRx84cMDLy8uwCQGTRIEBT2rFihX3vhg9enTdunX79OmjVCpHjhx57dq1ffv21alTx7DxAFPFJUTgieTn569fv/7+tyNGjNi7d29QUFBxcfGuXbtoL0B3KDDgiSxbtiwnJ+f+txkZGYGBgQ0bNvztt99sbGwMGAwweRQYUHWlpaWzZ89+eOPRo0fz8vIMEgmoPigwoOrWrFmTlJT08PZz584NHDhQqVTqPxJQfSjUarWhMwBSKi4ufvbZZy9duqRpwJAhQ1atWmVmxq+JgE7wfy2giubNm1dBewkhfv31148++khveYDqhgIDqiIlJeWrr76qeEybNm2srKz0kweohrgPDKiKsWPHZmRkPLy9devWvXv37tmzZ/v27W1tbfUfDKg+KDDgsS1dunTTpk3/3uLt7f3aa6+9/PLLDRs2NFQqoLphEQequwsXLly8eDElJSU3N7dOnTpubm6+vr4VvCv5999/DwwMvP9t3759J02a1LVrVx4zD+gZBYZqKiUlZc6cOevXr88syvT09XRwd7B1tL2ddTs/Pf/q8atNPJsMHjz47bffdnR0/PdRJ06c6Nmz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" /><!-- --></p>
 <p>A plot of the connections between functions in the pipeline. The node labels are the <code>rmonad</code> ids. The red arrow indicates a ‘nest’ relationship. Green nodes are OK, orange nodes raised a warning, red nodes (none appear in this graph) represent errors.</p>
-<p>The generic <code>as.list</code> function extracts every node from an rmonad object. Here is a list of all currently supported getter functions.</p>
-<ul>
-<li><code>m_parents</code> - list of node parents</li>
-<li><code>m_value</code> - the value stored in the object, if any</li>
-<li><code>m_ok</code> - is the node in a passing state?</li>
-<li><code>m_code</code> - the code chunk (minus the docstring)</li>
-<li><code>m_error</code> - any errors that were raised</li>
-<li><code>m_warnings</code> - any warnings that were raised</li>
-<li><code>m_notes</code> - any messages that were printed</li>
-<li><code>m_doc</code> - the docstring</li>
-<li><code>m_time</code> - the time required to evaluate the chunk</li>
-<li><code>m_mem</code> - the size of the resulting value, in bytes</li>
-<li><code>m_branch</code> - nodes branching from this node (not used in this pipeline)</li>
-</ul>
-<p>If the pipeline fails, the last valid result is saved,</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_gff</span>(gff$not_a_gff1)</code></pre>
+<p>If the pipeline fails, the last valid result is saved, for example</p>
+<pre class="sourceCode r" id="cb38"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">read_gff</span>(gff<span class="op">$</span>not_a_gff1)</a></code></pre>
 <pre><code>## 
 ## 
 ##     
@@ -658,11 +854,7 @@ instead I am importing a static image. There should be a way to avoid this
 ##       accessing it later as a global, it will be funneled bach in.
 ##       
 ## 
-## R&gt; &quot;{
-##     readr::read_tsv(file, col_names = c(&quot;seqid&quot;, &quot;source&quot;, &quot;type&quot;, 
-##         &quot;start&quot;, &quot;stop&quot;, &quot;score&quot;, &quot;strand&quot;, &quot;phase&quot;, &quot;attr&quot;), 
-##         na = &quot;.&quot;, comment = &quot;#&quot;, col_types = &quot;ccciidcic&quot;)
-## }&quot;
+## N1&gt; &quot;&quot;
 ##  * WARNING: number of columns of result is not a multiple of vector length (arg 1)
 ##  * WARNING: 3 parsing failures.
 ## row # A tibble: 3 x 5 col     row   col  expected    actual         file expected   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt; actual 1     1  &lt;NA&gt; 9 columns 1 columns literal data file 2     2  &lt;NA&gt; 9 columns 1 columns literal data row 3     3  &lt;NA&gt; 9 columns 1 columns literal data
@@ -679,7 +871,7 @@ instead I am importing a static image. There should be a way to avoid this
 ##     graph of code chunks and their metadata.
 ##     
 ## 
-## R&gt; &quot;function (.) 
+## N2&gt; &quot;function (.) 
 ## {
 ##     for (col in c(&quot;seqid&quot;, &quot;type&quot;, &quot;start&quot;, &quot;stop&quot;)) {
 ##         if (any(is.na(.[[col]]))) {
@@ -701,8 +893,8 @@ instead I am importing a static image. There should be a way to avoid this
 ##  *** FAILURE ***</code></pre>
 <p>This makes debugging much simpler. We don’t need to jump back and rerun small parts of the pipeline. The failing object, and all intermediate data, could be saved. This could also allow for much richer bug reporting.</p>
 <p>Overall, in <code>rmonad</code>, the output of a pipeline is not just the effluent of the last pipeline, but the collection of all the nodes along the way. The pipeline itself becomes data that can be computed upon.</p>
-</div>
-</div>
+</section>
+</section>
 
 
 

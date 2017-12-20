@@ -366,12 +366,12 @@ missues(result)
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  # get a list of every stored value, report uncached values as NULL
-#  lapply(as.list(result), m_value, warn=FALSE)
+#  get_value(result, warn=FALSE)
 #  # get a list of every docstring
-#  lapply(as.list(result), m_doc)
+#  get_doc(result)
 
-## ----gff-workflow-plot, eval=FALSE---------------------------------------
-#  plot(result)
+## ----gff-workflow-plot, fig.width=6, fig.height=6------------------------
+plot(result)
 
 ## ------------------------------------------------------------------------
 read_gff(gff$not_a_gff1)

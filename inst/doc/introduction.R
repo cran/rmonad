@@ -60,22 +60,19 @@ set.seed(210)
 
 ## ------------------------------------------------------------------------
 result <- 1:5 %v>% sqrt %v>% sqrt %v>% sqrt
-as.list(result)[[2]] %>% esc
-
-## ---- eval=FALSE---------------------------------------------------------
-#  as_dgr_graph(result)
+get_value(result)[[2]]
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  cars %>_% write.csv(file="cars.tab") %>>% summary
 
 ## ------------------------------------------------------------------------
-cars %>_% plot(xlab="index", ylab="value") %>>% summary %>% forget
+cars %>_% plot(xlab="index", ylab="value") %>>% summary
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  cars                                 %>_%
 #      plot(xlab="index", ylab="value") %>_%
 #      write.csv(file="cars.tab")       %>>%
-#      summary %>% forget
+#      summary
 
 ## ------------------------------------------------------------------------
 iris                                    %>_%
@@ -111,8 +108,7 @@ letters[1:10] %v>% colSums %|>% sum %||% message("Can't process this")
 
 ## ------------------------------------------------------------------------
 x <- 1:10 %>^% dgamma(10, 1) %>^% dgamma(10, 5) %^>% cor
-x
-unbranch(x)
+get_value(x)
 
 ## ------------------------------------------------------------------------
 runif(10) %>>% sum %__%
@@ -198,4 +194,22 @@ bar <- function(x) {
 }
 
 "d" %>>% bar
+
+## ------------------------------------------------------------------------
+"hello world" %>>% {
+  list(
+    format_error=function(x, err){
+      paste0("Failure on input '", x, "': ", err)  
+    }
+  )
+  sqrt(.)
+}
+
+## ------------------------------------------------------------------------
+d <- mtcars %>>% {
+  list(summarize=summary)
+  subset(., mpg > 20)
+} %>>% nrow
+
+get_summary(d)[[2]]
 
