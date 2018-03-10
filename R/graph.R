@@ -8,6 +8,9 @@
 #'
 #' @param m Rmonad object
 #' @export
+#' @examples
+#' m <- 256 %>>% sqrt %>>% sqrt
+#' size(m)
 size <- function(m) {
   .m_check(m)
   igraph::vcount(m@graph)
@@ -54,19 +57,27 @@ size <- function(m) {
   if(inherit_OK && !.single_OK(parent))
     .single_OK(child) <- .single_OK(parent)
 
-  if(!force_keep && !.single_stored(parent)){
+  if(!force_keep && !.single_stored(parent) && !has_tag(parent, parent@head)){
     parent <- .single_delete_value(parent)
     .single_stored(parent) <- FALSE
   } else {
     .single_stored(parent) <- TRUE
   }
 
+  # Pass parental options to children, overwriting child values
+  opt <- parent@data[[parent@head]]@options
+  for(i in seq_along(opt)){
+    opt_name <- names(opt)[i]
+    child@data[[child@head]]@options[[opt_name]] <- opt[[i]]
+  }
+
+  .single_depth(child) <- get_depth(parent, parent@head) + 1L
+
   child <- .rmonad_union(parent, child)
   child@graph <- child@graph + igraph::edge(parent@head, child@head, type=type)
 
   child
 }
-
 
 # The following functions resolve conflicts in attributes that arise with the
 # union of two igraph objects. If any attributes are shared between the graphs,
@@ -99,6 +110,13 @@ size <- function(m) {
     b@graph <- .zip_edge(b@graph)
     # FIXME: need to resolve any possible name conflicts here
     b@data <- append(a@data[setdiff(names(a@data), names(b@data))], b@data)
+    
+    # common <- intersect(names(a@data), names(b@data))
+    # if(length(common) > 0){
+    #   i = common[1]
+    #   msg <- sprintf("These have the same same: '%s', '%s'", a@data[[i]]@code, b@data[[i]]@code)
+    #   warning(msg)
+    # }
   }
   b
 }
@@ -130,23 +148,48 @@ size <- function(m) {
       value = get_nest_depth(nest) +
               (.single_nest_depth(m) - .single_nest_depth(nest) + 1L)
     )
+    # NOTE: Great evil resides in .single_nest
     .single_nest(m) <- nest
   }
   m
 }
 
 # Make an empty, directed graph
-.new_rmonad_graph <- function(m){
-  node_id <- uuid::UUIDgenerate()
+.new_rmonad_graph <- function(m, node_id){
   m@graph <- igraph::make_empty_graph(directed=TRUE, n=1)
   m@graph <- igraph::set.vertex.attribute(m@graph, "name", value=node_id)
   m@head <- node_id
   m
 }
 
-.get_ids <- function(m, index=NULL){
+.parse_tags <- function(...){
+  tags <- unlist(list(...))
+  tags <- ifelse(tags == "", "/", tags)
+  tags <- unlist(strsplit(tags, '/'))
+  list(tag=tags, str=paste(tags, collapse='/'))
+}
+
+.process_tag_and_index <- function(m, index, tag, sep="/"){
+  if(!is.null(tag)){
+    tag <- .parse_tags(tag)$tag
+    node_tags <- get_tag(m)
+    index <- which(.a_has_prefix_b(node_tags, tag))
+    name <- sapply(node_tags[index], paste, collapse=sep)
+    if(any(duplicated(name))){
+      name <- paste0(name, sep, index)
+    }
+  } else {
+    name <- NULL
+  }
+  list(index=index, name=name)
+}
+
+.get_ids <- function(m, index=NULL, tag=NULL){
   .m_check(m)
   ids <- igraph::V(m@graph)
+  if(!is.null(tag)){
+    index <- which(.a_has_prefix_b(get_tag(m), tag))
+  }
   if(!is.null(index)){
     ids <- ids[index]
   }
@@ -203,8 +246,11 @@ size <- function(m) {
     parents
   }
 }
-.get_many_relative_ids <- function(m, index=.get_ids(m), ...){
-  lapply(index, function(i) .get_single_relative_ids(m, index=i, ...)) %>% unname
+.get_many_relative_ids <- function(m, index=.get_ids(m), tag=NULL, ...){
+  ids <- .process_tag_and_index(m, index, tag)
+  x <- lapply(ids$index, function(i) .get_single_relative_ids(m, index=i, ...))
+  names(x) <- ids$name
+  x
 }
 
 # Get attributes for specified indicies
@@ -216,8 +262,11 @@ size <- function(m) {
   .m_check(m)
   lapply(m@data[.as_index(m, index)], slot, attribute)
 }
-.get_many_attributes <- function(m, index=.get_ids(m), ...){
-  .get_attribute(m, index=index, ...) %>% unname
+.get_many_attributes <- function(m, index=.get_ids(m), tag=NULL, ...){
+  ids <- .process_tag_and_index(m, index, tag)
+  x <- .get_attribute(m, index=ids$index, ...)
+  names(x) <- ids$name
+  x
 }
 .get_single_attribute <- function(m, index=m@head, ...){
   if(length(index) != 1){

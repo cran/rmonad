@@ -1,3 +1,89 @@
+# rmonad 0.5.0
+
+## New Features
+
+ * Generalize `make_local_cacher` to take custom functions for saving, getting,
+   checking and deleting data.
+
+ * Add `crunch` function to cache all values over a given size that are stored
+   in memory.
+
+ * Add `loop` function
+
+ * Add `tag` field to `Rmonad` objects and access functions:
+
+   - `tag` - set the tags of the current head node (or nodes at given indices)
+
+   - `view` - set the head of the graph to the given tagged node
+
+   - `views` - get list of Rmonad objects matching a given tag
+
+   - `viewID` - like view but with ID
+
+   - `viewIDs` - like views but with ID
+
+   - `get_tag` - get tags for nodes
+
+   - `has_tag` - check whether nodes have tags
+
+   - add `tag` argument to `as_monad` to allow tag setting at creation 
+
+   - add `tag` argument to `get_*` to allow access by tag
+
+   - add `tag` to caching functions, to allow tag and cache to be set together
+
+   - give names to elements of lists returned by tag from `get_*` functions
+
+
+## Changes
+
+ * Node names are now reproducible. If you notice any internal nodes
+   disappearing, please file a bug report, since this means we missed some case
+   in our hashing system.
+
+ * Use `saveRDS`, rather than `save`, for local caching
+
+ * Change `print.Rmonad` parameter `print_value` to `value`
+
+ * Combine (and funnel) now stores failing inputs as NULL and does not delete
+   the failing parent's cache
+
+ * In `combine`/`funnel`, tagged parents are not deleted
+
+
+## Experimental
+
+ * Add automatic caching, if a function takes a long time to run, it is cached
+
+ * Add option to turn toggle auto caching: `rmonad.auto_cache` (default = FALSE)
+
+ * Add option to set how long an expression can take before its result will be
+   cached: `rmonad.cache_maxtime` (default = 3 seconds)
+
+ * Add option to set cache directory: `rmonad.cache_dir` (default = "cache")
+
+ * Add option to set cache function: `rmonad.cacher` (default = `make_cacher()`)
+
+
+## Bug fixes
+
+ * Fix expression capture in `as_monad`
+
+ * Make `index` the second positional argument of `has_value`, as with other
+   accessors
+
+ * Metadata lists are now evaluated in the natural lexical scope, with access
+   to the function arguments and variables in the scope where the function was
+   defined.
+
+
+## Other
+
+ * Add vignette showing integration with `Nozzle.R1`
+
+ * Reexport `magrittr` pipe operator
+
+
 # rmonad 0.4.0
 
 ## Conceptual changes

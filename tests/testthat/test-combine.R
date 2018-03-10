@@ -9,6 +9,15 @@ test_that('combine fails on non-monadic inputs in list', {
   expect_error(combine(5))
 })
 
+test_that('funnel stores failing input as node', {
+  m <- "hi" %>>% sqrt %>% funnel(x=5) %*>% {. + x}
+  # funnel stores NULL in place of the failing input
+  expect_equal(get_value(m, size(m))[[1]], list(NULL, x=5))
+  # the failing node stores its input
+  expect_equal(get_value(m, 3)[[1]], "hi")
+})
+
+
 test_that('combine and funnel store history in list', {
 
   expect_equal(length(get_id(combine(l_monadic))[-1]), 2)
@@ -96,10 +105,11 @@ test_that("branches of the same pipeline can be joined", {
   )
 })
 
-test_that("no duplication occurs on pipelines that branch and rejoin", {
+test_that("identical steps are joined", {
   expect_equal(
     {
       256 %v>% sqrt -> m
+      # The `m %v>% sqrt` step is identical
       m %v>% sqrt %v>% sqrt -> a
       m %v>% sqrt -> b
       funnel(a, b) %*>% sum -> ab
@@ -108,11 +118,46 @@ test_that("no duplication occurs on pipelines that branch and rejoin", {
     list(
       256,
       16,
-      NULL, # 4
       4,
       NULL, # 2
       NULL, # funnel
       6     # 4+2
     )
+  )
+})
+
+
+test_that("no duplication occurs on pipelines that branch and rejoin", {
+  expect_equal(
+    {
+      256 %v>% sqrt -> m
+      m %v>% prod(10) %v>% prod(100) %>% tag('a') -> a
+      m %v>% prod(2) %>% tag('b') -> b
+      funnel(a, b) %>% tag('ab') %*>% sum -> ab
+      ab %>% get_value(warn=FALSE)
+    },
+    list(
+      256,
+      16,
+      32,
+      160,
+      16000,
+      list(16000, 32),
+      16032
+    )
+  )
+})
+
+test_that("funnel works with view", {
+  expect_equal(
+    2 %>>% prod(2) %>% tag("A") %>>%
+           prod(3) %>% tag("B") %>>%
+           prod(4) %>% tag("C") %>>%
+           prod(5) %>% tag("D") %>%
+             {rmonad::funnel(
+               x = view(., "A"),
+               y = view(., "B")
+             )} %>% esc(T),
+    list(x=4, y=12)
   )
 })

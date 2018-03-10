@@ -3,10 +3,9 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(magrittr)
-library(rmonad)
 set.seed(210)
 
-data(gff)
+good_gfffile <- system.file('extdata', 'gff', '0.gff3', package='rmonad')
 
 read_gff <- function(file){
   readr::read_tsv(
@@ -28,14 +27,20 @@ read_gff <- function(file){
   )
 }
 
-read_gff(gff$good)
+read_gff(good_gfffile)
 
 ## ------------------------------------------------------------------------
-read_gff(gff$invalid_type)
-read_gff(gff$not_a_gff1)
+# wrong type
+bad0 <- system.file('extdata', 'gff', 'bad-0.gff3', package='rmonad')
+read_gff(bad0)
 
 ## ------------------------------------------------------------------------
-g <- read_gff(gff$good)
+# wrong column number
+bad1 <- system.file('extdata', 'gff', 'bad-1.gff3', package='rmonad')
+read_gff(bad1)
+
+## ------------------------------------------------------------------------
+g <- read_gff(good_gfffile)
 for(col in c("seqid", "type", "start", "stop")){
   if(any(is.na(g[[col]]))){
     stop("GFFError: Column '", col, "' may not have missing values")
@@ -136,14 +141,31 @@ data_frame(
 
 
 ## ------------------------------------------------------------------------
+require(readr)
+require(dplyr)
+require(tidyr)
+require(magrittr)
+library(rmonad)
+set.seed(210)
 
+#' @param file The input GFF file
+#' @param tags The GFF tags to keep
+#'        default these are not stored)
 read_gff <- function(file, tags){
+
+  "
+  This function reads a GFF. It builds a data frame from it that with a column
+  for each value in `tags`.
+
+  The `read_gff` function is a nested function, containing an Rmonad pipeline
+  inside it. This docstring describes the entire wrapped pipeline.
+  "
 
   raw_gff <- as_monad(
     {
 
       "
-      Rmonad supports docstrings. If an block begins with a string, this
+      Rmonad supports docstrings. If a block begins with a string, this
       string is extracted and stored. Python has something similar, where the
       first string in a function is cast as documentation.
       
@@ -173,7 +195,7 @@ read_gff <- function(file, tags){
     }
   )
 
-  raw_gff %>>% {
+  raw_gff %>% tag('raw_gff') %>>% {
 
     "
     The %>>% operator applies the function described in this block to the
@@ -183,6 +205,8 @@ read_gff <- function(file, tags){
     computations. The context can store past values, performance information,
     this docstring, and links to the parent chunk. The context is a directed
     graph of code chunks and their metadata.
+
+    Here I assert that no data is missing in the columns where it is required.
     "
 
     for(col in c("seqid", "type", "start", "stop")){
@@ -194,8 +218,10 @@ read_gff <- function(file, tags){
   } %>>% {
 
     "
-    Note that these blocks of code are copied verbatim from above, only using
-    '.' in place of 'g'.
+    According the GFF specification, the value in the type column should be
+    from the Sequence Ontology (SO). Here I collapse the synonymous terms
+    for the main features usually present in GFF file (gene, mRNA, CDS, and
+    exon). In production code, I would probably do something a bit more formal. 
     "
 
     gene_synonyms <- 'SO:0000704'
@@ -212,11 +238,11 @@ read_gff <- function(file, tags){
   } %>_% {
 
     "
-    The %>_% operator lets this chunk of code be run for its effects, which
-    are emitting warnings if we replace the type with a questionable synonym.
-    We could alternatively just use %>>% and add a terminal '.' to this chunk.
-    The use of this operator, though, signals an interdependent branch. Where
-    failure of this branch triggers failure downstream.
+    The %>_% operator lets this chunk of code be run for its effects, which are
+    raising warnings if we replace the type with a questionable synonym.  We
+    could alternatively just use %>>% and add a terminal '.' to this chunk.
+    However, the `%>_%` operator guarantees the input is passed without being
+    changed, which is safer and also clarifies our intention. 
     "
 
     mRNA_near_synonyms <- c('transcript', 'SO:0000673')
@@ -235,13 +261,13 @@ read_gff <- function(file, tags){
   } %>>% {
 
     "
-    Notice here that I use the magrittr operator '%>%' inside the rmonad
+    Notice below that I use the magrittr operator '%>%' inside the rmonad
     pipeline. When to pipe with rmonad and when to pipe with magrittr is a
-    matter of granularity. This chunk of code perhpas should form one
+    matter of granularity. This chunk of code perhaps should form one
     documentation unit. And perhaps I don't expect it to fail. If I break this
     chunk into several, the failures are more localized, and I can access
     intermediate values for debugging. On the other hand, putting every little
-    operation in a new chunk will clutter the graph and reports generated from
+    operation in a new chunk will clutter the graph and reports derived from
     it.
     "
 
@@ -259,13 +285,13 @@ read_gff <- function(file, tags){
         extra = "merge"
       )
 
-   } %v>% funnel(raw_gff=raw_gff, tags=tags) %*>% {
+   } %>% funnel(raw_gff=raw_gff, tags=tags) %*>% {
 
     "
-    The %v>% operator stores the input value. We could replace every %>>%
-    operator with %v>%. This would let us inspect every step of an analysis at
-    the cost of high memory usage. For brevity, I won't break this following
-    block down any further.
+    The %v>% operator stores the input value in memory. We could replace every
+    %>>% operator with %v>%. This would let us inspect every step of an
+    analysis at the cost of high memory usage. For brevity, I won't break this
+    following block down any further.
 
     The `funnel` function packages a list in a monad, merging their histories
     and propagating error. That is, if `gff` or `tags` failed upstream, this
@@ -277,7 +303,7 @@ read_gff <- function(file, tags){
 
       %v>% function(gff=gff, tags=tags)
 
-    because this would have brough the monad wrapped gff into scope, not the
+    because this would have brought the monad wrapped gff into scope, not the
     value itself.
     "
 
@@ -329,10 +355,10 @@ read_gff <- function(file, tags){
       if(! all(parent_types %in% c("gene", "mRNA")))
         stop("Found CDS or exon with illegal parent")
 
-      if( any(is.na(parents)) )
+      if(any(is.na(parents)) )
         stop("Found CDS or exon with no parent")
 
-      if(! any(duplicated(.$ID, incomparables=NA)))
+      if(any(duplicated(.$ID, incomparables=NA)))
         warning("IDs are not unique, this is probably bad")
     }
 
@@ -351,9 +377,29 @@ read_gff <- function(file, tags){
 
 }
 
+gff_as_graph <- function(file){
+  read_gff(file, tags=c("ID", "Parent")) %>>%
+  dplyr::filter(!is.na(Parent)) %>>%
+  {
+      "Make a unique label for each CDS and exon interval"
+      dplyr::group_by(., Parent) %>%
+      dplyr::mutate(ID = ifelse(type %in% c("CDS", "exon"),
+                                paste(type, start, sep='-'),
+                                ID)) %>%
+      dplyr::ungroup()
+  } %>>% {
+    "Make a graph of gene models"
+    dplyr::select(., ID, Parent) %>%
+      as.matrix %>%
+      igraph::graph_from_edgelist()
+  }
+}
+
 
 ## ------------------------------------------------------------------------
-result <- read_gff(file=gff$good, tags=c("ID", "Parent"))
+result <-
+  system.file('extdata', 'gff', '0.gff3', package='rmonad') %v>% gff_as_graph
+result %>% plot
 
 ## ------------------------------------------------------------------------
 esc(result)
@@ -374,5 +420,29 @@ missues(result)
 plot(result)
 
 ## ------------------------------------------------------------------------
-read_gff(gff$not_a_gff1)
+m <-
+  system.file('extdata', 'gff', '15.gff3', package='rmonad') %v>%
+  gff_as_graph
+
+## ------------------------------------------------------------------------
+get_error(m)
+
+## ------------------------------------------------------------------------
+mtabulate(m)
+
+## ------------------------------------------------------------------------
+missues(m)
+
+## ------------------------------------------------------------------------
+get_code(m, 3)
+
+## ------------------------------------------------------------------------
+get_value(m, get_parents(m, 3)[[1]])[[1]]
+
+## ------------------------------------------------------------------------
+get_code(m, 4:6)
+
+## ------------------------------------------------------------------------
+get_value(m, get_parents(m, 5)[[1]])
+get_value(m, 5)[[1]]
 

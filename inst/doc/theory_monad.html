@@ -221,7 +221,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>** This vignette is under construction **</p>
 <p>This vignette consists of four parts. First I will describe the monad hidden in the R runtime. Second, I will describe how <code>rmonad</code> can serve as a replacement. Third, I will contrast the monadic pipelines of <code>rmonad</code> with the compositional pipelines of <code>magrittr</code>. Finally, I will discuss <code>rmonad</code> from the Haskell perspective.</p>
 <p>I will introduce the concept of a monad incrementally through the first three sections. However, monads in the programming context are notoriously difficult to understand. If you are not familiar with them, you may try studying a few online tutorials first. That said, <code>rmonad</code> can be used without understanding monads.</p>
-<section id="the-hidden-r-monad" class="level2">
+<div id="the-hidden-r-monad" class="section level2">
 <h2>The hidden R monad</h2>
 <p>What does <code>sqrt</code> do? You may answer, “return the square root of an input”. But this is not quite right. The function <code>sqrt</code> maps an input to a set of possible values:</p>
 <ul>
@@ -247,8 +247,8 @@ sum  :: numeric* -&gt; m numeric</code></pre>
 <p>Where <code>a</code> and <code>b</code> are data types. <code>m1</code>, <code>m2</code> and <code>m3</code> are contexts. Every bind operation takes 1) a value in a context (<code>m1 a</code>) and 2) a function that maps that value to <code>m2 b</code>. The prior state <code>m1</code>, as well as the intermediate state <code>m2</code>, are in the scope of the <code>bind</code> function. This allows contextual information to propagate from the <code>m1</code> to <code>m3</code>.</p>
 <p>A monad is a pattern consisting of a context <code>m</code>, two functions, and three laws. The functions are <code>bind</code> and <code>return</code> (not to be confused with the <code>return</code> used to terminate a function). <code>bind</code> we have already seen. <code>return</code> takes a pure value and lifts it into a context. <code>return</code> has the form <code>a -&gt; m a</code>.</p>
 <p>Before we cover the monad laws, and before we learn exactly what the monad is in the <code>rmonad</code> context, we will walk step by step through one example. <code>rmonad</code> uses the infix operator <code>%&gt;&gt;%</code> as <code>bind</code> (<code>rmonad</code>’s <code>%&gt;&gt;%</code> corresponds to Haskell’s <code>&gt;&gt;=</code>).</p>
-</section>
-<section id="rmonad" class="level2">
+</div>
+<div id="rmonad" class="section level2">
 <h2><code>rmonad</code></h2>
 <p>The goal of <code>rmonad</code> is to ditch the existing impure R monad and replace it with a clean explicit monad.</p>
 <pre><code>x %&gt;&gt;% sum %&gt;&gt;% sqrt</code></pre>
@@ -258,15 +258,15 @@ sum  :: numeric* -&gt; m numeric</code></pre>
 <p>R users normally rely on the R session to automatically perform these binds.</p>
 <p>But what exactly is <code>m</code>? In an R session, the R runtime handles errors. If one function raises an error, the error is propagated to functions that use its input.</p>
 <p>In <code>rmonad</code>, the <code>m</code> is an object, that catches all undefined behavior.</p>
-</section>
-<section id="rmonad-versus-magrittr" class="level2">
+</div>
+<div id="rmonad-versus-magrittr" class="section level2">
 <h2><code>rmonad</code> versus magrittr</h2>
 <p>To understand the monadic nature of <code>rmonad</code> it is useful to compare it to <code>magrittr</code>. In <code>magrittr</code>, the expression <code>x %&gt;% foo %&gt;% bar</code> is the same as <code>bar(foo(x))</code>. From a monadic point of view, <code>x</code> is first implicitly raised into an ‘Identity’ monad (which is quite formless here) <code>m1 x</code>. Then</p>
 <pre><code>bind :: m1 x -&gt; (x -&gt; m2 y) -&gt; m3 y</code></pre>
 <p>The <code>bind</code> function above executes <code>foo</code> on <code>x</code>, yielding <code>m2 y</code>. It then reduces this to <code>m3 y</code> in the presence of <code>m1</code>. But <code>magrittr</code> passes no information from <code>m1</code> to <code>m3</code>. The pipeline is context indepent.</p>
 <p>In <code>rmonad</code>, the pipeline <code>x %&gt;&gt;% foo %&gt;&gt;% bar</code> will pass a record of past events at each bind operation, thus incrementally building a graph of the pipeline.</p>
-</section>
-<section id="rmonad-for-haskellers" class="level2">
+</div>
+<div id="rmonad-for-haskellers" class="section level2">
 <h2><code>rmonad</code> for Haskellers</h2>
 <p>The name <code>rmonad</code> is a nod to <code>Xmonad</code> (no relation to the Restricted Monad package). Where <code>Xmonad</code> wraps the X window system, <code>rmonad</code> wraps evaluation of R expressions.</p>
 <p>Only a few R expressions are pure. If a function is given an invalid input at runtime (e.g. <code>sqrt(&quot;wtf&quot;)</code>), it will die with a message printed to stderr. <code>rmonad</code> wraps all R calls in a monad, intercepting all messages, so that the result of a computation is returned as a pure object.</p>
@@ -274,7 +274,7 @@ sum  :: numeric* -&gt; m numeric</code></pre>
 <p>The <code>return</code> function is a little complex in <code>rmonad</code>. It is a special case of the <code>as_monad</code> function:</p>
 <pre><code>as_monad = a -&gt; m b</code></pre>
 <p>Where <code>a</code> can be one of three types</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><p>an unevaluated R expression - <code>as_monad</code> evaluates the expression, capturing any exceptions, warnings or messages. <code>as_monad</code> is used inside the <code>bind</code> function in this capacity.</p></li>
 <li><p>a pure R value - acts as <code>return</code></p></li>
 </ol>
@@ -283,7 +283,7 @@ sum  :: numeric* -&gt; m numeric</code></pre>
       | a -&gt; (a -&gt; m b) -&gt; m b
       | (a -&gt; r b) -&gt; (a -&gt; m b) -&gt; m b</code></pre>
 <p><code>%&gt;&gt;%</code> differs from <code>&gt;&gt;=</code> in that <code>%&gt;&gt;%</code> automatically loads the left-hand-side value into a monad.</p>
-</section>
+</div>
 
 
 

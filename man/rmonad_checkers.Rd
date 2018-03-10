@@ -3,6 +3,7 @@
 \name{rmonad_checkers}
 \alias{rmonad_checkers}
 \alias{has_code}
+\alias{has_tag}
 \alias{has_error}
 \alias{has_doc}
 \alias{has_warnings}
@@ -19,6 +20,8 @@
 \title{Vectorized existence checkers for public Rmonad fields}
 \usage{
 has_code(m, ...)
+
+has_tag(m, ...)
 
 has_error(m, ...)
 
@@ -53,4 +56,32 @@ has_summary(m, ...)
 }
 \description{
 Vectorized existence checkers for public Rmonad fields
+}
+\examples{
+data(gff)
+m <- gff$good_result
+
+has_code(m)
+has_dependents(m)
+has_doc(m)
+has_error(m)
+has_mem(m)
+has_meta(m)
+has_nest(m)
+has_notes(m)
+has_parents(m)
+has_prior(m)
+has_summary(m)
+has_time(m)
+has_value(m)
+has_warnings(m)
+
+# find root nodes
+which(!has_parents(m))
+
+# find terminal (output) nodes
+which(!has_dependents(m))
+
+# count number of independent chains
+sum(has_prior(m)) + 1
 }

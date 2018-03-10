@@ -1,6 +1,6 @@
 Type: Package
 Package: rmonad
-Version: 0.4.0
+Version: 0.5.0
 Title: A Monadic Pipeline System
 Description: 
     A monadic solution to pipeline analysis. All operations -- and the errors,
@@ -13,18 +13,17 @@ Description:
 Authors@R: person("Zebulun", "Arendsee", email="zbwrnz@gmail.com", role=c("aut","cre"))
 URL: https://github.com/arendsee/rmonad
 BugReports: https://github.com/arendsee/rmonad/issues
-Encoding: UTF-8
 Depends: R (>= 3.2.0)
-Imports: igraph, uuid, methods, magrittr, glue, pryr
+Imports: igraph, methods, magrittr, glue, pryr, digest
 Suggests: testthat, covr, knitr, rmarkdown, readr, stringr, tidyr,
-        dplyr
+        dplyr, Nozzle.R1
 VignetteBuilder: knitr
 LazyData: yes
 RoxygenNote: 6.0.1
 License: GPL-3
 NeedsCompilation: no
-Packaged: 2017-12-20 08:16:30 UTC; z
+Packaged: 2018-03-10 21:45:49 UTC; z
 Author: Zebulun Arendsee [aut, cre]
 Maintainer: Zebulun Arendsee <zbwrnz@gmail.com>
 Repository: CRAN
-Date/Publication: 2017-12-20 08:25:11 UTC
+Date/Publication: 2018-03-10 21:55:05 UTC

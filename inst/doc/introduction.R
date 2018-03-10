@@ -110,6 +110,34 @@ letters[1:10] %v>% colSums %|>% sum %||% message("Can't process this")
 x <- 1:10 %>^% dgamma(10, 1) %>^% dgamma(10, 5) %^>% cor
 get_value(x)
 
+## ---- fig.cap="1: the original iris table, 2: stores the cached iris data, 3: nrow, 4: qplot, 5: summary."----
+# build memory cacher
+f <- make_recacher(memory_cache)
+
+# make core dataset
+m <- as_monad(iris) %>>%
+    dplyr::select(
+        sepal_length = Sepal.Length,
+        sepal_width = Sepal.Width,
+        species = Species
+    ) %>%
+    # cache value with tag 'iris'
+    f('iris') %>>%
+    # some downstream stuff
+    nrow 
+# Now can pick from the tagged node
+m <- view(m, 'iris') %>>% {
+  qplot(
+      x=sepal_length,
+      y=sepal_width,
+      color=species,
+      data=.
+  )} %>% f('plot')
+# and repeat however many times we like 
+m <- view(m, 'iris') %>>% summary %>% f('sum')
+
+plot(m)
+
 ## ------------------------------------------------------------------------
 runif(10) %>>% sum %__%
 rnorm(10) %>>% sum %__%

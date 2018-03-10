@@ -1,11 +1,24 @@
 setClass(
-  "CacheManager",
+  "ValueManager",
   representation(
+    in_memory = "logical",
     get = "function",
     del = "function",
     chk = "function"
   )
 )
+
+setClass(
+  "Cacher",
+  representation(
+    put = "function",
+    get = "function",
+    del = "function",
+    chk = "function",
+    bld = "function" # build a ValueManager object
+  )
+)
+
 
 setOldClass("igraph")
 setClass(
@@ -16,9 +29,9 @@ setClass(
     data = "list"
   )
 )
-Rmonad <- function(){
+Rmonad <- function(node_id){
   m <- new("Rmonad")
-  m <- .new_rmonad_graph(m)
+  m <- .new_rmonad_graph(m, node_id=node_id)
   m@data <- list(RmonadData())
   names(m@data) <- m@head
   m
@@ -27,7 +40,9 @@ Rmonad <- function(){
 setClass(
   "RmonadData",
   representation(
-    value      = "CacheManager",
+    value      = "ValueManager",
+    key        = "character",
+    tag        = "character",
     code       = "character",
     error      = "character",
     warnings   = "character",
@@ -38,13 +53,17 @@ setClass(
     time       = "numeric",
     meta       = "list",
     summary    = "list",
+    depth      = "integer",
     nest_depth = "integer",
-    stored     = "logical"
+    stored     = "logical",
+    options    = "list"
   )
 )
 RmonadData <- function(){
   d <- new("RmonadData")
   d@value      <- .default_value()
+  d@key        <- .default_key()
+  d@tag        <- .default_tag()
   d@code       <- .default_code()
   d@error      <- .default_error()
   d@warnings   <- .default_warnings()
@@ -57,5 +76,6 @@ RmonadData <- function(){
   d@summary    <- .default_summary()
   d@nest_depth <- .default_nest_depth()
   d@stored     <- .default_stored()
+  d@options    <- .default_options()
   d
 }

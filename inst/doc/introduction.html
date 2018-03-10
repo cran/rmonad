@@ -19,16 +19,24 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
 @media print {
 code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
   { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
     position: absolute; left: -5em; text-align: right; vertical-align: baseline;
@@ -36,40 +44,44 @@ pre.numberSource a.sourceLine::before
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em; }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
 @media screen {
-a.sourceLine::before { text-decoration: underline; color: initial; }
+a.sourceLine::before { text-decoration: underline; }
 }
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code span.dt { color: #902000; } /* DataType */
 code span.dv { color: #40a070; } /* DecVal */
-code span.bn { color: #40a070; } /* BaseN */
-code span.fl { color: #40a070; } /* Float */
-code span.ch { color: #4070a0; } /* Char */
-code span.st { color: #4070a0; } /* String */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.ot { color: #007020; } /* Other */
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.fu { color: #06287e; } /* Function */
 code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code span.cn { color: #880000; } /* Constant */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.im { } /* Import */
-code span.va { color: #19177c; } /* Variable */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.op { color: #666666; } /* Operator */
-code span.bu { } /* BuiltIn */
 code span.ex { } /* Extension */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.at { color: #7d9029; } /* Attribute */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -280,14 +292,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li><p>branching and chaining of pipelines</p></li>
 <li><p>a flexible approach to literate programming</p></li>
 </ul>
-<section id="monadic-pipelines" class="level2">
+<div id="monadic-pipelines" class="section level2">
 <h2>Monadic pipelines</h2>
 <p>I will introduce <code>rmonad</code> with a simple sequence of squares</p>
-<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># %&gt;&gt;% corresponds to Haskell's &gt;&gt;=</span></a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># %&gt;&gt;% corresponds to Haskell's &gt;&gt;=</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>      <span class="op">%&gt;&gt;%</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span>sqrt <span class="op">%&gt;&gt;%</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">    </span>sqrt <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">    </span>sqrt</a></code></pre>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">    </span>sqrt</a></code></pre></div>
 <pre><code>## N1&gt; &quot;1:5&quot;
 ## N2&gt; &quot;sqrt&quot;
 ## N3&gt; &quot;sqrt&quot;
@@ -298,18 +310,18 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [1] 1.000000 1.090508 1.147203 1.189207 1.222845</code></pre>
 <p>So what exactly did <code>rmonad</code> do with your data? It is still there, sitting happily inside the monad.</p>
 <p>In <code>magrittr</code> you could do something similar:</p>
-<pre class="sourceCode r" id="cb3"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>      <span class="op">%&gt;%</span></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>      <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">    </span>sqrt <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span>sqrt <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre></div>
 <pre><code>## [1] 1.000000 1.090508 1.147203 1.189207 1.222845</code></pre>
 <p><code>%&gt;%</code> takes the value on the left and applies it to the function on the right. <code>%&gt;&gt;%</code>, takes a monad on the left and a function on the right, then builds a new monad from them. This new monad holds the computed value, if the computation succeeded. It collates all errors, warnings, and messages. These are stored in step-by-step a history of the pipeline.</p>
 <p><code>%&gt;%</code> is an application operator, <code>%&gt;&gt;%</code> is a <em>monadic bind</em> operator. <code>magrittr</code> and <code>rmonad</code> complement eachother. <code>%&gt;%</code> can be used inside a monadic sequence to perform operations <em>on</em> monads, whereas <code>%&gt;&gt;%</code> performs operations <em>in</em> them. If this is all too mystical, just hold on, the examples are sensical even without an understanding of monads.</p>
 <p>Below, we store an intermediate value in the monad:</p>
-<pre class="sourceCode r" id="cb5"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>      <span class="op">%&gt;&gt;%</span></a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>      <span class="op">%&gt;&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">    </span>sqrt <span class="op">%v&gt;%</span><span class="st"> </span><span class="co"># store this result</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span>sqrt <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre></div>
 <pre><code>## N1&gt; &quot;1:5&quot;
 ## N2&gt; &quot;sqrt&quot;
 ## [1] 1.000000 1.414214 1.732051 2.000000 2.236068
@@ -322,7 +334,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [1] 1.000000 1.090508 1.147203 1.189207 1.222845</code></pre>
 <p>The <code>%v&gt;%</code> variant of the <em>monadic bind</em> operator stores the results as they are passed.</p>
 <p>Following the example of <code>magrittr</code>, arbirary anonymous functions of ‘.’ are supported</p>
-<pre class="sourceCode r" id="cb7"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>{ o &lt;-<span class="st"> </span>. <span class="op">*</span><span class="st"> </span><span class="dv">2</span> ; { o <span class="op">+</span><span class="st"> </span>. } <span class="op">%&gt;%</span><span class="st"> </span>{ . <span class="op">+</span><span class="st"> </span>o } }</a></code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>{ o &lt;-<span class="st"> </span>. <span class="op">*</span><span class="st"> </span><span class="dv">2</span> ; { o <span class="op">+</span><span class="st"> </span>. } <span class="op">%&gt;%</span><span class="st"> </span>{ . <span class="op">+</span><span class="st"> </span>o } }</a></code></pre></div>
 <pre><code>## N1&gt; &quot;1:5&quot;
 ## N2&gt; &quot;function (.) 
 ## {
@@ -338,10 +350,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 
 ## [1]  5 10 15 20 25</code></pre>
 <p>Warnings are caught and stored</p>
-<pre class="sourceCode r" id="cb9"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="dv">-1</span><span class="op">:</span><span class="dv">3</span>     <span class="op">%&gt;&gt;%</span></a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="dv">-1</span><span class="op">:</span><span class="dv">3</span>     <span class="op">%&gt;&gt;%</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">    </span>sqrt <span class="op">%v&gt;%</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">    </span>sqrt <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre></div>
 <pre><code>## N1&gt; &quot;-1:3&quot;
 ## N2&gt; &quot;sqrt&quot;
 ##  * WARNING: NaNs produced
@@ -354,10 +366,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 
 ## [1]      NaN 0.000000 1.000000 1.090508 1.147203</code></pre>
 <p>Similarly for errors</p>
-<pre class="sourceCode r" id="cb11"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="st">&quot;wrench&quot;</span> <span class="op">%&gt;&gt;%</span></a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="st">&quot;wrench&quot;</span> <span class="op">%&gt;&gt;%</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">    </span>sqrt <span class="op">%v&gt;%</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">    </span>sqrt <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre></div>
 <pre><code>## N1&gt; &quot;&quot;wrench&quot;&quot;
 ## N2&gt; &quot;sqrt&quot;
 ##  * ERROR: non-numeric argument to mathematical function
@@ -367,28 +379,28 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [1] &quot;wrench&quot;
 ##  *** FAILURE ***</code></pre>
 <p>The first <code>sqrt</code> failed, and this step was coupled to the resultant error. Contrast this with <code>magrittr</code>, where the location of the error is lost:</p>
-<pre class="sourceCode r" id="cb13"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="st">&quot;wrench&quot;</span> <span class="op">%&gt;%</span></a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="st">&quot;wrench&quot;</span> <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">    </span>sqrt <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">    </span>sqrt <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">    </span>sqrt</a></code></pre></div>
 <pre><code>## Error in sqrt(.): non-numeric argument to mathematical function</code></pre>
 <p>Also note that a value was still produced. This value will never be used in the downstream monadic sequence (except when explicitly doing error handling). However it, and all other information in the monad, can be easily accessed.</p>
-</section>
-<section id="extracting-data-from-an-rmonad" class="level2">
+</div>
+<div id="extracting-data-from-an-rmonad" class="section level2">
 <h2>Extracting data from an <code>rmonad</code></h2>
 <p>If you want to extract the terminal result from the monad, you can use the <code>esc</code> function:</p>
-<pre class="sourceCode r" id="cb15"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;%</span><span class="st"> </span>esc</a></code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;%</span><span class="st"> </span>esc</a></code></pre></div>
 <pre><code>## [1] 1.000000 1.414214 1.732051 2.000000 2.236068</code></pre>
 <p><code>esc</code> is our first example of a class of functions that work on monads, rather than the values they wrap. We use <code>magrittr</code>’s application operator <code>%&gt;%</code> here, rather than the monadic bind operator <code>%&gt;&gt;%</code>, because we are passing a literal monad to <code>esc</code>.</p>
 <p>If the monad is in a failed state, <code>esc</code> will raise an error.</p>
-<pre class="sourceCode r" id="cb17"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="st">&quot;wrench&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;%</span><span class="st"> </span>esc</a></code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="st">&quot;wrench&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;%</span><span class="st"> </span>esc</a></code></pre></div>
 <pre><code>## Error: in &quot;sqrt&quot;:
 ##   non-numeric argument to mathematical function</code></pre>
 <p>If you prefer a tabular summary of your results, you can pipe the monad into the <code>mtabulate</code> function.</p>
-<pre class="sourceCode r" id="cb19"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>      <span class="op">%&gt;&gt;%</span></a>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>      <span class="op">%&gt;&gt;%</span></a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">    </span>sqrt <span class="op">%v&gt;%</span></a>
 <a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">    </span>sqrt <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">    </span>sqrt <span class="op">%&gt;%</span><span class="st"> </span>mtabulate</a></code></pre>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">    </span>sqrt <span class="op">%&gt;%</span><span class="st"> </span>mtabulate</a></code></pre></div>
 <pre><code>##   id   OK cached time space is_nested ndependents nnotes nwarnings error
 ## 1  1 TRUE  FALSE    0    72         0           1      0         0     0
 ## 2  2 TRUE   TRUE    0    88         0           1      0         0     0
@@ -401,22 +413,22 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4   0</code></pre>
 <p>An internal states can be accessed by converting the monad to a list of past states and simple indexing out the ones you want.</p>
 <p>All errors, warnings and notes can be extracted with the <code>missues</code> command</p>
-<pre class="sourceCode r" id="cb21"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="dv">-2</span><span class="op">:</span><span class="dv">2</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;&gt;%</span><span class="st"> </span>colSums <span class="op">%&gt;%</span><span class="st"> </span>missues</a></code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="dv">-2</span><span class="op">:</span><span class="dv">2</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>sqrt <span class="op">%&gt;&gt;%</span><span class="st"> </span>colSums <span class="op">%&gt;%</span><span class="st"> </span>missues</a></code></pre></div>
 <pre><code>##   id    type                                           issue
 ## 1  3   error 'x' must be an array of at least two dimensions
 ## 2  2 warning                                   NaNs produced</code></pre>
 <p>The <code>id</code> column refers to row numbers in the <code>mtabulate</code> output. Internal values can be extracted:</p>
-<pre class="sourceCode r" id="cb23"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">%v&gt;%</span><span class="st"> </span>sqrt <span class="op">%v&gt;%</span><span class="st"> </span>sqrt <span class="op">%v&gt;%</span><span class="st"> </span>sqrt</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">get_value</span>(result)[[<span class="dv">2</span>]]</a></code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">%v&gt;%</span><span class="st"> </span>sqrt <span class="op">%v&gt;%</span><span class="st"> </span>sqrt <span class="op">%v&gt;%</span><span class="st"> </span>sqrt</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">get_value</span>(result)[[<span class="dv">2</span>]]</a></code></pre></div>
 <pre><code>## [1] 1.000000 1.414214 1.732051 2.000000 2.236068</code></pre>
-</section>
-<section id="handling-effects" class="level2">
+</div>
+<div id="handling-effects" class="section level2">
 <h2>Handling effects</h2>
 <p>The <code>%&gt;_%</code> operator is useful when you want to include a function inside a pipeline that should be bypassed, but you want the errors, warnings, and messages to pass along with the main.</p>
 <p>You can cache an intermediate result</p>
-<pre class="sourceCode r" id="cb25"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">cars <span class="op">%&gt;_%</span><span class="st"> </span><span class="kw">write.csv</span>(<span class="dt">file=</span><span class="st">&quot;cars.tab&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>summary</a></code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">cars <span class="op">%&gt;_%</span><span class="st"> </span><span class="kw">write.csv</span>(<span class="dt">file=</span><span class="st">&quot;cars.tab&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>summary</a></code></pre></div>
 <p>Or plot a value along with a summary</p>
-<pre class="sourceCode r" id="cb26"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">cars <span class="op">%&gt;_%</span><span class="st"> </span><span class="kw">plot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>summary</a></code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">cars <span class="op">%&gt;_%</span><span class="st"> </span><span class="kw">plot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>summary</a></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <pre><code>## N1&gt; &quot;cars&quot;
 ## N2&gt; &quot;plot(xlab = &quot;index&quot;, ylab = &quot;value&quot;)&quot;
@@ -433,15 +445,15 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  Max.   :25.0   Max.   :120.00</code></pre>
 <p>I pipe the final monad into <code>forget</code>, which is (like <code>esc</code>) a function for operating on monads. <code>forget</code> removes history from a monad. I do this just to de-clutter the output.</p>
 <p>You can call multiple effects</p>
-<pre class="sourceCode r" id="cb28"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">cars                                 <span class="op">%&gt;_%</span></a>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">cars                                 <span class="op">%&gt;_%</span></a>
 <a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">    </span><span class="kw">plot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;_%</span></a>
 <a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">    </span><span class="kw">write.csv</span>(<span class="dt">file=</span><span class="st">&quot;cars.tab&quot;</span>)       <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="st">    </span>summary</a></code></pre>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="st">    </span>summary</a></code></pre></div>
 <p>Since state is passed, you can make assertions about the data inside a pipeline.</p>
-<pre class="sourceCode r" id="cb29"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">iris                                    <span class="op">%&gt;_%</span></a>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">iris                                    <span class="op">%&gt;_%</span></a>
 <a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">    </span>{ <span class="kw">stopifnot</span>(<span class="kw">is.data.frame</span>(.))     } <span class="op">%&gt;_%</span></a>
 <a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">    </span>{ <span class="kw">stopifnot</span>(<span class="kw">sapply</span>(.,is.numeric)) } <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">    </span>colSums <span class="op">%|&gt;%</span><span class="st"> </span>head</a></code></pre>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">    </span>colSums <span class="op">%|&gt;%</span><span class="st"> </span>head</a></code></pre></div>
 <pre><code>## N1&gt; &quot;iris&quot;
 ## N2&gt; &quot;function (.) 
 ## {
@@ -464,11 +476,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>The above code will enter a failed state if the input is either not a data frame or the columns are not all numeric. The braced expressions are anonymous functions of ‘.’ (as in <code>magrittr</code>). The final expression <code>%|&gt;%</code> catches an error and performs <code>head</code> on the last valid input (<code>iris</code>).</p>
-</section>
-<section id="error-handling" class="level2">
+</div>
+<div id="error-handling" class="section level2">
 <h2>Error handling</h2>
 <p>Errors needn’t be viewed as abnormal. For example, we might want to try several alternatives functions, and use the first that works.</p>
-<pre class="sourceCode r" id="cb31"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>colSums <span class="op">%|&gt;%</span><span class="st"> </span>sum</a></code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>colSums <span class="op">%|&gt;%</span><span class="st"> </span>sum</a></code></pre></div>
 <pre><code>## N1&gt; &quot;1:10&quot;
 ## N2&gt; &quot;colSums&quot;
 ##  * ERROR: 'x' must be an array of at least two dimensions
@@ -479,20 +491,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [1] 55</code></pre>
 <p>Here we will do either <code>colSums</code> or <code>sum</code>. The pipeline fails only if both fail.</p>
 <p>Sometimes you want to ignore the previous failure completely, and make a new call – for example in reading files:</p>
-<pre class="sourceCode r" id="cb33"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># try to load a cached file, on failure rerun the analysis</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">read.table</span>(<span class="st">&quot;analyasis_cache.tab&quot;</span>) <span class="op">%||%</span><span class="st"> </span><span class="kw">run_analysis</span>(x)</a></code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># try to load a cached file, on failure rerun the analysis</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">read.table</span>(<span class="st">&quot;analyasis_cache.tab&quot;</span>) <span class="op">%||%</span><span class="st"> </span><span class="kw">run_analysis</span>(x)</a></code></pre></div>
 <p>This can also be used to replace if-else if-else strings</p>
-<pre class="sourceCode r" id="cb34"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
 <a class="sourceLine" id="cb34-2" data-line-number="2"><span class="co"># compare</span></a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="cf">if</span>(<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) { x[[<span class="dv">1</span>]] } <span class="cf">else</span> { <span class="ot">NULL</span> }</a></code></pre>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="cf">if</span>(<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) { x[[<span class="dv">1</span>]] } <span class="cf">else</span> { <span class="ot">NULL</span> }</a></code></pre></div>
 <pre><code>## NULL</code></pre>
-<pre class="sourceCode r" id="cb36"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># to </span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2">x[[<span class="dv">1</span>]] <span class="op">%||%</span><span class="st"> </span><span class="ot">NULL</span> <span class="op">%&gt;%</span><span class="st"> </span>esc</a></code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># to </span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">x[[<span class="dv">1</span>]] <span class="op">%||%</span><span class="st"> </span><span class="ot">NULL</span> <span class="op">%&gt;%</span><span class="st"> </span>esc</a></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>Or maybe you want to support multiple extensions for an input file</p>
-<pre class="sourceCode r" id="cb38"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">read.table</span>(<span class="st">&quot;a.tab&quot;</span>) <span class="op">%||%</span><span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;a.tsv&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>dostuff</a></code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">read.table</span>(<span class="st">&quot;a.tab&quot;</span>) <span class="op">%||%</span><span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;a.tsv&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>dostuff</a></code></pre></div>
 <p>Used together with <code>%|&gt;%</code> we can build full error handling pipelines</p>
-<pre class="sourceCode r" id="cb39"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>] <span class="op">%v&gt;%</span><span class="st"> </span>colSums <span class="op">%|&gt;%</span><span class="st"> </span>sum <span class="op">%||%</span><span class="st"> </span><span class="kw">message</span>(<span class="st">&quot;Can't process this&quot;</span>)</a></code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>] <span class="op">%v&gt;%</span><span class="st"> </span>colSums <span class="op">%|&gt;%</span><span class="st"> </span>sum <span class="op">%||%</span><span class="st"> </span><span class="kw">message</span>(<span class="st">&quot;Can't process this&quot;</span>)</a></code></pre></div>
 <pre><code>## Can't process this</code></pre>
 <pre><code>## N1&gt; &quot;letters[1:10]&quot;
 ##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;
@@ -507,16 +519,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 
 ## NULL</code></pre>
 <p>Overall, in <code>rmonad</code>, errors are well-behaved. It is reasonable to write functions that return an error rather than one of the myriad default values (<code>NULL</code>, <code>NA</code>, <code>logical(0)</code>, <code>list()</code>, <code>FALSE</code>). This approach is unambiguous. <code>rmonad</code> can catch the error and allow allow the programmer to deal with it accordingly.</p>
-</section>
-<section id="branching-pipelines" class="level2">
+</div>
+<div id="branching-pipelines" class="section level2">
 <h2>Branching pipelines</h2>
 <p>If you want to perform an operation on a value inside the chain, but don’t want to pass it, you can use the branch operator <code>%&gt;^%</code>.</p>
-<pre class="sourceCode r" id="cb42"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">rnorm</span>(<span class="dv">30</span>) <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>mean</a></code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">rnorm</span>(<span class="dv">30</span>) <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>mean</a></code></pre></div>
 <p>This stores the result of <code>qplot</code> in a branch off the main pipeline. This means that <code>plot</code> could fail, but the rest of the pipeline could continue. You can store multiple branches.</p>
-<pre class="sourceCode r" id="cb43"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">rnorm</span>(<span class="dv">30</span>) <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;^%</span><span class="st"> </span>summary <span class="op">%&gt;&gt;%</span><span class="st"> </span>mean</a></code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">rnorm</span>(<span class="dv">30</span>) <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">qplot</span>(<span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;^%</span><span class="st"> </span>summary <span class="op">%&gt;&gt;%</span><span class="st"> </span>mean</a></code></pre></div>
 <p>Branches can be used as input, as well.</p>
-<pre class="sourceCode r" id="cb44"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">1</span>) <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">5</span>) <span class="op">%^&gt;%</span><span class="st"> </span>cor</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">get_value</span>(x)</a></code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">1</span>) <span class="op">%&gt;^%</span><span class="st"> </span><span class="kw">dgamma</span>(<span class="dv">10</span>, <span class="dv">5</span>) <span class="op">%^&gt;%</span><span class="st"> </span>cor</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">get_value</span>(x)</a></code></pre></div>
 <pre><code>## [[1]]
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ## 
@@ -530,50 +542,83 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 
 ## [[4]]
 ## [1] -0.5838848</code></pre>
-<p>Note the branches could be long monadic chains themselves, which might have their own branches. The <code>unbranch</code> function recursively extracts all branches from the tree.</p>
-</section>
-<section id="chains-of-chains" class="level2">
+<p>Note the branches could be long monadic chains themselves, which might have their own branches.</p>
+</div>
+<div id="tags-caches-and-views" class="section level2">
+<h2>Tags, caches, and views</h2>
+<p>Use of the <code>%&gt;^%</code> and <code>%^&gt;%</code> operators is a little awkward. A more general option is to use tags and views. <code>tag</code> this allows the <em>head</em> of a pipeline to be reset.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># build memory cacher</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">f &lt;-<span class="st"> </span><span class="kw">make_recacher</span>(memory_cache)</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="co"># make core dataset</span></a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">m &lt;-<span class="st"> </span><span class="kw">as_monad</span>(iris) <span class="op">%&gt;&gt;%</span></a>
+<a class="sourceLine" id="cb46-6" data-line-number="6"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(</a>
+<a class="sourceLine" id="cb46-7" data-line-number="7">        <span class="dt">sepal_length =</span> Sepal.Length,</a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">        <span class="dt">sepal_width =</span> Sepal.Width,</a>
+<a class="sourceLine" id="cb46-9" data-line-number="9">        <span class="dt">species =</span> Species</a>
+<a class="sourceLine" id="cb46-10" data-line-number="10">    ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-11" data-line-number="11"><span class="st">    </span><span class="co"># cache value with tag 'iris'</span></a>
+<a class="sourceLine" id="cb46-12" data-line-number="12"><span class="st">    </span><span class="kw">f</span>(<span class="st">'iris'</span>) <span class="op">%&gt;&gt;%</span></a>
+<a class="sourceLine" id="cb46-13" data-line-number="13"><span class="st">    </span><span class="co"># some downstream stuff</span></a>
+<a class="sourceLine" id="cb46-14" data-line-number="14"><span class="st">    </span>nrow </a>
+<a class="sourceLine" id="cb46-15" data-line-number="15"><span class="co"># Now can pick from the tagged node</span></a>
+<a class="sourceLine" id="cb46-16" data-line-number="16">m &lt;-<span class="st"> </span><span class="kw">view</span>(m, <span class="st">'iris'</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb46-17" data-line-number="17">  <span class="kw">qplot</span>(</a>
+<a class="sourceLine" id="cb46-18" data-line-number="18">      <span class="dt">x=</span>sepal_length,</a>
+<a class="sourceLine" id="cb46-19" data-line-number="19">      <span class="dt">y=</span>sepal_width,</a>
+<a class="sourceLine" id="cb46-20" data-line-number="20">      <span class="dt">color=</span>species,</a>
+<a class="sourceLine" id="cb46-21" data-line-number="21">      <span class="dt">data=</span>.</a>
+<a class="sourceLine" id="cb46-22" data-line-number="22">  )} <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f</span>(<span class="st">'plot'</span>)</a>
+<a class="sourceLine" id="cb46-23" data-line-number="23"><span class="co"># and repeat however many times we like </span></a>
+<a class="sourceLine" id="cb46-24" data-line-number="24">m &lt;-<span class="st"> </span><span class="kw">view</span>(m, <span class="st">'iris'</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>summary <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f</span>(<span class="st">'sum'</span>)</a>
+<a class="sourceLine" id="cb46-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb46-26" data-line-number="26"><span class="kw">plot</span>(m)</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="1: the original iris table, 2: stores the cached iris data, 3: nrow, 4: qplot, 5: summary." />
+<p class="caption">1: the original iris table, 2: stores the cached iris data, 3: nrow, 4: qplot, 5: summary.</p>
+</div>
+</div>
+<div id="chains-of-chains" class="section level2">
 <h2>Chains of chains</h2>
 <p>If you want to connect many chains, all with independent inputs, you can do so with the <code>%__%</code> operator.</p>
-<pre class="sourceCode r" id="cb46"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">runif</span>(<span class="dv">10</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>sum <span class="op">%__%</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">rnorm</span>(<span class="dv">10</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>sum <span class="op">%__%</span></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="kw">rexp</span>(<span class="dv">10</span>)  <span class="op">%&gt;&gt;%</span><span class="st"> </span>sum</a></code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">runif</span>(<span class="dv">10</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>sum <span class="op">%__%</span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">rnorm</span>(<span class="dv">10</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>sum <span class="op">%__%</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="kw">rexp</span>(<span class="dv">10</span>)  <span class="op">%&gt;&gt;%</span><span class="st"> </span>sum</a></code></pre></div>
 <pre><code>## N1&gt; &quot;runif(10)&quot;
 ## N2&gt; &quot;sum&quot;
-## [1] 4.046273
+## [1] 4.583261
 ## 
-## N3&gt; &quot;rnorm(10)&quot;
+## N3&gt; &quot;rexp(10)&quot;
 ## N4&gt; &quot;sum&quot;
-## [1] 2.153803
+## [1] -1.522069
 ## 
-## N5&gt; &quot;rexp(10)&quot;
-## N6&gt; &quot;sum&quot;
+## N5&gt; &quot;sum&quot;
 ## 
 ##  ----------------- 
 ## 
-## [1] 4.498764</code></pre>
+## [1] 14.88481</code></pre>
 <p>The <code>%__%</code> operator records the output of the lhs and evaluates the rhs into an <code>rmonad</code>. This operator is a little like a semicolon, in that it demarcates independent statements. Each statement, though, is wrapped into a graph of operations. This graph is itself data, and can be computed on. You could take any analysis and recompose it as <code>%__%</code> delimited blocks. The result of running the analysis would be a data structure containing all results and errors.</p>
-<pre class="sourceCode r" id="cb48"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">program &lt;-</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">{</a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">    x =<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">    y =<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">    x <span class="op">*</span><span class="st"> </span>y</a>
-<a class="sourceLine" id="cb48-6" data-line-number="6">} <span class="op">%__%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb48-7" data-line-number="7">    letters <span class="op">%&gt;%</span><span class="st"> </span>sqrt</a>
-<a class="sourceLine" id="cb48-8" data-line-number="8">} <span class="op">%__%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb48-9" data-line-number="9">    <span class="dv">10</span> <span class="op">*</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb48-10" data-line-number="10">}</a></code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">program &lt;-</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">    x =<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">    y =<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">    x <span class="op">*</span><span class="st"> </span>y</a>
+<a class="sourceLine" id="cb49-6" data-line-number="6">} <span class="op">%__%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb49-7" data-line-number="7">    letters <span class="op">%&gt;%</span><span class="st"> </span>sqrt</a>
+<a class="sourceLine" id="cb49-8" data-line-number="8">} <span class="op">%__%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb49-9" data-line-number="9">    <span class="dv">10</span> <span class="op">*</span><span class="st"> </span>x</a>
+<a class="sourceLine" id="cb49-10" data-line-number="10">}</a></code></pre></div>
 <p>You can link chunks of code, with their results, and performance information.</p>
-</section>
-<section id="multiple-inputs" class="level2">
+</div>
+<div id="multiple-inputs" class="section level2">
 <h2>Multiple inputs</h2>
 <p>So far our pipelines have been limited to either linear paths or the somewhat awkward branch merging. An easier approach is to read inputs from a list. But we want to be able to catch errors resulting from evaluation of each member of the list. We can do this with <code>list_meval</code>.</p>
-<pre class="sourceCode r" id="cb49"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">funnel</span>(</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2">    <span class="st">&quot;yolo&quot;</span>,</a>
-<a class="sourceLine" id="cb49-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;stop, drop, and die&quot;</span>),</a>
-<a class="sourceLine" id="cb49-4" data-line-number="4">    <span class="kw">runif</span>(<span class="st">&quot;simon&quot;</span>),</a>
-<a class="sourceLine" id="cb49-5" data-line-number="5">    <span class="dt">k =</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb49-6" data-line-number="6">)</a></code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">funnel</span>(</a>
+<a class="sourceLine" id="cb50-2" data-line-number="2">    <span class="st">&quot;yolo&quot;</span>,</a>
+<a class="sourceLine" id="cb50-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;stop, drop, and die&quot;</span>),</a>
+<a class="sourceLine" id="cb50-4" data-line-number="4">    <span class="kw">runif</span>(<span class="st">&quot;simon&quot;</span>),</a>
+<a class="sourceLine" id="cb50-5" data-line-number="5">    <span class="dt">k =</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb50-6" data-line-number="6">)</a></code></pre></div>
 <pre><code>## N1&gt; &quot;2&quot;
 ## N2&gt; &quot;runif(&quot;simon&quot;)&quot;
 ##  * ERROR: invalid arguments
@@ -599,52 +644,52 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 
 ##  *** FAILURE ***</code></pre>
 <p>This returns a monad which fails if any of the components evaluate to an error. But it does not toss the rest of the inputs, instead returning a clean list with a NULL filling in missing pieces. Constrast this with normal list evaluation:</p>
-<pre class="sourceCode r" id="cb51"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">list</span>( <span class="st">&quot;yolo&quot;</span>, <span class="kw">stop</span>(<span class="st">&quot;stop, drop, and die&quot;</span>), <span class="kw">runif</span>(<span class="st">&quot;simon&quot;</span>), <span class="dv">2</span>)</a></code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">list</span>( <span class="st">&quot;yolo&quot;</span>, <span class="kw">stop</span>(<span class="st">&quot;stop, drop, and die&quot;</span>), <span class="kw">runif</span>(<span class="st">&quot;simon&quot;</span>), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): stop, drop, and die</code></pre>
 <p><code>funnel</code> records each failure in each element of the list independently.</p>
 <p>This approach can also be used with the infix operator <code>%*&gt;%</code>.</p>
-<pre class="sourceCode r" id="cb53"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">funnel</span>(<span class="kw">read.csv</span>(<span class="st">&quot;a.csv&quot;</span>), <span class="kw">read.csv</span>(<span class="st">&quot;b.csv&quot;</span>)) <span class="op">%*&gt;%</span><span class="st"> </span>merge</a></code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">funnel</span>(<span class="kw">read.csv</span>(<span class="st">&quot;a.csv&quot;</span>), <span class="kw">read.csv</span>(<span class="st">&quot;b.csv&quot;</span>)) <span class="op">%*&gt;%</span><span class="st"> </span>merge</a></code></pre></div>
 <p>Now, of course, we can add monads to the mix</p>
-<pre class="sourceCode r" id="cb54"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">funnel</span>(</a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">    <span class="dt">a =</span> <span class="kw">read.csv</span>(<span class="st">&quot;a.csv&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>do_analysis_a,</a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">    <span class="dt">b =</span> <span class="kw">read.csv</span>(<span class="st">&quot;b.csv&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>do_analysis_b,</a>
-<a class="sourceLine" id="cb54-4" data-line-number="4">    <span class="dt">k =</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb54-5" data-line-number="5">) <span class="op">%*&gt;%</span><span class="st"> </span>joint_analysis</a></code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">funnel</span>(</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">    <span class="dt">a =</span> <span class="kw">read.csv</span>(<span class="st">&quot;a.csv&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>do_analysis_a,</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">    <span class="dt">b =</span> <span class="kw">read.csv</span>(<span class="st">&quot;b.csv&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span>do_analysis_b,</a>
+<a class="sourceLine" id="cb55-4" data-line-number="4">    <span class="dt">k =</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5">) <span class="op">%*&gt;%</span><span class="st"> </span>joint_analysis</a></code></pre></div>
 <p>Monadic list evaluation is the natural way to build large programs from smaller pieces.</p>
-</section>
-<section id="annotating-steps" class="level2">
+</div>
+<div id="annotating-steps" class="section level2">
 <h2>Annotating steps</h2>
 <p>As our pipelines become more complex, it becomes essential to document them. We can do that as follows:</p>
-<pre class="sourceCode r" id="cb55"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">{</a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb55-3" data-line-number="3">    <span class="st">&quot;This is docstring. The following list is metadata associated with this</span></a>
-<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="st">    node. Both the docstring and the metadata list will be processed out of</span></a>
-<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="st">    this function before it is executed. They also will not appear in the code</span></a>
-<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="st">    stored in the Rmonad object.&quot;</span></a>
-<a class="sourceLine" id="cb55-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb55-8" data-line-number="8">    <span class="kw">list</span>(<span class="dt">sys =</span> <span class="kw">sessionInfo</span>(), <span class="dt">foo =</span> <span class="st">&quot;This can be anything&quot;</span>)</a>
-<a class="sourceLine" id="cb55-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb55-10" data-line-number="10">    <span class="co"># This NULL is necessary, otherwise the metadata list above would be</span></a>
-<a class="sourceLine" id="cb55-11" data-line-number="11">    <span class="co"># treated as the node output</span></a>
-<a class="sourceLine" id="cb55-12" data-line-number="12">    <span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb55-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb55-14" data-line-number="14">} <span class="op">%__%</span><span class="st"> </span><span class="co"># The %__% operator connects independent pieces of a pipeline.</span></a>
-<a class="sourceLine" id="cb55-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb55-16" data-line-number="16"><span class="st">&quot;a&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb55-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb55-18" data-line-number="18">    <span class="st">&quot;The docstrings are stored in the Rmonad objects. They may be extracted in</span></a>
-<a class="sourceLine" id="cb55-19" data-line-number="19"><span class="st">    the generation of reports. For example, they could go into a text block</span></a>
-<a class="sourceLine" id="cb55-20" data-line-number="20"><span class="st">    below the code in a knitr document. The advantage of having documentation</span></a>
-<a class="sourceLine" id="cb55-21" data-line-number="21"><span class="st">    here, is that it is coupled unambiguously to the generating function. These</span></a>
-<a class="sourceLine" id="cb55-22" data-line-number="22"><span class="st">    annotations, together with the ability to chain chains of monads, allows</span></a>
-<a class="sourceLine" id="cb55-23" data-line-number="23"><span class="st">    whole complex workflows to be built, with the results collated into a</span></a>
-<a class="sourceLine" id="cb55-24" data-line-number="24"><span class="st">    single object. All errors propagate exactly as errors should, only</span></a>
-<a class="sourceLine" id="cb55-25" data-line-number="25"><span class="st">    affecting downstream computations. The final object can be converted into a</span></a>
-<a class="sourceLine" id="cb55-26" data-line-number="26"><span class="st">    markdown document and automatically generated function graphs.&quot;</span></a>
-<a class="sourceLine" id="cb55-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb55-28" data-line-number="28">    <span class="kw">paste</span>(., <span class="st">&quot;b&quot;</span>)</a>
-<a class="sourceLine" id="cb55-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb55-30" data-line-number="30">}</a></code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">{</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">    <span class="st">&quot;This is docstring. The following list is metadata associated with this</span></a>
+<a class="sourceLine" id="cb56-4" data-line-number="4"><span class="st">    node. Both the docstring and the metadata list will be processed out of</span></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="st">    this function before it is executed. They also will not appear in the code</span></a>
+<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="st">    stored in the Rmonad object.&quot;</span></a>
+<a class="sourceLine" id="cb56-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb56-8" data-line-number="8">    <span class="kw">list</span>(<span class="dt">sys =</span> <span class="kw">sessionInfo</span>(), <span class="dt">foo =</span> <span class="st">&quot;This can be anything&quot;</span>)</a>
+<a class="sourceLine" id="cb56-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb56-10" data-line-number="10">    <span class="co"># This NULL is necessary, otherwise the metadata list above would be</span></a>
+<a class="sourceLine" id="cb56-11" data-line-number="11">    <span class="co"># treated as the node output</span></a>
+<a class="sourceLine" id="cb56-12" data-line-number="12">    <span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb56-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb56-14" data-line-number="14">} <span class="op">%__%</span><span class="st"> </span><span class="co"># The %__% operator connects independent pieces of a pipeline.</span></a>
+<a class="sourceLine" id="cb56-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb56-16" data-line-number="16"><span class="st">&quot;a&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb56-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb56-18" data-line-number="18">    <span class="st">&quot;The docstrings are stored in the Rmonad objects. They may be extracted in</span></a>
+<a class="sourceLine" id="cb56-19" data-line-number="19"><span class="st">    the generation of reports. For example, they could go into a text block</span></a>
+<a class="sourceLine" id="cb56-20" data-line-number="20"><span class="st">    below the code in a knitr document. The advantage of having documentation</span></a>
+<a class="sourceLine" id="cb56-21" data-line-number="21"><span class="st">    here, is that it is coupled unambiguously to the generating function. These</span></a>
+<a class="sourceLine" id="cb56-22" data-line-number="22"><span class="st">    annotations, together with the ability to chain chains of monads, allows</span></a>
+<a class="sourceLine" id="cb56-23" data-line-number="23"><span class="st">    whole complex workflows to be built, with the results collated into a</span></a>
+<a class="sourceLine" id="cb56-24" data-line-number="24"><span class="st">    single object. All errors propagate exactly as errors should, only</span></a>
+<a class="sourceLine" id="cb56-25" data-line-number="25"><span class="st">    affecting downstream computations. The final object can be converted into a</span></a>
+<a class="sourceLine" id="cb56-26" data-line-number="26"><span class="st">    markdown document and automatically generated function graphs.&quot;</span></a>
+<a class="sourceLine" id="cb56-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb56-28" data-line-number="28">    <span class="kw">paste</span>(., <span class="st">&quot;b&quot;</span>)</a>
+<a class="sourceLine" id="cb56-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb56-30" data-line-number="30">}</a></code></pre></div>
 <pre><code>## 
 ## 
 ##     This is docstring. The following list is metadata associated with this
@@ -678,23 +723,23 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  ----------------- 
 ## 
 ## [1] &quot;a b&quot;</code></pre>
-</section>
-<section id="nesting-pipelines" class="level2">
+</div>
+<div id="nesting-pipelines" class="section level2">
 <h2>Nesting pipelines</h2>
 <p><code>rmonad</code> pipelines may be nested to arbitrary depth.</p>
-<pre class="sourceCode r" id="cb57"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">foo &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">    <span class="st">&quot;This is a function containing a pipeline. It always fails&quot;</span>    </a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb57-4" data-line-number="4">    <span class="st">&quot;a&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">paste</span>(x) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">paste</span>(y) <span class="op">%&gt;&gt;%</span><span class="st"> </span>log</a>
-<a class="sourceLine" id="cb57-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb57-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb57-7" data-line-number="7">bar &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb57-8" data-line-number="8">    <span class="st">&quot;this is another function, it doesn't fail&quot;</span></a>
-<a class="sourceLine" id="cb57-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb57-10" data-line-number="10">    <span class="kw">funnel</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>) <span class="op">%*&gt;%</span><span class="st"> </span>foo <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">paste</span>(x)</a>
-<a class="sourceLine" id="cb57-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb57-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb57-13" data-line-number="13"><span class="st">&quot;d&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>bar</a></code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">foo &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">    <span class="st">&quot;This is a function containing a pipeline. It always fails&quot;</span>    </a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">    <span class="st">&quot;a&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">paste</span>(x) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">paste</span>(y) <span class="op">%&gt;&gt;%</span><span class="st"> </span>log</a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb58-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb58-7" data-line-number="7">bar &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb58-8" data-line-number="8">    <span class="st">&quot;this is another function, it doesn't fail&quot;</span></a>
+<a class="sourceLine" id="cb58-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb58-10" data-line-number="10">    <span class="kw">funnel</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>) <span class="op">%*&gt;%</span><span class="st"> </span>foo <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">paste</span>(x)</a>
+<a class="sourceLine" id="cb58-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb58-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb58-13" data-line-number="13"><span class="st">&quot;d&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>bar</a></code></pre></div>
 <pre><code>## N1&gt; &quot;&quot;d&quot;&quot;
 ## N2&gt; &quot;c&quot;
 ## N3&gt; &quot;b&quot;
@@ -729,11 +774,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [1] &quot;d&quot;
 ##  *** FAILURE ***</code></pre>
 <p>This function descends through three levels of nesting. There is a failure at the deepest level. This failing node, where a string is passed to a <code>log</code> function, stores the error message and the input. Each node ascending from the point of failure stores their respective input. This allows debugging to resume from any desired level.</p>
-<section id="post-processing" class="level3">
+<div id="post-processing" class="section level3">
 <h3>Post-processing</h3>
 <p>A feature new to <code>rmonad v0.4</code> are a set of post-processors. These act on an <code>Rmonad</code> object after the code the object wraps has been evaluated.</p>
 <p>Here are the currently supported post-processors:</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><p><code>format_warnings</code> - A function of the final value and the list of warnings, that formats the node’s warning message.</p></li>
 <li><p><code>format_error</code> - Like <code>format_warnings</code> but for errors</p></li>
 <li><p><code>format_notes</code> - Like <code>format_warnings</code> but for messages/notes</p></li>
@@ -743,14 +788,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ol>
 <p>These are all quite experimental at this point.</p>
 <p>The post-processors are included in the node metadata, for example</p>
-<pre class="sourceCode r" id="cb59"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="st">&quot;hello world&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">  <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb59-3" data-line-number="3">    <span class="dt">format_error=</span><span class="cf">function</span>(x, err){</a>
-<a class="sourceLine" id="cb59-4" data-line-number="4">      <span class="kw">paste0</span>(<span class="st">&quot;Failure on input '&quot;</span>, x, <span class="st">&quot;': &quot;</span>, err)  </a>
-<a class="sourceLine" id="cb59-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb59-6" data-line-number="6">  )</a>
-<a class="sourceLine" id="cb59-7" data-line-number="7">  <span class="kw">sqrt</span>(.)</a>
-<a class="sourceLine" id="cb59-8" data-line-number="8">}</a></code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="st">&quot;hello world&quot;</span> <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb60-2" data-line-number="2">  <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">    <span class="dt">format_error=</span><span class="cf">function</span>(x, err){</a>
+<a class="sourceLine" id="cb60-4" data-line-number="4">      <span class="kw">paste0</span>(<span class="st">&quot;Failure on input '&quot;</span>, x, <span class="st">&quot;': &quot;</span>, err)  </a>
+<a class="sourceLine" id="cb60-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb60-6" data-line-number="6">  )</a>
+<a class="sourceLine" id="cb60-7" data-line-number="7">  <span class="kw">sqrt</span>(.)</a>
+<a class="sourceLine" id="cb60-8" data-line-number="8">}</a></code></pre></div>
 <pre><code>## N1&gt; &quot;&quot;hello world&quot;&quot;
 ## N2&gt; &quot;function (.) 
 ## {
@@ -763,12 +808,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [1] &quot;hello world&quot;
 ##  *** FAILURE ***</code></pre>
 <p><code>summarize</code> is useful since it is often useful to store information about an intermediate step but storing the full data is too memory intensive. Rather than stopping the flow of an analysis with a bunch of intermediate analytic code, a summary function can be nested in a node that holds an arbitrary description of the data, coupled immediately to the function that produced it.</p>
-<pre class="sourceCode r" id="cb61"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">d &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb61-2" data-line-number="2">  <span class="kw">list</span>(<span class="dt">summarize=</span>summary)</a>
-<a class="sourceLine" id="cb61-3" data-line-number="3">  <span class="kw">subset</span>(., mpg <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb61-4" data-line-number="4">} <span class="op">%&gt;&gt;%</span><span class="st"> </span>nrow</a>
-<a class="sourceLine" id="cb61-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb61-6" data-line-number="6"><span class="kw">get_summary</span>(d)[[<span class="dv">2</span>]]</a></code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">d &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb62-2" data-line-number="2">  <span class="kw">list</span>(<span class="dt">summarize=</span>summary)</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3">  <span class="kw">subset</span>(., mpg <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb62-4" data-line-number="4">} <span class="op">%&gt;&gt;%</span><span class="st"> </span>nrow</a>
+<a class="sourceLine" id="cb62-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb62-6" data-line-number="6"><span class="kw">get_summary</span>(d)[[<span class="dv">2</span>]]</a></code></pre></div>
 <pre><code>## [[1]]
 ##       mpg             cyl             disp              hp       
 ##  Min.   :21.00   Min.   :4.000   Min.   : 71.10   Min.   : 52.0  
@@ -794,8 +839,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>The summary information will tucked away invisibly in the <code>Rmonad</code> object until a debugger or report generator extracts it. Of course, this could also be used to just store a full copy of the output in memory, by setting the <code>summarize</code> function to <code>identity</code>.</p>
 <p>Summaries like this will be more useful in the <code>rmonad</code> world when a Shiny app (or something comparable) makes the workflow graph interactive. Then the summary for a node can automatically be displayed when the node is accessed.</p>
 <p>The <code>cache</code> and <code>log</code> post-processors are not yet well developed. But they are intended to do what their names suggest. <code>cache</code> is not yet useful since I don’t have the infrastructure to test whether the cache is valid. <code>log</code> will eventually allow progress messages to be passed to STDOUT as <code>rmonad</code> is running (by default messages are captured and stored).</p>
-</section>
-</section>
+</div>
+</div>
 
 
 

@@ -36,3 +36,45 @@
 .m_check <- function(m, ...) {
   .check_type(m, test=is_rmonad, type='Rmonad', nframe=sys.nframe()-1, ...)
 }
+
+# Determine if a is prefixed by elements of b
+#
+# @param a vector or list
+# @param b vector or list
+# @return logical vector with length equal to the length of a
+.a_has_prefix_b <- function(a, b){
+  if(!is.list(a)){
+    a <- list(a)
+  }
+  if(!is.list(b)){
+    b <- list(b)
+  }
+  sapply(a, function(a_i){
+    any(sapply(b, function(b_j){
+      if(length(a_i) >= length(b_j)){
+        identical(a_i[1:length(b_j)], b_j)
+      } else {
+        FALSE
+      }
+    }))
+  })
+}
+
+# NOTE: This is an internal function, used only in testing.
+rmonad_equal <- function(a, b){
+  size(a) == size(b) &&
+  identical(get_value(a, warn=F), get_value(b, warn=F)) &&
+  # -5 to remove the 'time' column, which generally won't be
+  # the same between between rmonad runs
+  identical(mtabulate(a, code=T)[, -5], mtabulate(b, code=T)[, -5]) &&
+  identical(missues(a), missues(b))
+}
+
+.get_nest_salt <- function(){
+  dynGet(".rmonad_nest_salt", ifnotfound=NULL, inherits=TRUE)
+}
+
+.set_nest_salt <- function(...){
+  env <- parent.frame()
+  assign(".rmonad_nest_salt", c(.get_nest_salt(), ...), envir=env)  
+}
