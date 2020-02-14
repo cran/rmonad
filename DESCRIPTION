@@ -1,6 +1,6 @@
 Type: Package
 Package: rmonad
-Version: 0.5.0
+Version: 0.7.0
 Title: A Monadic Pipeline System
 Description: 
     A monadic solution to pipeline analysis. All operations -- and the errors,
@@ -19,11 +19,12 @@ Suggests: testthat, covr, knitr, rmarkdown, readr, stringr, tidyr,
         dplyr, Nozzle.R1
 VignetteBuilder: knitr
 LazyData: yes
-RoxygenNote: 6.0.1
+RoxygenNote: 7.0.2
 License: GPL-3
+Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2018-03-10 21:45:49 UTC; z
+Packaged: 2020-02-13 20:22:36 UTC; zebulun.arendsee
 Author: Zebulun Arendsee [aut, cre]
 Maintainer: Zebulun Arendsee <zbwrnz@gmail.com>
 Repository: CRAN
-Date/Publication: 2018-03-10 21:55:05 UTC
+Date/Publication: 2020-02-14 07:00:02 UTC

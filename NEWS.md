@@ -1,3 +1,16 @@
+# rmonad 0.7.0
+
+ * Rename `log` rewriter as `format_log`
+
+ * Minor internal bug fixes
+
+# rmonad 0.6.2
+
+ * Fix argument passing to the functions in `loop`
+ * Allow multiple tags
+
+ * Add Zenodo UID
+
 # rmonad 0.5.0
 
 ## New Features

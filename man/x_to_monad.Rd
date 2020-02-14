@@ -7,7 +7,7 @@
 \alias{combine}
 \title{Conversions to monads}
 \usage{
-as_monad(expr, desc = NULL, tag = .default_tag(), doc = .default_doc(),
+as_monad(expr, desc = NULL, tag = NULL, doc = .default_doc(),
   key = NULL, env = parent.frame(), lossy = FALSE)
 
 funnel(..., env = parent.frame(), keep_history = TRUE)
